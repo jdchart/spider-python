@@ -31,6 +31,16 @@ class Node(SpiderElement):
     def read(self, path):
         readData = readJson(path)
         super().setFromReadData(readData)
+
+    def collectData(self):
+        dataObj = super().collectData()
+        dataObj["startDateTime"] = self.startDateTime.strftime("%m-%d-%Y:%H:%M:%S")
+        dataObj["endDateTime"] = self.startDateTime.strftime("%m-%d-%Y:%H:%M:%S")
+        finalArray = []
+        for date in self.modificationDateTimes:
+            finalArray.append(date.strftime("%m-%d-%Y:%H:%M:%S"))
+        dataObj["modificationDateTimes"] = finalArray
+        return dataObj
     
     def setPath(self, path):
         makeDirsRecustive([

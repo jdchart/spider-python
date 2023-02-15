@@ -7,7 +7,6 @@ The idea is to use the Dublin Core fields to correspond to the actual spider ele
 1. [Semantic Fields](#semantic-fields)
     - [Tags](#tags)
 2. [Node Semantic Fields](#node-semantic-fields)
-    - [Media](#media)
     - [Start Date Time](#start-date-time)
     - [End Date Time](#end-date-time)
     - [Modification Date Times](#modification-date-times)
@@ -45,7 +44,6 @@ The idea is to use the Dublin Core fields to correspond to the actual spider ele
     - [Color](#color)
     - [Important](#important)
     - [Parent Path](#parent-path)
-6. [Media Fields](#media-fields)
 
 ## Semantic Fields
 
@@ -58,10 +56,6 @@ These are the fields that apply to **ALL** elements:
 ## Node Semantic Fields
 
 These are the semantic fields that apply to **NODE** elements:
-
-### Media
-- attribute: `media`
-- Description: The data pertaining to the media associated with a node (see [below](#media-fields) for more info).
 
 ### Start Date Time
 - attribute: `startDateTime`
@@ -208,5 +202,3 @@ These are the fields dervied from Dublin Core that apply to **ALL** elements.
 ### Parent Path
 - attribute: `parentPath`
 - Description: An absoulte path to a node's parent.
-
-## Media Fields

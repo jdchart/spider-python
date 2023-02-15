@@ -3,6 +3,8 @@ For more info, consult:
 https://www.dublincore.org/specifications/dublin-core/usageguide/elements/
 '''
 
+import datetime
+
 class Resource:
     def __init__(self, **kwargs):
         '''
@@ -99,7 +101,7 @@ class Resource:
         Typically, Date will be associated with the creation or availability of the resource.
         Recommended best practice for encoding the date value is defined in a profile of ISO 8601 [Date and Time Formats, W3C Note, http://www.w3.org/TR/NOTE- datetime] and follows the YYYY-MM-DD format.
         '''
-        self.date = kwargs.get('date', "")
+        self.date = kwargs.get('date', datetime.datetime.now())
 
         '''
         13. FORMAT
@@ -190,7 +192,7 @@ class Resource:
             "publisher" : self.publisher,
             "contributor" : self.contributor,
             "rights" : self.rights,
-            "date" : self.date,
+            "date" : self.date.strftime("%m-%d-%Y:%H:%M:%S"),
             "format" : self.format,
             "identifier" : self.identifier,
             "language" : self.language,
