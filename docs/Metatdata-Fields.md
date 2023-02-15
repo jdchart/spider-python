@@ -6,10 +6,6 @@ The idea is to use the Dublin Core fields to correspond to the actual spider ele
 
 1. [Semantic Fields](#semantic-fields)
     - [Tags](#tags)
-2. [Node Semantic Fields](#node-semantic-fields)
-    - [Start Date Time](#start-date-time)
-    - [End Date Time](#end-date-time)
-    - [Modification Date Times](#modification-date-times)
 3. [Edge Semantic Fields](#edge-semantic-fields)
     - [Source Node](#source-node)
     - [Target Node](#target-node)

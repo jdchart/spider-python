@@ -1,5 +1,6 @@
 import os
 import json
+import re
 from pathlib import Path
 
 def makeDirsRecustive(pathList):
@@ -31,3 +32,16 @@ def findElement(path, searchTerm, searchKey, type):
                     toQuery = readJson(queryPath)
                     if toQuery[searchKey] == searchTerm:
                         return queryPath
+
+def stringKeySplit(keyList, stringIn):
+    expression = ""
+    for i in range(len(keyList)):
+        expression = expression + '(' + keyList[i] + ")"
+        if i != len(keyList) - 1:
+            expression = expression + "|"
+    stringSplit = re.split(expression, stringIn)
+    finalSplit = []
+    for item in stringSplit:
+        if isinstance(item, str):
+            finalSplit.append(item)
+    return finalSplit

@@ -8,11 +8,6 @@ class Node(SpiderElement):
 
         self.parentPath = kwargs.get('parentPath', None)
 
-        self.startDateTime = kwargs.get('startDateTime', None)
-        self.endDateTime = kwargs.get('endDateTime', None)
-        self.modificationDateTimes = kwargs.get('modificationDateTimes', [])
-        self.media = kwargs.get('media', None)
-
         if kwargs.get('read_from_file', None) == None:
             if self.parentPath != None:
                 self.path = self.setPath(self.parentPath)
@@ -32,16 +27,6 @@ class Node(SpiderElement):
         readData = readJson(path)
         super().setFromReadData(readData)
 
-    def collectData(self):
-        dataObj = super().collectData()
-        dataObj["startDateTime"] = self.startDateTime.strftime("%m-%d-%Y:%H:%M:%S")
-        dataObj["endDateTime"] = self.startDateTime.strftime("%m-%d-%Y:%H:%M:%S")
-        finalArray = []
-        for date in self.modificationDateTimes:
-            finalArray.append(date.strftime("%m-%d-%Y:%H:%M:%S"))
-        dataObj["modificationDateTimes"] = finalArray
-        return dataObj
-    
     def setPath(self, path):
         makeDirsRecustive([
             os.path.join(path, "nodes/" + str(self.uuid)),

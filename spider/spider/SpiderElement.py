@@ -1,5 +1,4 @@
 import uuid
-import datetime
 from .DublinCore import *
 
 class SpiderElement(Resource):
@@ -17,15 +16,10 @@ class SpiderElement(Resource):
         for item in data:
             if item == "uuid":
                 setattr(self, item, uuid.UUID(data["uuid"]))
-            elif item in ["date", "startDateTime", "endDateTime"]:
-                setattr(self, item, datetime.datetime.strptime(data[item], "%m-%d-%Y:%H:%M:%S"))
-            elif item == "modificationDateTimes":
-                finalArray = []
-                for date in data[item]:
-                    finalArray.append(datetime.datetime.strptime(date, "%m-%d-%Y:%H:%M:%S"))
-                setattr(self, item, finalArray)
             else:
                 setattr(self, item, data[item])
+
+        super().setFromReadData(data)
         
     def collectData(self):
         dataObj = super().collectData()
