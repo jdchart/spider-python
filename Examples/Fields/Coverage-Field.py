@@ -37,16 +37,19 @@ testWeb = sp.createWeb({
 time.sleep(2)
 testWeb.coverage.endDateTime = datetime.datetime.now()
 testWeb.write()
+print("Web coverage:")
 print(testWeb.coverage)
 print()
 
 # 4. Check that loading is working:
 loadedWeb = sp.loadWeb(testWeb.path)
+print("Loaded web coverage:")
 print(loadedWeb.coverage)
 print()
 
 # 5. Do the same with nodes and edges:
 aNode = testWeb.addNode({"title" : "My node", "coverage" : {"startDateTime" : datetime.datetime.now()}})
+print("Node coverage:")
 print(aNode.coverage)
 print()
 

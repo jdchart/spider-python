@@ -16,6 +16,7 @@ cleanUp = False
 
 # 1. Create a web.
 testWeb = sp.createWeb({"path" : "/Users/jacob/Documents/Git Repos/Spider Webs/Format test", "title" : "Format test web"})
+print("Web format content:")
 print(testWeb.format)
 print()
 
@@ -36,11 +37,13 @@ myNode = testWeb.addNode({
     "title" : "A video",
     "format" : formatInfo
 })
+print("Node format content:")
 print(myNode.format)
 print()
 
 # 4. Set attributes:
 myNode.format.end = -1
+print("Updated node format content:")
 print(myNode.format)
 print()
 myNode.write()
@@ -48,6 +51,7 @@ myNode.write()
 # 5. Check that loading is working:
 loadedWeb = sp.loadWeb(testWeb.path)
 loadedNode = loadedWeb.loadNode(str(myNode.uuid))
+print("Loaded node format content:")
 print(loadedNode.format)
 print()
 
