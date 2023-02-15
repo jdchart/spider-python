@@ -2,7 +2,21 @@
 
 Every element in spider (webs, nodes and edges) has a certain amount of metadata that is based on [Dublin Core](https://www.dublincore.org/). The fields don't have to be filled-in, but it is recommended to provide a maximum of information for each field.
 
-1. [Golbal Dublin Core](#global-dublin-core)
+The idea is to use the Dublin Core fields to correspond to the actual spider element. For example, the Dublin Core `date` field should correspond to the creation of the spider element. Metadata pertaining to the _semantic content_ of what is being represented should be represented by the _semantic fields_ (for exemple, de date of creation of the element that is being represented).
+
+1. [Semantic Fields](#semantic-fields)
+    - [Tags](#tags)
+2. [Node Semantic Fields](#node-semantic-fields)
+    - [Media](#media)
+    - [Start Date Time](#start-date-time)
+    - [End Date Time](#end-date-time)
+    - [Modification Date Times](#modification-date-times)
+3. [Edge Semantic Fields](#edge-semantic-fields)
+    - [Source Node](#source-node)
+    - [Target Node](#target-node)
+    - [Source Regions](#source-regions)
+    - [Target Regions](#target-regions)
+4. [Global Dublin Core](#global-dublin-core)
     - [Title](#title)
     - [Subject](#subject)
     - [Description](#description)
@@ -25,10 +39,65 @@ Every element in spider (webs, nodes and edges) has a certain amount of metadata
     - [Accrual Method](#accural-method)
     - [Accrual Periodicity](#accrual-periodicity)
     - [Accrual Policy](#accrual-policy)
+5. [Other](#other)
+    - [UUID](#uuid)
+    - [Path](#path)
+    - [Color](#color)
+    - [Important](#important)
+    - [Parent Path](#parent-path)
+6. [Media Fields](#media-fields)
+
+## Semantic Fields
+
+These are the fields that apply to **ALL** elements:
+
+### Tags
+- attribute: `tags`
+- Description: An array of strings of ad hoc tags.
+
+## Node Semantic Fields
+
+These are the semantic fields that apply to **NODE** elements:
+
+### Media
+- attribute: `media`
+- Description: The data pertaining to the media associated with a node (see [below](#media-fields) for more info).
+
+### Start Date Time
+- attribute: `startDateTime`
+- Description: The date time of when the source was created, or when it "starts" in time.
+
+### End Date Time
+- attribute: `endDateTime`
+- Description: The date time of when the source was destroyed, or when it "ends" in time.
+
+### Modification Date Times
+- attribute: `modificationDateTimes`
+- Description: An array of objects like the following: `{"dataTime": datetime.datetime, "title" : "", "description" : ""}`.
+
+## Edge Semantic Fields
+
+These are the semantic fields that apply to **EDGE** elements:
+
+### Source Node
+- attribute: `sourceNode`
+- Description: A UUID string corresponding to a node in the web.
+
+### Target Node
+- attribute: `targetNode`
+- Description: A UUID string corresponding to a node in the web.
+
+### Source Regions
+- attribute: `sourceRegions`
+- Description: An array of region objects that describe what part of the corresponding media is linked to the edge: `{"start" : None, "end" : None, "dims" : []}`.
+
+### Target Regions
+- attribute: `targetRegions`
+- Description: An array of region objects that describe what part of the corresponding media is linked to the edge: `{"start" : None, "end" : None, "dims" : []}`
 
 ## Global Dublin Core
 
-These are the fields dervied from Dublin Core that apply to **ALL** elements:
+These are the fields dervied from Dublin Core that apply to **ALL** elements.
 
 ### Title
 - attribute: `title`
@@ -117,3 +186,27 @@ These are the fields dervied from Dublin Core that apply to **ALL** elements:
 ### Accrual Policy
 - attribute: `accrualPolicy`
 - [Dublin Core](https://www.dublincore.org/specifications/dublin-core/usageguide/elements/#accrualpolicy) description: The policy governing the addition of items to a collection. Recommended best practice is to use a value from a controlled vocabulary.
+
+## Other
+
+### UUID
+- attribute: `uuid`
+- Description: An unique identifier.
+
+### Path
+- attribute: `path`
+- Description: A string indicating the absolute path in disk of the web element.
+
+### Color
+- attribute: `color`
+- Description: A string hex value indicating a color.
+
+### Important
+- attribute: `important`
+- Description: A boolean indicating if the element is "important". Used for example with Mirador convertion to nindicate if a node is top)level or not.
+
+### Parent Path
+- attribute: `parentPath`
+- Description: An absoulte path to a node's parent.
+
+## Media Fields

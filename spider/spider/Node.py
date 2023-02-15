@@ -8,6 +8,11 @@ class Node(SpiderElement):
 
         self.parentPath = kwargs.get('parentPath', None)
 
+        self.startDateTime = kwargs.get('startDateTime', None)
+        self.endDateTime = kwargs.get('endDateTime', None)
+        self.modificationDateTimes = kwargs.get('modificationDateTimes', [])
+        self.media = kwargs.get('media', None)
+
         if kwargs.get('read_from_file', None) == None:
             if self.parentPath != None:
                 self.path = self.setPath(self.parentPath)

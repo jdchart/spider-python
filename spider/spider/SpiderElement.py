@@ -6,8 +6,8 @@ class SpiderElement(Resource):
         super().__init__(**kwargs)
         self.uuid = kwargs.get('uuid', uuid.uuid4())
         self.tags = kwargs.get('tags', [])
-        self.startTime = ""
-        self.endTime = ""
+        self.color = kwargs.get('color', "#000000")
+        self.important = kwargs.get('important', False)
     
     def __str__(self):
         return str(self.collectData())
