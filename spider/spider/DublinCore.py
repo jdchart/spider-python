@@ -5,6 +5,8 @@ https://www.dublincore.org/specifications/dublin-core/usageguide/elements/
 
 import datetime
 from .utils import *
+from .Coverage import *
+from .Format import *
 
 class Resource:
     def __init__(self, **kwargs):
@@ -112,7 +114,7 @@ class Resource:
         Format may be used to determine the software, hardware or other equipment needed to display or operate the resource.
         Recommended best practice is to select a value from a controlled vocabulary (for example, the list of Internet Media Types [http://www.iana.org/ assignments/media-types/] defining computer media formats).
         '''
-        self.format = kwargs.get('format', "")
+        self.format = Format(**kwargs.get('format', {}))
 
         '''
         14. IDENTIFIER
@@ -194,7 +196,7 @@ class Resource:
             "contributor" : self.contributor,
             "rights" : self.rights,
             "date" : self.date.strftime("%m-%d-%Y:%H:%M:%S.%f"),
-            "format" : self.format,
+            "format" : self.format.toString(),
             "identifier" : self.identifier,
             "language" : self.language,
             "audience" : self.audience,
@@ -210,92 +212,7 @@ class Resource:
         for item in data:
             if item == "coverage":
                 setattr(self, item, Coverage(from_string = data[item]))
+            if item == "format":
+                setattr(self, item, Format(from_string = data[item]))
             if item == "date":
                 setattr(self, item, datetime.datetime.strptime(data[item], "%m-%d-%Y:%H:%M:%S.%f"))
-
-class Coverage:
-    def __init__(self, **kwargs):
-        self.startDateTime = kwargs.get('startDateTime', None)
-        self.endDateTime = kwargs.get('endDateTime', None)
-        self.modificationDateTimes = kwargs.get('modificationDateTimes', [])
-        self.region = kwargs.get('region', None)
-
-        if kwargs.get('from_string', None) != None:
-            self.fromString(kwargs.get('from_string'))
-
-    def __str__(self):
-        return str(self.collectData())
-
-    def collectData(self):
-        return {
-            "startDateTime" : self.startDateTime,
-            "endDateTime" : self.endDateTime,
-            "modificationDateTimes" : self.modificationDateTimes,
-            "region" : self.region,
-        }
-    
-    def toString(self):
-        returnString = ""
-        if self.startDateTime != None:
-            returnString = returnString + "&start=" + self.startDateTime.strftime("%m-%d-%Y:%H:%M:%S.%f")
-        if self.endDateTime != None:
-            returnString = returnString + "&end=" + self.endDateTime.strftime("%m-%d-%Y:%H:%M:%S.%f")
-        if len(self.modificationDateTimes) > 0:
-            returnString = returnString + "&modifications="
-            for i in range(len(self.modificationDateTimes)):
-                returnString = returnString + "&datetime=" + self.modificationDateTimes[i]["datetime"].strftime("%m-%d-%Y:%H:%M:%S.%f")
-                returnString = returnString + "&title=" + self.modificationDateTimes[i]["title"].replace(" ", "_")
-                returnString = returnString + "&description=" + self.modificationDateTimes[i]["description"].replace(" ", "_")
-        if self.region != None:
-            returnString = returnString + "&region=" + self.region.replace(" ", "_")
-        return returnString
-
-    def fromString(self, stringIn):
-        mainSplit = stringKeySplit(["&start=", "&end=", "&modifications=", "&region="], stringIn)
-        for i in range(len(mainSplit)):
-            if mainSplit[i] == "&start=":
-                self.startDateTime = datetime.datetime.strptime(mainSplit[i + 1], "%m-%d-%Y:%H:%M:%S.%f")
-            if mainSplit[i] == "&end=":
-                self.endDateTime = datetime.datetime.strptime(mainSplit[i + 1], "%m-%d-%Y:%H:%M:%S.%f")
-            if mainSplit[i] == "&region=":
-                self.region = mainSplit[i + 1].replace("_", " ")
-            if mainSplit[i] == "&modifications=":
-                modificationsSplit = stringKeySplit(["&datetime=", "&title=", "&description="], mainSplit[i + 1])
-                toAdd = {}
-                for j in range(len(modificationsSplit)):
-                    if modificationsSplit[j] == "&datetime=":
-                        toAdd["datetime"] = datetime.datetime.strptime(modificationsSplit[j + 1], "%m-%d-%Y:%H:%M:%S.%f")
-                    elif modificationsSplit[j] == "&title=":
-                        toAdd["title"] = modificationsSplit[j + 1].replace("_", " ")
-                    elif modificationsSplit[j] == "&description=":
-                        toAdd["description"] = modificationsSplit[j + 1].replace("_", " ")
-                        self.modificationDateTimes.append(toAdd)
-                        toAdd = {}
-
-class Format:
-    def __init__(self, **kwargs):
-        self.type = kwargs.get('type', None)
-        self.fileFormat = kwargs.get('fileFormat', None)
-        self.duration = kwargs.get('duration', None) # This can be a part
-        self.dimensions = kwargs.get('dimensions', None) # This can be a part
-        self.uri = kwargs.get('uri', None)
-
-        if kwargs.get('from_string', None) != None:
-            self.fromString(kwargs.get('from_string'))
-
-    def __str__(self):
-        return str(self.collectData())
-
-    def collectData(self):
-        return {
-            "type" : self.type,
-            "fileFormat" : self.fileFormat,
-            "duration" : self.duration,
-            "dimensions" : self.dimensions,
-            "uri" : self.uri,
-        }
-
-    # MAKE THE DEFAULT FOR WEBS WEB JSON ETC.
-    # BREKA THESE UP
-    # MAKE DIFFERENT COVERAGE CLASS FOR EDGES.
-    # MAYBE REPLACE PATH WITH SOURCE

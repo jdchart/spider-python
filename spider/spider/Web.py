@@ -5,7 +5,13 @@ from .utils import *
 
 class Web(SpiderElement):
     def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+        super().__init__(
+            format = {
+                "type" : "dataCollection",
+                "fileFormat" : "json",
+            },
+            **kwargs
+        )
 
         if kwargs.get('read_from_file', None) == None:
             self.path = self.setPath(kwargs.get('path', os.getcwd()))

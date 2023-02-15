@@ -1,5 +1,5 @@
 ''' ================================================================================
-COVERAGE
+COVERAGE FIELD
 The Dublin Core `coverage` field looks to represent the extent or scope of the content of the resource.
 Notably: time period and geographic location.
 Spider will parse data into a single coverage entry which can be easily decoded.
