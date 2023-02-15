@@ -1,0 +1,6 @@
+spider/build
+spider/spider/__pycache__
+.DS_Store
+notes.md
+venv
+spider/spider.egg-info
