@@ -13,6 +13,8 @@ class Format:
         self.fullDimensions = kwargs.get('fullDimensions', None)
         self.region = kwargs.get('region', None)
 
+        self.pages = kwargs.get('pages', None)
+
         self.parseDuration()
         self.parseDimensions()
         
@@ -32,6 +34,7 @@ class Format:
             "fullDimensions" : self.fullDimensions,
             "region" : self.region,
             "uri" : self.uri,
+            "pages" : self.pages
         }
 
     def parseDuration(self):
@@ -70,11 +73,13 @@ class Format:
                 returnString = returnString + "&dimensions-region=" + str(self.region[0]) + "," + str(self.region[1]) + "," + str(self.region[2]) + "," + str(self.region[3])
         if self.uri != None:
             returnString = returnString + "&uri=" + self.uri
+        if self.pages != None:
+            returnString = returnString + "&pages=" + str(self.pages)
         return returnString
 
     def fromString(self, stringIn):
         mainSplit = stringKeySplit(
-            ["&type=", "&fileformat=", "&duration-full=", "&duration-start=", "&duration-end=", "&dimensions-full=", "&dimensions-region=", "&uri="], 
+            ["&type=", "&fileformat=", "&duration-full=", "&duration-start=", "&duration-end=", "&dimensions-full=", "&dimensions-region=", "&uri=", "&pages="], 
             stringIn
         )
         for i in range(len(mainSplit)):
@@ -99,3 +104,5 @@ class Format:
                     self.region = [int(regionSplit[0]), int(regionSplit[1]), int(regionSplit[2]), int(regionSplit[3])]
             elif mainSplit[i] == "&uri=":
                 self.uri = mainSplit[i + 1]
+            elif mainSplit[i] == "&pages=":
+                self.pages = int(mainSplit[i + 1])

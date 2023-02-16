@@ -173,6 +173,7 @@ There are a few [Other Fields](#other-fields) that have been added for internal 
 - `fullDimensions`: an array of dimensions in px.
 - `region`: the region this item covers. [-1] = the whole media, or [x, y, w, h]
 - `uri`: the path to the media file as a string.
+- `pages`: an int indicating the number of pages for paged media.
 
 ### Identifier
 - attribute: `identifier`

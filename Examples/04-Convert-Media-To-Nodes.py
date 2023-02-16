@@ -23,7 +23,7 @@ for item in fileList:
     web.mediaToNode(item)
 
 # 4. View the created nodes:
-web.printContent("nodes", "title")
+web.printContent("nodes", ["title", "format"])
 
 # Cleanup
 if cleanUp == True:

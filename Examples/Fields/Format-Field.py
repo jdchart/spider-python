@@ -29,7 +29,8 @@ formatInfo = {
     "end" : 5000, # The end of this item (-1 = the end)
     "fullDimensions" : [1080, 720], # Dimensions in px
     "region" : [-1], # The region this item covers. [-1] = the whole media, or [x, y, w, h]
-    "uri" : "path/to/my/media"
+    "uri" : "path/to/my/media",
+    "pages" : 1 # For paged media, the number of pages it contains.
 }
 
 # 3. Create a node

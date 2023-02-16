@@ -72,12 +72,7 @@ class Web(SpiderElement):
         if mediaData != None:
             mediaNode = Node(
                 parentPath = os.path.join(self.path, "web"),
-                title = mediaData["name"],
-                format = {
-                    "type" : mediaData["type"],
-                    "fileFormat" : mediaData["extension"],
-                    "uri" : mediaData["path"]
-                }
+                **mediaData
             )
             return mediaNode
 
@@ -86,4 +81,6 @@ class Web(SpiderElement):
             for dir in dirs:
                 if dir != type:
                     node = self.loadNode(dir)
-                    print(getattr(node, printKey))
+                    print()
+                    for key in printKey:
+                        print(getattr(node, key))
