@@ -128,24 +128,28 @@ There are a few [Other Fields](#other-fields) that have been added for internal 
 
 ### Relation
 - attribute: `relation`
+- The Dublin Core `relation` field looks to represent a reference to a related resource. This is where spider puts information pertaining to an edge between two elements. Note that the edge is itself an element and can be described in the same way as anything else. Spider will parse data into a single relation entry which can be easily decoded.
 - [Dublin Core](https://www.dublincore.org/specifications/dublin-core/usageguide/elements/#relation) description: A reference to a related resource. Recommended best practice is to reference the resource by means of a string or number conforming to a formal identification system.
 
 ### Coverage
 - attribute: `coverage`
+- The Dublin Core `coverage` field looks to represent the extent or scope of the content of the resource. Notably: time period and geographic location. Spider will parse data into a single coverage entry which can be easily decoded.
 - [Dublin Core](https://www.dublincore.org/specifications/dublin-core/usageguide/elements/#coverage) description: The extent or scope of the content of the resource. Coverage will typically include spatial location (a place name or geographic co-ordinates), temporal period (a period label, date, or date range) or jurisdiction (such as a named administrative entity). Recommended best practice is to select a value from a controlled vocabulary (for example, the Thesaurus of Geographic Names [Getty Thesaurus of Geographic Names, [http://www.getty.edu/research/tools/vocabulary/tgn/](https://www.getty.edu/research/tools/vocabularies/tgn/)). Where appropriate, named places or time periods should be used in preference to numeric identifiers such as sets of co-ordinates or date ranges.
 
 ### Format
 - attribute: `format`
+- The Dublin Core `format` field looks to represent the physical or digital manifestation of the resource. Notably: media-type, dimensions, size, duration etc. Spider will parse data into a single format entry which can be easily decoded. You can set the format for any element, but it only really applies to nodes.
 - [Dublin Core](https://www.dublincore.org/specifications/dublin-core/usageguide/elements/#format) description: The physical or digital manifestation of the resource. Typically, Format may include the media-type or dimensions of the resource. Examples of dimensions include size and duration. Format may be used to determine the software, hardware or other equipment needed to display or operate the resource. Recommended best practice is to select a value from a controlled vocabulary (for example, the list of Internet Media Types [http://www.iana.org/assignments/media-types/](https://www.iana.org/assignments/media-types/media-types.xhtmldefining computer media formats).
 
 ### Identifier
 - attribute: `identifier`
-- [Dublin Core](https://www.dublincore.org/specifications/dublin-core/usageguide/elements/#identifier) description: An unambiguous reference to the resource within a given context. Recommended best practice is to identify the resource by means of a string or number conforming to a formal identification system. Examples of formal identification systems include the Uniform Resource Identifier (URI) (including the Uniform Resource Locator (URL), the Digital Object Identifier (DOI) and the International Standard Book Number (ISBN).
 - Note that this is set to the element's [path](#path).
+- [Dublin Core](https://www.dublincore.org/specifications/dublin-core/usageguide/elements/#identifier) description: An unambiguous reference to the resource within a given context. Recommended best practice is to identify the resource by means of a string or number conforming to a formal identification system. Examples of formal identification systems include the Uniform Resource Identifier (URI) (including the Uniform Resource Locator (URL), the Digital Object Identifier (DOI) and the International Standard Book Number (ISBN).
 - Default: `os.getcwd()`
 
 ### Instructional Method
 - attribute: `instructionalMethod`
+- The Dublin Core `instructionalMethod` field looks to represent a process, used to engender knowledge, attitudes and skills, that the resource is designed to support. We have interpreted this as a field indicating the method by which the ressource can be displayed/viewed/communicated. Therefore this is where information pertaining to the display of the ressource is given. Notably and options for MemoRekall conversion. This data will have different meanings according to the element type (web, edge or node) and the way it is to be decoded. Spider will parse data into a single instructionalMethod entry which can be easily decoded.
 - [Dublin Core](https://www.dublincore.org/specifications/dublin-core/usageguide/elements/#instructionalmethod) description: A process, used to engender knowledge, attitudes and skills, that the resource is designed to support. Instructional Method will typically include ways of presenting instructional materials or conducting instructional activities, patterns of learner-to-learner and learner-to-instructor interactions, and mechanisms by which group and individual levels of learning are measured. Instructional methods include all aspects of the instruction and learning processes from planning and implementation through evaluation and feedback.
 
 ## Other Fields
