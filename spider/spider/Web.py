@@ -3,6 +3,7 @@ from .SpiderElement import *
 from .Node import *
 from .Edge import *
 from .utils import *
+from .mediaConvert import *
 
 class Web(SpiderElement):
     def __init__(self, **kwargs):
@@ -65,3 +66,24 @@ class Web(SpiderElement):
         edgePath = findElement(os.path.join(self.path, "web/edges"), searchTerm, searchKey, "edge")
         loadedEdge = Node(read_from_file = edgePath)
         return loadedEdge
+
+    def mediaToNode(self, mediaPath):
+        mediaData = getMediaData(mediaPath)
+        if mediaData != None:
+            mediaNode = Node(
+                parentPath = os.path.join(self.path, "web"),
+                title = mediaData["name"],
+                format = {
+                    "type" : mediaData["type"],
+                    "fileFormat" : mediaData["extension"],
+                    "uri" : mediaData["path"]
+                }
+            )
+            return mediaNode
+
+    def printContent(self, type, printKey):
+        for root, dirs, files in os.walk(os.path.join(self.path, "web/" + type)):
+            for dir in dirs:
+                if dir != type:
+                    node = self.loadNode(dir)
+                    print(getattr(node, printKey))
