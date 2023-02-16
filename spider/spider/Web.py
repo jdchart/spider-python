@@ -18,6 +18,8 @@ class Web(SpiderElement):
         
         if kwargs.get('read_from_file', None) != None:
             self.read(kwargs.get('read_from_file'))
+
+        self.identifier = self.path
         
         self.write()
     
