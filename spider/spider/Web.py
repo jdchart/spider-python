@@ -1,6 +1,7 @@
 import os
 from .SpiderElement import *
 from .Node import *
+from .Edge import *
 from .utils import *
 
 class Web(SpiderElement):
@@ -60,3 +61,13 @@ class Web(SpiderElement):
         nodePath = findElement(os.path.join(self.path, "web/nodes"), searchTerm, searchKey, "node")
         loadedNode = Node(read_from_file = nodePath)
         return loadedNode
+
+    def addEdge(self, metadata):
+        newEdge = Edge(parentPath = os.path.join(self.path, "web"), **metadata)
+        return newEdge
+
+    def loadEdge(self, searchTerm, **kwargs):
+        searchKey = kwargs.get('term', "uuid")
+        edgePath = findElement(os.path.join(self.path, "web/edges"), searchTerm, searchKey, "edge")
+        loadedEdge = Node(read_from_file = edgePath)
+        return loadedEdge

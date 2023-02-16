@@ -7,6 +7,7 @@ import datetime
 from .utils import *
 from .Coverage import *
 from .Format import *
+from .Relation import *
 
 class Resource:
     def __init__(self, **kwargs):
@@ -54,7 +55,7 @@ class Resource:
         A reference to a related resource.
         Recommended best practice is to reference the resource by means of a string or number conforming to a formal identification system.
         '''
-        self.relation = kwargs.get('relation', "")
+        self.relation = Relation(**kwargs.get('relation', {}))
 
         '''
         7. COVERAGE
@@ -189,7 +190,7 @@ class Resource:
             "description" : self.description,
             "type" : self.type,
             "source" : self.source,
-            "relation" : self.relation,
+            "relation" : self.relation.toString(),
             "coverage" : self.coverage.toString(),
             "creator" : self.creator,
             "publisher" : self.publisher,
@@ -214,5 +215,7 @@ class Resource:
                 setattr(self, item, Coverage(from_string = data[item]))
             if item == "format":
                 setattr(self, item, Format(from_string = data[item]))
+            if item == "relation":
+                setattr(self, item, Relation(from_string = data[item]))
             if item == "date":
                 setattr(self, item, datetime.datetime.strptime(data[item], "%m-%d-%Y:%H:%M:%S.%f"))

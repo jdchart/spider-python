@@ -22,11 +22,15 @@ metadata = {
 
 # 2. Create the web.
 myWeb = sp.createWeb(metadata)
+print("The created web:")
 print(myWeb)
+print()
 
 # 3. Load a web from file by giving the path to the web's folder.
 loadedWeb = sp.loadWeb(myWeb.path)
+print("The loaded web:")
 print(loadedWeb)
+print()
 
 # Cleanup
 if cleanUp == True:
