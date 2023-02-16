@@ -13,6 +13,7 @@ cleanUp = False
 
 # 1. Set metadata (set the fields you want to set, the rest will be set to default).
 # For a full list of fields and defaults, see /Docs/Metadata-fields.md.
+# Note: path and identifier are interchangeable
 metadata = {
     "path" : "/Users/jacob/Documents/Git Repos/Spider Webs/Test",
     "title" : "A test",

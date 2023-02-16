@@ -13,13 +13,21 @@ class Web(SpiderElement):
             **kwargs
         )
 
+        if kwargs.get('path', None) != None or kwargs.get('identifier', None) != None:
+            if kwargs.get('path', None) != None:
+                setattr(self, "identifier", kwargs.get('path'))
+                self.path = kwargs.get('path')
+            elif kwargs.get('identifier', None) != None:
+                self.path = kwargs.get('identifier')
+            else:
+                self.path = os.getcwd()
+                setattr(self, "identifier", os.getcwd())
+
         if kwargs.get('read_from_file', None) == None:
-            self.path = self.setPath(kwargs.get('path', os.getcwd()))
+            self.setPath(self.path)
         
         if kwargs.get('read_from_file', None) != None:
             self.read(kwargs.get('read_from_file'))
-
-        self.identifier = self.path
         
         self.write()
     

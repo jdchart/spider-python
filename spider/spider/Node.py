@@ -11,11 +11,10 @@ class Node(SpiderElement):
         if kwargs.get('read_from_file', None) == None:
             if self.parentPath != None:
                 self.path = self.setPath(self.parentPath)
+                setattr(self, "identifier", self.path)
 
         if kwargs.get('read_from_file', None) != None:
             self.read(kwargs.get('read_from_file'))
-
-        self.identifier = self.path
         
         self.write()
     
