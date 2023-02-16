@@ -46,7 +46,7 @@ class Format:
         if self.fullDimensions == None and self.region != None:
             if len(self.region) > 1:
                 self.fullDimensions = [self.region[2], self.region[3]]
-        if self.region == None:
+        if self.region == None and self.fullDimensions != None:
             self.region = [-1]
 
     def toString(self):

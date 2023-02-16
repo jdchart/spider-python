@@ -23,6 +23,8 @@ targetNode = testWeb.loadNode("Node 2", term = "title")
 
 # Set the edge metadata.
 # For a full list of fields and defaults, see /Docs/Metadata-fields.md.
+# Note that the relation field is a nested dict.
+# For more info on this, see Examples/Fields/Relation-Field.py
 edgeData = {
     "title" : "My first edge",
     "relation" : {
