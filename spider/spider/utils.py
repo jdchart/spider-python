@@ -45,3 +45,9 @@ def stringKeySplit(keyList, stringIn):
         if isinstance(item, str):
             finalSplit.append(item)
     return finalSplit
+
+def makeGitignoreFile(path, content):
+    f = open(path, "w")
+    for item in content:
+        f.write(item + "\n")
+    f.close()

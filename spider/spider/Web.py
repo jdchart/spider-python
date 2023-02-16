@@ -47,6 +47,7 @@ class Web(SpiderElement):
             os.path.join(path, "mirador/lower"),
             os.path.join(path, "media")
         ])
+        makeGitignoreFile(os.path.join(path, ".gitignore"), ["media"])
         return path
 
     def addNode(self, metadata):
