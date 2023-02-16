@@ -21,7 +21,7 @@ for i in range(3):
     nodes.append(testWeb.addNode({"title" : "Node " + str(i + 1)}))
 
 # 2. Set the relation data:
-# The source and target values accept a UUUID string corresponding to the node.
+# The source and target values accept a UUID string corresponding to the node.
 # Note that an esge can have more than one region in it's source or target.
 relationData = {
     "source" : str(nodes[0].uuid),

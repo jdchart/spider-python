@@ -130,16 +130,49 @@ There are a few [Other Fields](#other-fields) that have been added for internal 
 - attribute: `relation`
 - The Dublin Core `relation` field looks to represent a reference to a related resource. This is where spider puts information pertaining to an edge between two elements. Note that the edge is itself an element and can be described in the same way as anything else. Spider will parse data into a single relation entry which can be easily decoded.
 - [Dublin Core](https://www.dublincore.org/specifications/dublin-core/usageguide/elements/#relation) description: A reference to a related resource. Recommended best practice is to reference the resource by means of a string or number conforming to a formal identification system.
+#### Attributes:
+- `source` : UUID string corresponding to a node.
+- `target` : UUID string corresponding to a node.
+- `sourceRegions` : a list of the following objects:
+```python
+{
+    "start" : -1, # The start time in the source node for the edge in ms (-1 = beginning).
+    "end" : 1000, # The end time in the source node for the edge in ms (-1 = the end).
+    "dims" : [-1] # The coordinates the edge occupies for the source ([-1] = the whole of the ressource, or [x, y, w, h])
+}
+```
+- `targetRegions` : a list of the same objects.
 
 ### Coverage
 - attribute: `coverage`
 - The Dublin Core `coverage` field looks to represent the extent or scope of the content of the resource. Notably: time period and geographic location. Spider will parse data into a single coverage entry which can be easily decoded.
 - [Dublin Core](https://www.dublincore.org/specifications/dublin-core/usageguide/elements/#coverage) description: The extent or scope of the content of the resource. Coverage will typically include spatial location (a place name or geographic co-ordinates), temporal period (a period label, date, or date range) or jurisdiction (such as a named administrative entity). Recommended best practice is to select a value from a controlled vocabulary (for example, the Thesaurus of Geographic Names [Getty Thesaurus of Geographic Names, [http://www.getty.edu/research/tools/vocabulary/tgn/](https://www.getty.edu/research/tools/vocabularies/tgn/)). Where appropriate, named places or time periods should be used in preference to numeric identifiers such as sets of co-ordinates or date ranges.
+#### Attributes:
+- `startDateTime`: a `datetime.datetime` object representing the creation of the object.
+- `endDateTime`: a `datetime.datetime` object representing the desctruction or the end of the object.
+- `modificationDateTimes` : a list of the following objects:
+```python
+{
+    "datetime" : datetime.datetime.now(),
+    "title" : "Modif 1",
+    "description" : "My modification 1"
+}
+```
+- `region` : a string indicating the region the object covers.
 
 ### Format
 - attribute: `format`
 - The Dublin Core `format` field looks to represent the physical or digital manifestation of the resource. Notably: media-type, dimensions, size, duration etc. Spider will parse data into a single format entry which can be easily decoded. You can set the format for any element, but it only really applies to nodes.
 - [Dublin Core](https://www.dublincore.org/specifications/dublin-core/usageguide/elements/#format) description: The physical or digital manifestation of the resource. Typically, Format may include the media-type or dimensions of the resource. Examples of dimensions include size and duration. Format may be used to determine the software, hardware or other equipment needed to display or operate the resource. Recommended best practice is to select a value from a controlled vocabulary (for example, the list of Internet Media Types [http://www.iana.org/assignments/media-types/](https://www.iana.org/assignments/media-types/media-types.xhtmldefining computer media formats).
+#### Attributes:
+- `type` : a string for example `"video"` or `"image"`.
+- `fileFormat` : a string for example `"mp4"` or `"jpg"`.
+- `fullDuration` : full duration in ms.
+- `start`: the beginning of this item (-1 = the beginning).
+- `end`: the end of this item (-1 = the end)
+- `fullDimensions`: an array of dimensions in px.
+- `region`: the region this item covers. [-1] = the whole media, or [x, y, w, h]
+- `uri`: the path to the media file as a string.
 
 ### Identifier
 - attribute: `identifier`
@@ -151,6 +184,13 @@ There are a few [Other Fields](#other-fields) that have been added for internal 
 - attribute: `instructionalMethod`
 - The Dublin Core `instructionalMethod` field looks to represent a process, used to engender knowledge, attitudes and skills, that the resource is designed to support. We have interpreted this as a field indicating the method by which the ressource can be displayed/viewed/communicated. Therefore this is where information pertaining to the display of the ressource is given. Notably and options for MemoRekall conversion. This data will have different meanings according to the element type (web, edge or node) and the way it is to be decoded. Spider will parse data into a single instructionalMethod entry which can be easily decoded.
 - [Dublin Core](https://www.dublincore.org/specifications/dublin-core/usageguide/elements/#instructionalmethod) description: A process, used to engender knowledge, attitudes and skills, that the resource is designed to support. Instructional Method will typically include ways of presenting instructional materials or conducting instructional activities, patterns of learner-to-learner and learner-to-instructor interactions, and mechanisms by which group and individual levels of learning are measured. Instructional methods include all aspects of the instruction and learning processes from planning and implementation through evaluation and feedback.
+#### Attributes:
+- `color` : a hex color as a string (including the #).
+- `important` : a boolean. For MemoRekall parsing, this will indicate if it is a top-level manifest or not.
+- `annotationPaint` : a boolean. For MemoRekall parsing, indicate if the node is painted when it is an annotation.
+- `annotationOverlay` : a boolean. For MemoRekall parsing, indicate if the annotation is painted ontop of the main ressource or underneath.
+- `annotationDisplayPos` : an array of 2 coordinate values in px. For MemoRekall parsing, where to paint the ressourse on the canvas. (starting from top left if overlayed, starting from bottom of main ressource if not overlayed).
+- `annotationDisplayScale` : a float. For MemoRekall parsing, the scale of the ressource (1 = full size).
 
 ## Other Fields
 
