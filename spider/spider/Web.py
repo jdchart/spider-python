@@ -1,4 +1,5 @@
 import os
+import shutil
 from .SpiderElement import *
 from .Node import *
 from .Edge import *
@@ -43,7 +44,8 @@ class Web(SpiderElement):
             os.path.join(path, "web/nodes"),
             os.path.join(path, "web/edges"),
             os.path.join(path, "cytoscape"),
-            os.path.join(path, "mirador/lower")
+            os.path.join(path, "mirador/lower"),
+            os.path.join(path, "media")
         ])
         return path
 
@@ -67,7 +69,11 @@ class Web(SpiderElement):
         loadedEdge = Node(read_from_file = edgePath)
         return loadedEdge
 
-    def mediaToNode(self, mediaPath):
+    def mediaToNode(self, mediaPath, copyMedia):
+        if copyMedia == True:
+            shutil.copyfile(mediaPath, os.path.join(self.path, "media/" + os.path.basename(mediaPath)))
+            mediaPath = os.path.join(self.path, "media/" + os.path.basename(mediaPath))
+
         mediaData = getMediaData(mediaPath)
         if mediaData != None:
             mediaNode = Node(
@@ -83,4 +89,4 @@ class Web(SpiderElement):
                     node = self.loadNode(dir)
                     print()
                     for key in printKey:
-                        print(getattr(node, key))
+                        print(key + ": " + str(getattr(node, key)))

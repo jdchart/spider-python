@@ -68,4 +68,4 @@ class InstructionalMethod:
                 posSplit = mainSplit[i + 1].split(",")
                 self.annotationDisplayPos = [int(posSplit[0]), int(posSplit[1])]
             if mainSplit[i] == "&annotationDisplayScale=":
-                self.color = float(mainSplit[i + 1])
+                self.annotationDisplayScale = float(mainSplit[i + 1])

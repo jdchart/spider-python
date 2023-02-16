@@ -10,7 +10,7 @@ import utils
 
 # 0. Script settings. 
 # Set this to true to remove these test directories once you're done.
-cleanUp = True
+cleanUp = False
 
 # 1. Create a web:
 web = sp.createWeb({"path" : "/Users/jacob/Documents/Git Repos/Spider Webs/Media Web", "title" : "My Media Web"})
@@ -20,10 +20,10 @@ fileList = utils.collectFiles("/Users/jacob/Documents/Git Repos/Spider Webs/test
 
 # 3. Convert files with the mediaToNode() function:
 for item in fileList:
-    web.mediaToNode(item)
+    web.mediaToNode(item, True)
 
 # 4. View the created nodes:
-web.printContent("nodes", ["title", "format"])
+web.printContent("nodes", ["title", "format", "instructionalMethod"])
 
 # Cleanup
 if cleanUp == True:

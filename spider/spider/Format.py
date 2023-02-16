@@ -72,7 +72,7 @@ class Format:
             else:
                 returnString = returnString + "&dimensions-region=" + str(self.region[0]) + "," + str(self.region[1]) + "," + str(self.region[2]) + "," + str(self.region[3])
         if self.uri != None:
-            returnString = returnString + "&uri=" + self.uri
+            returnString = returnString + "&uri=" + self.uri.replace(" ", "_")
         if self.pages != None:
             returnString = returnString + "&pages=" + str(self.pages)
         return returnString
@@ -103,6 +103,6 @@ class Format:
                     regionSplit = mainSplit[i + 1].split(',')
                     self.region = [int(regionSplit[0]), int(regionSplit[1]), int(regionSplit[2]), int(regionSplit[3])]
             elif mainSplit[i] == "&uri=":
-                self.uri = mainSplit[i + 1]
+                self.uri = mainSplit[i + 1].replace("_", " ")
             elif mainSplit[i] == "&pages=":
                 self.pages = int(mainSplit[i + 1])

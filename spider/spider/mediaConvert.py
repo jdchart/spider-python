@@ -18,6 +18,12 @@ def getMediaData(path):
                 "type" : typeParse[1],
                 "fileFormat" : typeParse[0],
                 "uri" : path
+            },
+            "instructionalMethod" : {
+                "annotationDisplayScale" : 1,
+                "annotationDisplayPos" : [0, 0],
+                "annotationOverlay" : False,
+                "annotationPaint" : True
             }
         }
 
