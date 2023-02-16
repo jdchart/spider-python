@@ -6,13 +6,7 @@ from .utils import *
 
 class Web(SpiderElement):
     def __init__(self, **kwargs):
-        super().__init__(
-            format = {
-                "type" : "dataCollection",
-                "fileFormat" : "json",
-            },
-            **kwargs
-        )
+        super().__init__(**kwargs)
 
         if kwargs.get('path', None) != None or kwargs.get('identifier', None) != None:
             if kwargs.get('path', None) != None:

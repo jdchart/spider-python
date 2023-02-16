@@ -8,6 +8,7 @@ from .utils import *
 from .Coverage import *
 from .Format import *
 from .Relation import *
+from .InstructionalMethod import *
 
 class Resource:
     def __init__(self, **kwargs):
@@ -160,7 +161,7 @@ class Resource:
         Instructional Method will typically include ways of presenting instructional materials or conducting instructional activities, patterns of learner-to-learner and learner-to-instructor interactions, and mechanisms by which group and individual levels of learning are measured.
         Instructional methods include all aspects of the instruction and learning processes from planning and implementation through evaluation and feedback.
         '''
-        self.instructionalMethod = kwargs.get('instructionalMethod', "")
+        self.instructionalMethod = InstructionalMethod(**kwargs.get('instructionalMethod', {}))
 
         '''
         20. ACCURAL METHOD
@@ -203,7 +204,7 @@ class Resource:
             "audience" : self.audience,
             "provenance" : self.provenance,
             "rightsHolder" : self.rightsHolder,
-            "instructionalMethod" : self.instructionalMethod,
+            "instructionalMethod" : self.instructionalMethod.toString(),
             "accrualMethod" : self.accrualMethod,
             "accrualPeriodicity" : self.accrualPeriodicity,
             "accrualPolicy" : self.accrualPolicy
@@ -217,5 +218,7 @@ class Resource:
                 setattr(self, item, Format(from_string = data[item]))
             if item == "relation":
                 setattr(self, item, Relation(from_string = data[item]))
+            if item == "instructionalMethod":
+                setattr(self, item, InstructionalMethod(from_string = data[item]))
             if item == "date":
                 setattr(self, item, datetime.datetime.strptime(data[item], "%m-%d-%Y:%H:%M:%S.%f"))
