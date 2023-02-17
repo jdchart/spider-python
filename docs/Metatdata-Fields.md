@@ -92,7 +92,8 @@ There are a few [Other Fields](#other-fields) that have been added for internal 
 ### Language
 - attribute: `language`
 - [Dublin Core](https://www.dublincore.org/specifications/dublin-core/usageguide/elements/#language) description: A language of the intellectual content of the resource. Recommended best practice for the values of the Language element is defined by RFC 3066 [RFC 3066, [http://www.ietf.org/rfc/rfc3066.txt](https://www.ietf.org/rfc/rfc3066.txt) which, in conjunction with ISO 639 [ISO 639, [http://www.oasis-open.org/cover/iso639a.html](http://xml.coverpages.org/iso639a.html)), defines two- and three-letter primary language tags with optional subtags. Examples include "en" or "eng" for English, "akk" for Akkadian, and "en-GB" for English used in the United Kingdom.
-- Default: `""`
+- Recommended to use the format "en", "fr" etc. for Mirador parsing.
+- Default: `"en"`
 
 ### Audience
 - attribute: `audience`
