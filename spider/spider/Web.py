@@ -5,6 +5,7 @@ from .Node import *
 from .Edge import *
 from .utils import *
 from .mediaConvert import *
+from .IIIF import *
 
 class Web(SpiderElement):
     def __init__(self, **kwargs):
@@ -45,6 +46,7 @@ class Web(SpiderElement):
             os.path.join(path, "web/edges"),
             os.path.join(path, "cytoscape"),
             os.path.join(path, "mirador/lower"),
+            os.path.join(path, "mirador/media"),
             os.path.join(path, "media")
         ])
         makeGitignoreFile(os.path.join(path, ".gitignore"), ["media"])
@@ -91,3 +93,6 @@ class Web(SpiderElement):
                     print()
                     for key in printKey:
                         print(key + ": " + str(getattr(node, key)))
+
+    def convertToMemoRekall(self, **kwargs):
+        webToManifestNetwork(self, **kwargs)
