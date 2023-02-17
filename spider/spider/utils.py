@@ -1,6 +1,7 @@
 import os
 import json
 import re
+from pdf2image import convert_from_path
 from pathlib import Path
 
 def makeDirsRecustive(pathList):
@@ -51,3 +52,14 @@ def makeGitignoreFile(path, content):
     for item in content:
         f.write(item + "\n")
     f.close()
+
+def convertPDF(pathIn, pathOut, numPages, createFile):
+    if createFile:
+        images = convert_from_path(pathIn)
+    filename = os.path.splitext(os.path.basename(pathIn))[0]
+    fileList = []
+    for i in range(numPages):
+        if createFile:
+            images[i].save(os.path.join(pathOut, filename + "_page_" + str(i + 1) +'.jpg'), 'JPEG')
+        fileList.append(filename + "_page_" + str(i + 1) +'.jpg')
+    return fileList
