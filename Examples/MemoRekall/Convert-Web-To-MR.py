@@ -17,11 +17,11 @@ settings = {
     # The place the MemoRekall network will be written to (None = webPath/mirador):
     "writePath" : "/Users/jacob/Documents/Git Repos/POC-mirador/www/Media_web_test", 
 
-    # If a manifest network already exists, remove it before creation:
-    "removePrevious" : True,
+    # If a manifest network already exists, remove it before creation [manifests, media]:
+    "removePrevious" : [True, False],
 
-    # Copy all node media to the write location
-    "copyMedia" : True
+    # Copy all node media to the write location (note that this also controls PDF conversion):
+    "copyMedia" : False
 }
 
 # 2. Load the web:

@@ -8,9 +8,16 @@ def webToManifestNetwork(web, **kwargs):
     if kwargs.get('writePath', None) != None:
         destDir = kwargs.get('writePath')
     
-    if kwargs.get("removePrevious", True) == True:
+    if kwargs.get("removePrevious", [True, True])[0] == True:
+        if os.path.isdir(os.path.join(destDir, "lower")) == True:
+            shutil.rmtree(os.path.join(destDir, "lower"))
         if os.path.isdir(destDir) == True:
-            shutil.rmtree(destDir)
+            for filename in os.listdir(destDir):
+                if os.path.isfile(filename):
+                    os.remove(filename)
+    if kwargs.get("removePrevious", [True, True])[1] == True:
+        if os.path.isdir(os.path.join(destDir, "media")) == True:
+            shutil.rmtree(os.path.join(destDir, "media"))
     
     makeDirsRecustive([
         os.path.join(destDir, "lower"),
@@ -41,7 +48,18 @@ def nodeToManifest(node, **kwargs):
     realMediaPath = os.path.join(kwargs.get('path', os.getcwd()), "media/" + os.path.basename(node.format.uri))
     writeMediaPath = os.path.join(kwargs.get('destDir', os.getcwd()), "media/" + os.path.basename(node.format.uri))
     if kwargs.get("copyMedia", True) == True:
-        shutil.copyfile(node.format.uri, writeMediaPath) 
+        shutil.copyfile(node.format.uri, writeMediaPath)
+    
+    # If PDF, convert to image:
+    convertedFiles = []
+    if node.format.fileFormat == "pdf":
+        convertedFiles = convertPDF(
+            node.format.uri, 
+            os.path.join(kwargs.get('destDir', os.getcwd()), "media"), 
+            node.format.pages, 
+            kwargs.get("copyMedia", True)
+        )
+
     node.format.uri = realMediaPath
 
     # Main title object
@@ -56,26 +74,31 @@ def nodeToManifest(node, **kwargs):
         label = labelObject
     )
 
-    # Create main canvas
-    mainCanvas = newManifest.addCanvas(1)
+    originalNode = node
+    numPages = 1
+    if originalNode.format.pages != None:
+        numPages = originalNode.format.pages
+    for i in range(numPages):
+        pageCanvas = newManifest.addCanvas(i + 1)
+            
+        # Create layers
+        mainLayer = pageCanvas.addAnnotationPage("page", 1)
+        annotationLayer = pageCanvas.addAnnotationPage("annotation", 1)
 
-    # Create layers
-    mainLayer = mainCanvas.addAnnotationPage("page", 1)
-    annotationLayer = mainCanvas.addAnnotationPage("annotation", 1)
+        # Create a new node for this page if paged document:
+        pageNode = originalNode
+        if numPages > 1:
+            pageNode.format.type = "image"
+            pageNode.format.fileFormat = "jpg"
+            pageNode.format.uri = os.path.join(kwargs.get('path', os.getcwd()), "media/" + convertedFiles[i])
 
-    # Add main media item:
-    mainMediaItem = mainLayer.addMediaItem(1, node)
-    # Resize canvas:
-    mainCanvas.width = mainMediaItem.body.width
-    mainCanvas.height = mainMediaItem.body.height
-    if mainMediaItem.body.duration != None:
-        mainCanvas.duration = mainMediaItem.body.duration
-
-    '''
-    # Add annotations:
-    for i in range(3):
-        annotationLayer.addMediaItem(i + 1)
-    '''
+        # Add main media item:
+        mainMediaItem = mainLayer.addMediaItem(1, pageNode)
+        # Resize canvas:
+        pageCanvas.width = mainMediaItem.body.width
+        pageCanvas.height = mainMediaItem.body.height
+        if mainMediaItem.body.duration != None:
+            pageCanvas.duration = mainMediaItem.body.duration
 
     return newManifest
 
