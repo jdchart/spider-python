@@ -10,7 +10,7 @@ class Collection(SpiderElement):
 
         if kwargs.get('read_from_file', None) == None:
             if self.parentPath != None:
-                self.path = self.setPath(self.parentPath, kwargs.get('collection_type', "node"))
+                self.path = self.setPath(self.parentPath, kwargs.get('collectionType', "node"))
                 setattr(self, "identifier", self.path)
 
         if kwargs.get('read_from_file', None) != None:

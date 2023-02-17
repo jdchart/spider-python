@@ -74,7 +74,7 @@ class Web(SpiderElement):
         return loadedEdge
 
     def addCollection(self, collectionType, metadata):
-        newCollection = Collection(parentPath = os.path.join(self.path, "web"), type = collectionType, **metadata)
+        newCollection = Collection(parentPath = os.path.join(self.path, "web"), collectionType = collectionType, **metadata)
         return newCollection
 
     def loadCollection(self, searchTerm, **kwargs):
