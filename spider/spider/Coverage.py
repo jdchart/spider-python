@@ -32,10 +32,10 @@ class Coverage:
             returnString = returnString + "&modifications="
             for i in range(len(self.modificationDateTimes)):
                 returnString = returnString + "&datetime=" + self.modificationDateTimes[i]["datetime"].strftime("%m-%d-%Y:%H:%M:%S.%f")
-                returnString = returnString + "&title=" + self.modificationDateTimes[i]["title"].replace(" ", "_")
-                returnString = returnString + "&description=" + self.modificationDateTimes[i]["description"].replace(" ", "_")
+                returnString = returnString + "&title=" + self.modificationDateTimes[i]["title"].replace(" ", "&&_&&")
+                returnString = returnString + "&description=" + self.modificationDateTimes[i]["description"].replace(" ", "&&_&&")
         if self.region != None:
-            returnString = returnString + "&region=" + self.region.replace(" ", "_")
+            returnString = returnString + "&region=" + self.region.replace(" ", "&&_&&")
         return returnString
 
     def fromString(self, stringIn):
@@ -46,7 +46,7 @@ class Coverage:
             if mainSplit[i] == "&end=":
                 self.endDateTime = datetime.datetime.strptime(mainSplit[i + 1], "%m-%d-%Y:%H:%M:%S.%f")
             if mainSplit[i] == "&region=":
-                self.region = mainSplit[i + 1].replace("_", " ")
+                self.region = mainSplit[i + 1].replace("&&_&&", " ")
             if mainSplit[i] == "&modifications=":
                 modificationsSplit = stringKeySplit(["&datetime=", "&title=", "&description="], mainSplit[i + 1])
                 toAdd = {}
@@ -54,8 +54,8 @@ class Coverage:
                     if modificationsSplit[j] == "&datetime=":
                         toAdd["datetime"] = datetime.datetime.strptime(modificationsSplit[j + 1], "%m-%d-%Y:%H:%M:%S.%f")
                     elif modificationsSplit[j] == "&title=":
-                        toAdd["title"] = modificationsSplit[j + 1].replace("_", " ")
+                        toAdd["title"] = modificationsSplit[j + 1].replace("&&_&&", " ")
                     elif modificationsSplit[j] == "&description=":
-                        toAdd["description"] = modificationsSplit[j + 1].replace("_", " ")
+                        toAdd["description"] = modificationsSplit[j + 1].replace("&&_&&", " ")
                         self.modificationDateTimes.append(toAdd)
                         toAdd = {}
