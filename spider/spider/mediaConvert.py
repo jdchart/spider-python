@@ -23,14 +23,15 @@ def getMediaData(path):
                 "annotationDisplayScale" : 1,
                 "annotationDisplayPos" : [0, 0],
                 "annotationOverlay" : False,
-                "annotationPaint" : True
+                "annotationPaint" : True,
+                "important" : False
             }
         }
 
         if(returnData["format"]["type"] == "video"):
             returnData = parseVideo(returnData)
         elif(returnData["format"]["type"] == "image"):
-            returnData = parseVideo(returnData)
+            returnData = parseImage(returnData)
         elif(returnData["format"]["type"] == "document"):
             returnData = parseDocument(returnData)
 
