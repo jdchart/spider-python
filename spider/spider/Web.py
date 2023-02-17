@@ -3,6 +3,8 @@ import shutil
 from .SpiderElement import *
 from .Node import *
 from .Edge import *
+from .Collection import *
+from .Network import *
 from .utils import *
 from .mediaConvert import *
 from .IIIF import *
@@ -44,9 +46,8 @@ class Web(SpiderElement):
             path,
             os.path.join(path, "web/nodes"),
             os.path.join(path, "web/edges"),
-            os.path.join(path, "cytoscape"),
-            os.path.join(path, "mirador/lower"),
-            os.path.join(path, "mirador/media"),
+            os.path.join(path, "web/node_collections"),
+            os.path.join(path, "web/edge_collections"),
             os.path.join(path, "media")
         ])
         makeGitignoreFile(os.path.join(path, ".gitignore"), ["media"])
@@ -69,8 +70,18 @@ class Web(SpiderElement):
     def loadEdge(self, searchTerm, **kwargs):
         searchKey = kwargs.get('term', "uuid")
         edgePath = findElement(os.path.join(self.path, "web/edges"), searchTerm, searchKey, "edge")
-        loadedEdge = Node(read_from_file = edgePath)
+        loadedEdge = Edge(read_from_file = edgePath)
         return loadedEdge
+
+    def addCollection(self, collectionType, metadata):
+        newCollection = Collection(parentPath = os.path.join(self.path, "web"), type = collectionType, **metadata)
+        return newCollection
+
+    def loadCollection(self, searchTerm, **kwargs):
+        searchKey = kwargs.get('term', "uuid")
+        collectionPath = findElement(os.path.join(self.path, "web"), searchTerm, searchKey, "collection")
+        loadedCollection = Collection(read_from_file = collectionPath)
+        return loadedCollection
 
     def mediaToNode(self, mediaPath, copyMedia):
         if copyMedia == True:
@@ -94,5 +105,17 @@ class Web(SpiderElement):
                     for key in printKey:
                         print(key + ": " + str(getattr(node, key)))
 
+    def getFullList(self, type):
+        fullList = []
+        for root, dirs, files in os.walk(os.path.join(self.path, "web/" + type)):
+            for dir in dirs:
+                if dir != type:
+                    fullList.append(dir)
+        return fullList
+
     def convertToMemoRekall(self, **kwargs):
         webToManifestNetwork(self, **kwargs)
+
+    def convertToNetwork(self, **kwargs):
+        newNetwork = webToNetworkX(self, **kwargs)
+        return newNetwork
