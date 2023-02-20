@@ -24,7 +24,10 @@ def webToManifestNetwork(web, **kwargs):
         os.path.join(destDir, "media")
     ])
 
-    for item in kwargs.get("nodeList", web.getFullList("nodes")):
+    nodeColl = kwargs.get("nodeList", web.getFullList("nodes"))
+    nodeList = nodeColl.contentToList()
+
+    for item in nodeList:
         # Load the node
         node = web.loadNode(item)
         
@@ -79,6 +82,9 @@ def nodeToManifest(node, **kwargs):
     numPages = 1
     if originalNode.format.pages != None:
         numPages = originalNode.format.pages
+    fileConverted = False
+    if originalNode.format.type == "document":
+        fileConverted = True
     for i in range(numPages):
         pageCanvas = newManifest.addCanvas(i + 1)
             
@@ -88,7 +94,7 @@ def nodeToManifest(node, **kwargs):
 
         # Create a new node for this page if paged document:
         pageNode = originalNode
-        if numPages > 1:
+        if fileConverted:
             pageNode.format.type = "image"
             pageNode.format.fileFormat = "jpg"
             pageNode.format.uri = os.path.join(kwargs.get('path', os.getcwd()), "media/" + convertedFiles[i])

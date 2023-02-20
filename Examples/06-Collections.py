@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 
 # 0. Script settings. 
 # Set this to true to remove these test directories once you're done.
-cleanUp = False
+cleanUp = True
 
 # 1. Create a web with some content:
 web = sp.createWeb({"path" : "/Users/jacob/Documents/Git Repos/Spider Webs/Collections Test", "title" : "Test web"})
