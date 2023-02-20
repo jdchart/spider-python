@@ -16,10 +16,10 @@ settings = {
     "writePath" : "/Users/jacob/Documents/Git Repos/POC-mirador/www/COESO-Project-Network", 
 
     # If a manifest network already exists, remove it before creation [manifests, media]:
-    "removePrevious" : [True, True],
+    "removePrevious" : [True, False],
 
     # Copy all node media to the write location (note that this also controls PDF conversion):
-    "copyMedia" : True
+    "copyMedia" : False
 }
 
 # 2. Load the web:

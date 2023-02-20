@@ -25,22 +25,23 @@ def webToManifestNetwork(web, **kwargs):
     ])
 
     nodeColl = kwargs.get("nodeList", web.getFullList("nodes"))
-    nodeList = nodeColl.contentToList()
+    nodeList = nodeColl.contentToList() # Mis match between given collection and default being a list !
 
-    for item in nodeList:
+    for i in range(len(nodeList)):
         # Load the node
-        node = web.loadNode(item)
+        node = web.loadNode(nodeList[i])
         
         # IF NEEDED (nested nodes, probably needed when using collections):
         nestedNodes = node.getFullList()
 
         # Create the manifest
-        thisManifest = nodeToManifest(node, destDir = destDir, **kwargs)
+        print("Converting node " + str(i + 1) + "/" + str(len(nodeList)) + " \"" + node.title + "\"\n(" + str(node.uuid) + ")\n")
+        thisManifest = nodeToManifest(web, node, destDir = destDir, **kwargs)
         
         # Save the manifest
         thisManifest.write()
 
-def nodeToManifest(node, **kwargs):
+def nodeToManifest(web, node, **kwargs):
     # Get the node's paths
     realPath = kwargs.get('path', os.getcwd())
     thisDestDir = kwargs.get('destDir', os.getcwd())
@@ -66,6 +67,11 @@ def nodeToManifest(node, **kwargs):
 
     node.format.uri = realMediaPath
 
+    # Get the node's adges:
+    edgeColl = kwargs.get("edgeList", web.getFullList("edges")) # Mis match between given collection and default being a list !
+    edgeList = edgeColl.contentToList()
+    interDocAnnotations = getInterDocs(web, node, edgeList)
+
     # Main title object
     labelObject = {}
     labelObject[node.language] = [node.title]
@@ -80,8 +86,10 @@ def nodeToManifest(node, **kwargs):
 
     originalNode = node
     numPages = 1
+
     if originalNode.format.pages != None:
         numPages = originalNode.format.pages
+
     fileConverted = False
     if originalNode.format.type == "document":
         fileConverted = True
@@ -107,7 +115,27 @@ def nodeToManifest(node, **kwargs):
         if mainMediaItem.body.duration != None:
             pageCanvas.duration = mainMediaItem.body.duration
 
+        # Add inter-documentary annotations:
+        for j in range(len(interDocAnnotations)):
+            thisEdge = web.loadEdge(interDocAnnotations[j])
+            theOtherNode = None
+            if str(node.uuid) == thisEdge.relation.source:
+                theOtherNode = web.loadNode(thisEdge.relation.target)
+            else:
+                theOtherNode = web.loadNode(thisEdge.relation.source)
+            annotationMediaItem = annotationLayer.addInterDocItem(j + 1, theOtherNode, thisEdge, kwargs.get('path', os.getcwd()))
+
     return newManifest
+
+def getInterDocs(web, node, edgeList):
+    # Return a list of edges in which the node is present as a source or a target:
+    interList = []
+    for item in edgeList:
+        thisEdge = web.loadEdge(item)
+        if str(node.uuid) == thisEdge.relation.source or str(node.uuid) == thisEdge.relation.target:
+            interList.append(item)
+    return interList
+
 
 class IIIFItem:
     def __init__(self, **kwargs):
@@ -211,9 +239,23 @@ class AnnotationPage(IIIFItem):
         if self.pageType == "page":
             newMediaItem.motivation = "painting"
         elif self.pageType == "annotation":
-            newMediaItem.motivation = "annotating"
+            newMediaItem.motivation = "commenting"
         self.items.append(newMediaItem)
 
+        return newMediaItem
+
+    def addInterDocItem(self, index, node, edge, path):
+        newMediaItem = self.addMediaItem(index, node)
+
+        targetManifestPath = ""
+        if node.instructionalMethod.important == False:
+            targetManifestPath = os.path.join(path, "lower/" + str(node.uuid) + '.json')
+        else:
+            targetManifestPath = os.path.join(path, str(node.uuid) + '.json')
+        
+        newMediaItem.body.value = node.title + " " + htmlLinkWrap(targetManifestPath, "Manifest") + " (" + edge.description + ")."
+        newMediaItem.body.id = ""
+        newMediaItem.id = newMediaItem.id + "#" + targetManifestPath
         return newMediaItem
 
 class MediaItem(IIIFItem):
@@ -259,6 +301,7 @@ class MediaItemBody:
         self.height = kwargs.get("height", 0)
         self.duration = kwargs.get("duration", None)
         self.format = kwargs.get("format", None)
+        self.value = kwargs.get("value", None)
 
     def collectData(self):
         toReturn = {
@@ -270,6 +313,8 @@ class MediaItemBody:
         }
         if self.duration != None:
             toReturn["duration"] = self.duration
+        if self.value != None:
+            toReturn["value"] = self.value
 
         return toReturn
 

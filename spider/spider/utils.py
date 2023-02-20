@@ -63,3 +63,6 @@ def convertPDF(pathIn, pathOut, numPages, createFile):
             images[i].save(os.path.join(pathOut, filename + "_page_" + str(i + 1) +'.jpg'), 'JPEG')
         fileList.append(filename + "_page_" + str(i + 1) +'.jpg')
     return fileList
+
+def htmlLinkWrap(link, message):
+    return "<a href=\"" + str(link) + "\" target=\"_blank\">" + str(message) + "</a>";
