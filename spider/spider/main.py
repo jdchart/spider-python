@@ -10,3 +10,15 @@ def createWeb(metadata):
 def loadWeb(path):
     loadedWeb = Web(read_from_file = path)
     return loadedWeb
+
+def checkCollectionSanity(web, nodes, edges):
+    toReturn = True
+    nodeList = nodes.contentToList()
+    edgeList = edges.contentToList()
+
+    for item in edgeList:
+        loadedEdge = web.loadEdge(item)
+        if loadedEdge.relation.source not in nodeList or loadedEdge.relation.target not in nodeList:
+            toReturn = False
+
+    return toReturn

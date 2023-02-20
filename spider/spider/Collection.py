@@ -51,3 +51,11 @@ class Collection(SpiderElement):
 
     def contentToList(self):
         return readJson(os.path.join(self.path, "content.json"))["items"]
+
+    def removeContent(self, toRemove):
+        contentData = readJson(os.path.join(self.path, "content.json"))["items"]
+        if isinstance(toRemove, str):
+            toRemove = [toRemove]
+        for item in toRemove:
+            contentData.remove(item) 
+        writeJson({"items" : contentData}, os.path.join(self.path, "content.json"))

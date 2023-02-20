@@ -62,6 +62,23 @@ pos = nx.spring_layout(network2, seed=3068)
 nx.draw(network2, pos=pos, with_labels=True)
 plt.show()
 
+# 5. Remove content in the same way you add it:
+print("Original node list:")
+print(myNodeCollection.contentToList())
+myNodeCollection.removeContent(nodeList[0])
+print("First node removed:")
+print(myNodeCollection.contentToList())
+print()
+
+# 6. Sanity checking.
+# Finally, you can check that a node and edge collection configuration is valid.
+# For example, is an edge collection references a node that does not exist in the node collection, the configuration is not valid.
+sanityCheck = sp.checkCollectionSanity(web, myNodeCollection, myEdgeCollection)
+if sanityCheck == False:
+    print("This collection does not work!!!\n") # Should return this as we removed the first node!
+else:
+    print("All is well!\n")
+
 # Cleanup
 if cleanUp == True:
     if os.path.exists(web.path):
