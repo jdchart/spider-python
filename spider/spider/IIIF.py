@@ -119,11 +119,14 @@ def nodeToManifest(web, node, **kwargs):
         for j in range(len(interDocAnnotations)):
             thisEdge = web.loadEdge(interDocAnnotations[j])
             theOtherNode = None
+            regions = None
             if str(node.uuid) == thisEdge.relation.source:
                 theOtherNode = web.loadNode(thisEdge.relation.target)
+                regions = thisEdge.relation.sourceRegions
             else:
                 theOtherNode = web.loadNode(thisEdge.relation.source)
-            annotationMediaItem = annotationLayer.addInterDocItem(j + 1, theOtherNode, thisEdge, kwargs.get('path', os.getcwd()))
+                regions = thisEdge.relation.targetRegions
+            annotationMediaItem = annotationLayer.addInterDocItem(j + 1, theOtherNode, thisEdge, regions, kwargs.get('path', os.getcwd()))
 
     return newManifest
 
@@ -244,7 +247,7 @@ class AnnotationPage(IIIFItem):
 
         return newMediaItem
 
-    def addInterDocItem(self, index, node, edge, path):
+    def addInterDocItem(self, index, node, edge, regions, path):
         newMediaItem = self.addMediaItem(index, node)
 
         targetManifestPath = ""
@@ -256,7 +259,17 @@ class AnnotationPage(IIIFItem):
         newMediaItem.body.value = node.title + " " + htmlLinkWrap(targetManifestPath, "Manifest") + " (" + edge.description + ")."
         newMediaItem.body.id = ""
         newMediaItem.id = newMediaItem.id + "#" + targetManifestPath
+        newMediaItem.target = parseEdgeResions(regions, newMediaItem.target)
+
         return newMediaItem
+
+def parseEdgeResions(regions, originalTarget):
+    returnString = originalTarget.split("#")[0]
+    if regions != None:
+        if len(regions) > 0:
+            if "start" in regions[0]:
+                returnString = returnString + "#t=" + str(regions[0]["start"] / 1000) + "," + str(regions[0]["end"] / 1000)
+    return returnString
 
 class MediaItem(IIIFItem):
     def __init__(self, **kwargs):
@@ -274,14 +287,19 @@ class MediaItem(IIIFItem):
             setattr(self.body, item, info[item])
         
         self.target = self.targetID
+        hadDims = False
         if "targetDims" in info:
             self.target = self.target + "#xywh="
             self.target = self.target + str(info["targetDims"][0]) + ","
             self.target = self.target + str(info["targetDims"][1]) + ","
             self.target = self.target + str(info["targetDims"][2]) + ","
             self.target = self.target + str(info["targetDims"][3])
+            hadDims = True
         if 'targetStart' in info:
-            self.target = self.target + "&t="
+            if hadDims == True:
+                self.target = self.target + "&t="
+            else:
+                self.target = self.target + "#t="
             self.target = self.target + str(info["targetStart"]) + ","
             self.target = self.target + str(info["targetEnd"])
         
