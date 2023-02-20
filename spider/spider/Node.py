@@ -44,3 +44,11 @@ class Node(SpiderElement):
         nodePath = findElement(self.path, searchTerm, searchKey, "node")
         loadedNode = Node(read_from_file = nodePath)
         return loadedNode
+
+    def getFullList(self):
+        fullList = []
+        for root, dirs, files in os.walk(os.path.join(self.path, "nodes")):
+            for dir in dirs:
+                if dir != "nodes":
+                    fullList.append(dir)
+        return fullList
