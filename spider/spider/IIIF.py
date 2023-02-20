@@ -30,9 +30,6 @@ def webToManifestNetwork(web, **kwargs):
     for i in range(len(nodeList)):
         # Load the node
         node = web.loadNode(nodeList[i])
-        
-        # IF NEEDED (nested nodes, probably needed when using collections):
-        nestedNodes = node.getFullList()
 
         # Create the manifest
         print("Converting node " + str(i + 1) + "/" + str(len(nodeList)) + " \"" + node.title + "\"\n(" + str(node.uuid) + ")\n")
@@ -71,6 +68,9 @@ def nodeToManifest(web, node, **kwargs):
     edgeColl = kwargs.get("edgeList", web.getFullList("edges")) # Mis match between given collection and default being a list !
     edgeList = edgeColl.contentToList()
     interDocAnnotations = getInterDocs(web, node, edgeList)
+
+    # Get the NESTED NODES:
+    nestedNodes = node.getFullList()
 
     # Main title object
     labelObject = {}
@@ -115,6 +115,24 @@ def nodeToManifest(web, node, **kwargs):
         if mainMediaItem.body.duration != None:
             pageCanvas.duration = mainMediaItem.body.duration
 
+        # Add infra-documentary annotations:
+        if len(nestedNodes) > 0:
+            print("Found nested nodes for " + node.title + ":")
+            print(nestedNodes)
+
+            maxNodeHeight = 0
+            # COPY MEDIA IF NEEDED
+            for j in range(len(nestedNodes)):
+                loadedNestedNode = web.loadNode(nestedNodes[j])
+
+                loadedNestedNode.format.uri = os.path.join(kwargs.get('path', os.getcwd()), "media/" + loadedNestedNode.format.uri)
+                
+                annotationMediaItem = annotationLayer.addIntraDocItem(j + 1, loadedNestedNode)
+                if loadedNestedNode.format.fullDimensions[1] > maxNodeHeight:
+                    maxNodeHeight = loadedNestedNode.format.fullDimensions[1]
+
+            pageCanvas.height = pageCanvas.height + maxNodeHeight
+
         # Add inter-documentary annotations:
         for j in range(len(interDocAnnotations)):
             thisEdge = web.loadEdge(interDocAnnotations[j])
@@ -126,7 +144,7 @@ def nodeToManifest(web, node, **kwargs):
             else:
                 theOtherNode = web.loadNode(thisEdge.relation.source)
                 regions = thisEdge.relation.targetRegions
-            annotationMediaItem = annotationLayer.addInterDocItem(j + 1, theOtherNode, thisEdge, regions, kwargs.get('path', os.getcwd()))
+            annotationMediaItem = annotationLayer.addInterDocItem(j + 1 + len(nestedNodes), theOtherNode, thisEdge, regions, kwargs.get('path', os.getcwd()))
 
     return newManifest
 
@@ -247,6 +265,14 @@ class AnnotationPage(IIIFItem):
 
         return newMediaItem
 
+    def addIntraDocItem(self, index, node):
+        newMediaItem = self.addMediaItem(index, node)
+
+        newMediaItem.target = parseNestedNodeRegions(node, newMediaItem.target)
+        newMediaItem.body.value = node.title
+
+        return newMediaItem
+
     def addInterDocItem(self, index, node, edge, regions, path):
         newMediaItem = self.addMediaItem(index, node)
 
@@ -262,6 +288,19 @@ class AnnotationPage(IIIFItem):
         newMediaItem.target = parseEdgeResions(regions, newMediaItem.target)
 
         return newMediaItem
+
+def parseNestedNodeRegions(node, originalTarget):
+    returnString = originalTarget.split("#")[0]
+
+    nodeX = str(node.instructionalMethod.annotationDisplayPos[0])
+    nodeY = str(node.instructionalMethod.annotationDisplayPos[1] + 720)
+    nodeW = str(node.format.fullDimensions[0])
+    nodeH = str(node.format.fullDimensions[1])
+
+    returnString = returnString + "#xywh=" + nodeX + "," + nodeY + "," + nodeW + "," + nodeH
+    returnString = returnString + "&t=" + str(node.relation.sourceRegions[0]["start"] / 1000) + "," + str(node.relation.sourceRegions[0]["end"] / 1000)
+
+    return returnString
 
 def parseEdgeResions(regions, originalTarget):
     returnString = originalTarget.split("#")[0]
