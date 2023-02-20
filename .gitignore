@@ -5,3 +5,4 @@ notes.md
 venv
 spider/spider.egg-info
 Examples/__pycache__
+Examples/LegacyConvert/__pycache__
