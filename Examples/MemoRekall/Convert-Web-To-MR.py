@@ -28,4 +28,5 @@ settings = {
 toConvert = sp.loadWeb(settings["webPath"])
 
 # 3. Convert to MemoRekall:
+# You can also supply collections with nodeList and edgeList (defaults to all)
 toConvert.convertToMemoRekall(**settings)

@@ -24,6 +24,20 @@ def webToManifestNetwork(web, **kwargs):
         os.path.join(destDir, "media")
     ])
 
+    for item in kwargs.get("nodeList", web.getFullList("nodes")):
+        # Load the node
+        node = web.loadNode(item)
+        
+        # IF NEEDED:
+        nestedNodes = node.getFullList()
+
+        # Create the manifest
+        thisManifest = nodeToManifest(node, destDir = destDir, **kwargs)
+        
+        # Save the manifest
+        thisManifest.write()
+
+    '''
     for root, dirs, files in os.walk(os.path.join(web.path, "web/nodes")):
         for dir in dirs:
             if dir != "nodes":
@@ -35,6 +49,7 @@ def webToManifestNetwork(web, **kwargs):
                 
                 # Save the manifest
                 thisManifest.write()
+    '''
 
 def nodeToManifest(node, **kwargs):
     # Get the node's paths
