@@ -114,12 +114,8 @@ class Web(SpiderElement):
         return fullList
 
     def convertToMemoRekall(self, **kwargs):
-        nodeList = kwargs.get("nodeList", self.getFullList("nodes"))
-        edgeList = kwargs.get("edgeList", self.getFullList("edges"))
         webToManifestNetwork(
-            self, 
-            nodeList = nodeList,
-            edgeList = edgeList,
+            self,
             **kwargs
         )
 

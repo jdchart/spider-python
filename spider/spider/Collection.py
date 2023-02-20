@@ -23,7 +23,6 @@ class Collection(SpiderElement):
 
     def write(self):
         writeJson(self.collectData(), os.path.join(self.path, "collection.json"))
-        writeJson({"items" : []}, os.path.join(self.path, "content.json"))
 
     def read(self, path):
         readData = readJson(path)
@@ -36,6 +35,7 @@ class Collection(SpiderElement):
         makeDirsRecustive([
             os.path.join(path, folderName + str(self.uuid))
         ])
+        writeJson({"items" : []}, os.path.join(path, folderName + str(self.uuid), "content.json"))
         return os.path.join(path, folderName + str(self.uuid))
 
     def addContent(self, toAdd):
