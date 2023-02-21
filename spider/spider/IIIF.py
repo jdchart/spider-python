@@ -2,6 +2,47 @@ import os
 import shutil
 from .utils import *
 
+def networkxToManifest(web, imageData, **kwargs):
+    imagePath = kwargs.get("imagePath")
+
+    labelObject = {}
+    labelObject[web.language] = [kwargs.get("networkName", os.getcwd())]
+
+    newManifest = Manifest(
+        writepath = kwargs.get("writePath", os.getcwd()),
+        filename = kwargs.get("networkName", os.getcwd()).replace(" ", "_") + '.json',
+        path = kwargs.get("path", os.getcwd()),
+        label = labelObject
+    )
+
+    pageCanvas = newManifest.addCanvas(1)
+
+    mainLayer = pageCanvas.addAnnotationPage("page", 1)
+    annotationLayer = pageCanvas.addAnnotationPage("annotation", 1)
+
+    # Add main media item:
+    mainMediaItem = mainLayer.addMediaItemFromImageData(1, {
+        "uri" : imagePath,
+        "width" : imageData["meta"]["width"],
+        "height" : imageData["meta"]["height"]
+    })
+    # Resize canvas:
+    pageCanvas.width = mainMediaItem.body.width
+    pageCanvas.height = mainMediaItem.body.height
+    if mainMediaItem.body.duration != None:
+        pageCanvas.duration = mainMediaItem.body.duration
+
+    count = 0
+    for item in imageData:
+        if item != "meta":
+            targetNode = web.loadNode(item)
+            annotationDims = [imageData[item]["x"], imageData[item]["y"], imageData[item]["size"]]
+
+            annotationMediaItem = annotationLayer.addNodeAnnotation(count + 1, targetNode, annotationDims, kwargs.get('path', os.getcwd()))
+            count = count + 1
+
+    newManifest.write()
+
 def webToManifestNetwork(web, **kwargs):
     # Making folders to save the manifest files:
     destDir = os.path.join(web.path, "mirador")
@@ -249,6 +290,28 @@ class AnnotationPage(IIIFItem):
         collectedSuper["items"] = self.parseToList("items")
         return collectedSuper
 
+    def addMediaItemFromImageData(self, index, imageData):
+        newMediaItem = MediaItem(
+            id = os.path.join(self.id, str(index)),
+            targetID = self.canvasID,
+            mediaInfo = {
+                "id" : imageData["uri"],
+                "type" : "Image",
+                "format" : "image/png",
+                "width" : imageData["width"],
+                "height" : imageData["height"],
+                "targetDims" : [0, 0, imageData["width"], imageData["height"]]
+            }
+        )
+
+        if self.pageType == "page":
+            newMediaItem.motivation = "painting"
+        elif self.pageType == "annotation":
+            newMediaItem.motivation = "commenting"
+        self.items.append(newMediaItem)
+
+        return newMediaItem
+
     def addMediaItem(self, index, node):
         mediaInfo = nodeToIIIFMediaItem(node, self.pageType)
 
@@ -270,6 +333,22 @@ class AnnotationPage(IIIFItem):
 
         newMediaItem.target = parseNestedNodeRegions(node, newMediaItem.target)
         newMediaItem.body.value = node.title
+
+        return newMediaItem
+
+    def addNodeAnnotation(self, index, node, annotationDims, path):
+        newMediaItem = self.addMediaItem(index, node)
+
+        targetManifestPath = ""
+        if node.instructionalMethod.important == False:
+            targetManifestPath = os.path.join(path, "lower/" + str(node.uuid) + '.json')
+        else:
+            targetManifestPath = os.path.join(path, str(node.uuid) + '.json')
+        
+        newMediaItem.body.value = node.title + " " + htmlLinkWrap(targetManifestPath, "Manifest") + "."
+        newMediaItem.body.id = ""
+        newMediaItem.id = newMediaItem.id + "#" + targetManifestPath
+        newMediaItem.target = parseAnnotationDims(annotationDims, newMediaItem.target)
 
         return newMediaItem
 
@@ -308,6 +387,12 @@ def parseEdgeResions(regions, originalTarget):
         if len(regions) > 0:
             if "start" in regions[0]:
                 returnString = returnString + "#t=" + str(regions[0]["start"] / 1000) + "," + str(regions[0]["end"] / 1000)
+    return returnString
+
+def parseAnnotationDims(annotationDims, originalTarget):
+    returnString = originalTarget.split("#")[0]
+
+    returnString = returnString + "#xywh=" + str(annotationDims[0]) + "," + str(annotationDims[1]) + "," + str(annotationDims[2]) + "," + str(annotationDims[2])
     return returnString
 
 class MediaItem(IIIFItem):

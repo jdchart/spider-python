@@ -47,17 +47,12 @@ for item in fileList:
 
 ```python
 # As a networkx network:
-import networkx as nx
-import matplotlib.pyplot as plt
-
 network = web.convertToNetwork(
     nodeList = nodeCollection,
     edgeList = edgeCollection
 )
 
-pos = nx.spring_layout(network, seed=3068)
-nx.draw(network, pos=pos, with_labels=True)
-plt.show()
+network.display()
 
 # Convert to a MemoRekall manifest network:
 web.convertToMemoRekall(

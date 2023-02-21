@@ -66,3 +66,6 @@ def convertPDF(pathIn, pathOut, numPages, createFile):
 
 def htmlLinkWrap(link, message):
     return "<a href=\"" + str(link) + "\" target=\"_blank\">" + str(message) + "</a>";
+
+def rescale(val, oldMin, oldMax, a, b):
+    return a + (((val - oldMin) * (b - a)) / (oldMax - oldMin))

@@ -54,13 +54,8 @@ network = web.convertToNetwork(nodeList = myNodeCollection, edgeList = myEdgeCol
 network2 = web.convertToNetwork(nodeList = myNodeCollection, edgeList = mySecondEdgeCollection)
 
 # Visualise the collections:
-pos = nx.spring_layout(network, seed=3068)
-nx.draw(network, pos=pos, with_labels=True)
-plt.show()
-
-pos = nx.spring_layout(network2, seed=3068)
-nx.draw(network2, pos=pos, with_labels=True)
-plt.show()
+network.display()
+network2.display()
 
 # 5. Remove content in the same way you add it:
 print("Original node list:")

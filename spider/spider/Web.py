@@ -120,5 +120,5 @@ class Web(SpiderElement):
         )
 
     def convertToNetwork(self, **kwargs):
-        newNetwork = webToNetworkX(self, **kwargs)
+        newNetwork = NetworkGraph(self, **kwargs)
         return newNetwork
