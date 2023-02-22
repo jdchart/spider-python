@@ -25,4 +25,5 @@ class SpiderElement(Resource):
         dataObj = super().collectData()
         dataObj["uuid"] = str(self.uuid)
         dataObj["path"] = self.path
+        dataObj["tags"] = self.tags
         return dataObj
