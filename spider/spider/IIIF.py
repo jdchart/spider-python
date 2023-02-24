@@ -6,7 +6,7 @@ def networkxToManifest(web, imageData, **kwargs):
     imagePath = kwargs.get("imagePath")
 
     labelObject = {}
-    labelObject[web.language] = [kwargs.get("networkName", os.getcwd())]
+    labelObject["en"] = [kwargs.get("networkName", os.getcwd())]
 
     newManifest = Manifest(
         writepath = kwargs.get("writePath", os.getcwd()),
@@ -38,7 +38,7 @@ def networkxToManifest(web, imageData, **kwargs):
             targetNode = web.loadNode(item)
             annotationDims = [imageData[item]["x"], imageData[item]["y"], imageData[item]["size"]]
 
-            annotationMediaItem = annotationLayer.addNodeAnnotation(count + 1, targetNode, annotationDims, kwargs.get('path', os.getcwd()))
+            annotationMediaItem = annotationLayer.addNodeAnnotation(count + 1, targetNode, annotationDims, kwargs.get('path', os.getcwd()), lang = kwargs.get("lang", None))
             count = count + 1
 
     newManifest.write()
@@ -114,8 +114,7 @@ def nodeToManifest(web, node, **kwargs):
     nestedNodes = node.getFullList()
 
     # Main title object
-    labelObject = {}
-    labelObject[node.language] = [node.title]
+    labelObject = parseToLabel(node.getFromLang("title", "full"))
 
     # Create the manifest
     newManifest = Manifest(
@@ -168,7 +167,7 @@ def nodeToManifest(web, node, **kwargs):
 
                 loadedNestedNode.format.uri = os.path.join(kwargs.get('path', os.getcwd()), "media/" + loadedNestedNode.format.uri)
                 
-                annotationMediaItem = annotationLayer.addIntraDocItem(j + 1, loadedNestedNode)
+                annotationMediaItem = annotationLayer.addIntraDocItem(j + 1, loadedNestedNode, lang = kwargs.get("lang", None))
                 if loadedNestedNode.format.fullDimensions[1] > maxNodeHeight:
                     maxNodeHeight = loadedNestedNode.format.fullDimensions[1]
 
@@ -185,9 +184,15 @@ def nodeToManifest(web, node, **kwargs):
             else:
                 theOtherNode = web.loadNode(thisEdge.relation.source)
                 regions = thisEdge.relation.targetRegions
-            annotationMediaItem = annotationLayer.addInterDocItem(j + 1 + len(nestedNodes), theOtherNode, thisEdge, regions, kwargs.get('path', os.getcwd()))
+            annotationMediaItem = annotationLayer.addInterDocItem(j + 1 + len(nestedNodes), theOtherNode, thisEdge, regions, kwargs.get('path', os.getcwd()), lang = kwargs.get("lang", None))
 
     return newManifest
+
+def parseToLabel(spiderInput):
+    labelData = {}
+    for item in spiderInput:
+        labelData[item] = [spiderInput[item]]
+    return labelData
 
 def getInterDocs(web, node, edgeList):
     # Return a list of edges in which the node is present as a source or a target:
@@ -328,15 +333,15 @@ class AnnotationPage(IIIFItem):
 
         return newMediaItem
 
-    def addIntraDocItem(self, index, node):
+    def addIntraDocItem(self, index, node, **kwargs):
         newMediaItem = self.addMediaItem(index, node)
 
         newMediaItem.target = parseNestedNodeRegions(node, newMediaItem.target)
-        newMediaItem.body.value = node.title
+        newMediaItem.body.value = node.getFromLang("title", kwargs.get("lang", None))
 
         return newMediaItem
 
-    def addNodeAnnotation(self, index, node, annotationDims, path):
+    def addNodeAnnotation(self, index, node, annotationDims, path, **kwargs):
         newMediaItem = self.addMediaItem(index, node)
 
         targetManifestPath = ""
@@ -345,14 +350,15 @@ class AnnotationPage(IIIFItem):
         else:
             targetManifestPath = os.path.join(path, str(node.uuid) + '.json')
         
-        newMediaItem.body.value = node.title + " " + htmlLinkWrap(targetManifestPath, "Manifest") + "."
+        #newMediaItem.body.value = node.getFromLang("title", kwargs.get("lang", None)) + " " + htmlLinkWrap(targetManifestPath, "Manifest") + "."
+        newMediaItem.body.value = node.getFromLang("title", kwargs.get("lang", None)) + "."
         newMediaItem.body.id = ""
         newMediaItem.id = newMediaItem.id + "#" + targetManifestPath
         newMediaItem.target = parseAnnotationDims(annotationDims, newMediaItem.target)
 
         return newMediaItem
 
-    def addInterDocItem(self, index, node, edge, regions, path):
+    def addInterDocItem(self, index, node, edge, regions, path, **kwargs):
         newMediaItem = self.addMediaItem(index, node)
 
         targetManifestPath = ""
@@ -361,7 +367,8 @@ class AnnotationPage(IIIFItem):
         else:
             targetManifestPath = os.path.join(path, str(node.uuid) + '.json')
         
-        newMediaItem.body.value = node.title + " " + htmlLinkWrap(targetManifestPath, "Manifest") + " (" + edge.description + ")."
+        #newMediaItem.body.value = node.getFromLang("title", kwargs.get("lang", None)) + " " + htmlLinkWrap(targetManifestPath, "Manifest") + " (" + edge.getFromLang("description", kwargs.get("lang", None)) + ")."
+        newMediaItem.body.value = node.getFromLang("title", kwargs.get("lang", None)) + " (" + edge.getFromLang("description", kwargs.get("lang", None)) + ")."
         newMediaItem.body.id = ""
         newMediaItem.id = newMediaItem.id + "#" + targetManifestPath
         newMediaItem.target = parseEdgeResions(regions, newMediaItem.target)

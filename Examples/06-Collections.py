@@ -9,8 +9,6 @@ We create collections of nodes and of edges so that they can grow independently.
 import spider as sp
 import os
 import shutil
-import networkx as nx
-import matplotlib.pyplot as plt
 
 # 0. Script settings. 
 # Set this to true to remove these test directories once you're done.

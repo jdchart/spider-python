@@ -28,7 +28,7 @@ class NetworkGraph():
     def getGraph(self):
         return self.G
 
-    def display(self):
+    def display(self, **kwargs):
         gCopy = self.G
         self.labelMap = {}
         for nodeUUIDString in self.nodeList:
@@ -36,7 +36,17 @@ class NetworkGraph():
             self.labelMap[nodeUUIDString] = node.title
         gCopy = nx.relabel_nodes(gCopy, self.labelMap)
 
-        pos = nx.spring_layout(gCopy, seed=3068)
+        if kwargs.get("algo", "spring") == "spring":
+            pos = nx.spring_layout(gCopy, seed=3068)
+        if kwargs.get("algo", "spring") == "circular":
+            pos = nx.circular_layout(gCopy)
+        if kwargs.get("algo", "spring") == "fr":
+            pos = nx.fruchterman_reingold_layout(gCopy)
+        if kwargs.get("algo", "spring") == "spectral":
+            pos = nx.spectral_layout(gCopy)
+        if kwargs.get("algo", "spring") == "random":
+            pos = nx.random_layout(gCopy)
+
         nx.draw(gCopy, pos=pos, with_labels=True)
         plt.show()
 
@@ -45,7 +55,8 @@ class NetworkGraph():
         imageWritePath = os.path.join(kwargs.get("writePath", os.getcwd()), "media/" + kwargs.get("networkName", "Untitled_network").replace(" ", "_") + ".png")
         
         imgData = self.saveToImage(
-            savePath = imageWritePath
+            savePath = imageWritePath,
+            algo = kwargs.get("algo", "spring")
         )
         
         networkxToManifest(web, imgData,
@@ -57,7 +68,17 @@ class NetworkGraph():
         pass
 
     def saveToImage(self, **kwargs):
-        pos = nx.spring_layout(self.G, seed=3068)
+        if kwargs.get("algo", "spring") == "spring":
+            pos = nx.spring_layout(self.G, seed=3068)
+        if kwargs.get("algo", "spring") == "circular":
+            pos = nx.circular_layout(self.G)
+        if kwargs.get("algo", "spring") == "fr":
+            pos = nx.fruchterman_reingold_layout(self.G)
+        if kwargs.get("algo", "spring") == "spectral":
+            pos = nx.spectral_layout(self.G)
+        if kwargs.get("algo", "spring") == "random":
+            pos = nx.random_layout(self.G)
+
         imgWidth = kwargs.get("width", 10000)
         imgHeight = kwargs.get("height", 10000)
         sizeMinMax = kwargs.get("sizeMinMax", [50, 200])

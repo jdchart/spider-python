@@ -10,16 +10,20 @@ settings = {
     "webPath" : "/Users/jacob/Documents/Git Repos/Spider Webs/COESO-Project", 
 
     # The real path to the manifests:
-    "path" : "http://localhost:9000/data/COESO-Project-Network", 
+    #"path" : "http://localhost:9000/data/COESO-Project-Network", 
+    "path" : "https://iiif.tetras-libre.fr/data/demo-content/Jacob/www-COESO-TEST/",
 
     # The place the MemoRekall network will be written to (None = webPath/mirador):
-    "writePath" : "/Users/jacob/Documents/Git Repos/POC-mirador/www/COESO-Project-Network", 
+    #"writePath" : "/Users/jacob/Documents/Git Repos/POC-mirador/www/COESO-Project-Network",
+    "writePath" : "/Users/jacob/Documents/Git Repos/demo-content/Jacob/www-COESO-TEST",
 
     # If a manifest network already exists, remove it before creation [manifests, media]:
-    "removePrevious" : [True, False],
+    "removePrevious" : [True, True],
 
     # Copy all node media to the write location (note that this also controls PDF conversion):
-    "copyMedia" : False
+    "copyMedia" : True,
+
+    "lang" : "fr"
 }
 
 # 2. Load the web:
