@@ -64,7 +64,10 @@ class Web(SpiderElement):
 
         newNode = copy.deepcopy(toDuplicate)
         newNode.uuid = str(uuid.uuid4())
-        newNode.path = os.path.join(self.path, "web/nodes/" + newNode.uuid + "/node.json") # TODO This will not work for nested
+
+        makeDirsRecustive([os.path.join(self.path, "web/nodes/" + newNode.uuid)])
+        newNode.path = os.path.join(self.path, "web/nodes/" + newNode.uuid) # TODO This will not work for nested
+        print(newNode.path)
 
         newNode.write()
 

@@ -14,14 +14,7 @@ def createWeb(metadata: dict) -> Web:
 
     Provide a dict of metadata for creating the web.
     The web will be saved to disk at the given in the metadata dict.
-
-    Parameters
-    ----------
-    Obligatory metadata field:
-        "path" : Path/on/disk/to/save/web
     """
-
-
 
     newWeb = Web(**metadata)
     return newWeb
