@@ -1,0 +1,224 @@
+{
+    "skills" : {
+        "skillType" : [
+            "Words to identify for every user and classify according to feature categories."
+        ]
+    },
+    "culturalDiversity" : {
+        "diversityScore" : [
+            "Number of disciplines for every user expertise in the project.",
+            "Languages spoken by every user in the project.",
+            "Localization of every user in the project."
+        ]
+    },
+    "waysToObtainDataSources" : {
+        "sourcesMentionedInTheProject" : [
+            "Text, project proposal."
+        ]
+    },
+    "compensation" : {
+        "levelOfRecognition" : [
+            "Words to identify “individual recognition” and classify according to predefined categories: authorship of every product, membership, acknowledgments, titles or badges in a platform, gifts, has a contract yes or no."
+        ]
+    },
+    "funding" : {
+        "percentageFundingTypeObtainedForOperations" : [
+            "Funding source type",
+            "Funding amount",
+            "Number of funding sources"
+        ]
+    },
+    "dissemination" : {
+        "degreeOfFieldHybridation" : [
+            "NLP analysis of text.",
+            "Who disseminates the product.",
+            "Where is (are) the product disseminated?",
+            "What is the product type disseminated (scientific or not)?",
+            "What is the product format disseminated?"
+        ]
+    },
+    "recrutement" : {
+        "contractualFormalism" : [
+            "Recruitment mode for every user in the platform (informal, call procedure, membership).",
+            "Contract time: task limited, short or medium-term, long-term."
+        ]
+    },
+    "devices" : {
+        "deviceSpecificityDegree" : [
+            "List of tools used.",
+            "Type of tools used."
+        ]
+    },
+    "organizationOfParticipation" : {
+        "typeOfMeeting" : [
+            "Duration, email subject."
+        ],
+        "scaleOfMeeting" : [
+            "Number of participants invited",
+            "Number of participants present"
+        ],
+        "mediumOfMeeting" : [
+            "Number of medias used: identify zoom, google meet etc."
+        ]
+    },
+    "flowOfParticipation" : {
+        "numberOfConversationsAndContributions" : [
+            "Number of messages sent by medium (slack, email, etc.).",
+            "Number of answers received/given",
+            "Number of modifications/corrections accepted/refused in the documents.",
+            "Active time spent in the platform (minutes).",
+            "Number of sessions (login).",
+            "Sessions’ duration.",
+            "Uploads in the platform.",
+            "Downloads from the platform.",
+            "Document views.",
+            "Page visits."
+        ],
+        "intensityOfConversationsAndContributions" : [
+            "Number of answers received/given."
+        ]
+    },
+    "rhythmOfParticipation" : {
+        "frequancyOfConverdsationsAndContibutions" : [
+            "Timestamp of messages received/given.",
+            "Answer delays."
+        ],
+        "frequencyOfMeeting" : [
+            "Number of scheduled meetings.",
+            "Number of unscheduled meetings.",
+            "Timestamp of meetings done."
+        ]
+    },
+    "roleDistribution" : {
+        "degreeOfAsymmetry" : [
+            "Direction of exchanges: number of messages sent by first sender ID.",
+            "Number of messages received by first receiver ID.",
+            "Number of messages by any other different sender and receiver IDs.",
+            "Number of characters in the message.",
+            "Role of first message sender.",
+            "Is the first sender a stakeholder in command.",
+            "Total number of messages exchanged."
+        ],
+        "contributionType" : [
+            "Words to classify in predefined categories: substantial, phatic, managerial."
+        ]
+    },
+    "conflictProblemSolving" : {
+        "formalismeDegreeOfProblemSolving" : [
+            "Number of ticket opening (zero means no formalism, possible accountability when formalism exists)."
+        ],
+        "problemSolvingEfficiency" : [
+            "Number of ticket-problem closed.",
+            "Delay between opening and closing a ticket",
+            "Number of iterations before closing a ticket.",
+            "Number of contributors to the ticket problem solving.",
+            "Number of tickets reopened with topic detection, to check if it’s the same topic explicit or implicit (mail object, sender).",
+            "Number of iterations.",
+            "Delay before closing a ticket."
+        ]
+    },
+    "networkingMethod" : {
+        "evolutionOfNetworkSize" : [
+            "Increase in the number of stakeholders."
+        ]
+    },
+    "networkingQuality" : {
+        "networkDiversity" : [
+            "Number of accounts created",
+            "Type of stakeholders in command (who is the leader): amateur, academic, civil society via NGO's",
+            "Main type of result expected (scientific articles, etc.)"
+        ]
+    },
+    "governancePrinciples" : {
+        "socialWorldBalance" : [
+            "Lexicon related to \"orders of worth\"",
+            "Type of words",
+            "Weighing the type of words in the beginning, in the middle and at the end."
+        ]
+    },
+    "idiomManagement" : {
+        "idiomDiversityDegree" : [
+            "text"
+        ]
+    },
+    "knowledgeDiversityProcessing" : {
+        "kowledgeConvergenceDegree" : [
+            "Concepts used in the products, specific lexicon related to every discipline."
+        ]
+    },
+    "knowledgeExchangeOrientation" : {
+        "knowledgeDistributionBalance" : [
+            "Detecting new terms (concepts, topics)",
+            "Who introduces new terms (concepts, topics).",
+            "Who reporduces new terms (concepts, topic).",
+            "Who makes suggestions",
+            "Who accepts suggestions."
+        ]
+    },
+    "managementStyle" : {
+        "managerStyle" : [
+            "Identify informal influential users.",
+            "Identify explicit leaders/managers",
+            "Identify lexicon related to management operations."
+        ],
+        "managerBalance" : [
+            "Meetings metadata (e.g. participants in meeting).",
+            "Feedback metadata."
+        ]
+    },
+    "divisionOfLabor" : {
+        "planWorkOrganization" : [
+            "Explicit organizational work.",
+            "Organizational work official revision.",
+            "Organizational work drifting"
+        ]
+    },
+    "dataArticulationMode" : {
+        "documentationFlowManagement" : [
+            "Data storage.",
+            "Access control.",
+            "Management procedure."
+        ]
+    },
+    "stakeholderDataScalability" : {
+        "increaseOfStakeholders" : [
+            "Number of steakeholders throughout time: who creates accounts."
+        ],
+        "increaseOfDataVolume" : [
+            "Data volume aquisition throughout time.",
+            "Number of data sources available."
+        ]
+    },
+    "learningProcess" : {
+        "degreeOfCollectiveAssesment" : [
+            "Results declared in comparison with results reported.",
+            "Justification of results.",
+            "Milestones, results expected, quality criteria defined."
+        ],
+        "assessmentStyleScore" : [
+            "Detect assessment terms.",
+            "Detect assessment timestamp.",
+            "Detect decision terms",
+            "Detect decision timestamp.",
+            "Detect milestone terms."
+        ]
+    },
+    "engagementAssessmentType" : {
+        "assessmentStyleScore" : [
+            "Are there indicators in the project.",
+            "Identify expressions of assessment.",
+            "Semantic properties of assessment (e.g. delays, respect).",
+            "Is quality semantic present.",
+            "Identify semantics of quality (e.g. initiative taken, creativity)."
+        ]
+    },
+    "legalEthicalCompliance" : {
+        "legalAndEthicalComplicance" : [
+            "Data management plan created",
+            "Infrastructure compliance with DMP.",
+            "Open data repository.",
+            "GDPR or cpplicable law compliance.",
+            "Gender balance."
+        ]
+    }
+}

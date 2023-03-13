@@ -1,0 +1,205 @@
+{
+    "name": "Public Workshop",
+    "uuid": "7be73ea0-a41d-4c95-a934-9a565aac1ef2",
+    "node_uuid": "63ed2fdf-2a39-4ad1-acb2-72b48cf2bdca",
+    "skills": [
+        {
+            "typology": "experimental",
+            "explanation": "This is an experimental workshop with the public, many skill profiles are being deployed."
+        },
+        {
+            "typology": "academic-expert",
+            "explanation": "The experts are supervising the workshop and steering it according to their skills."
+        }
+    ],
+    "culturalDiversity": [
+        {
+            "typology": "cultural mix",
+            "explanation": "A public workshop, we can suppose that the cultural diversity is high."
+        },
+        {
+            "typology": "pluricultural",
+            "explanation": "A public workshop, we can suppose that the cultural diversity is high."
+        }
+    ],
+    "waysToObtainDataSources": null,
+    "compensation": [
+        {
+            "typology": "incentives",
+            "explanation": "The members of the public are not under contract and msut therefore be incentivised to participate in some way."
+        },
+        {
+            "typology": "contract",
+            "explanation": "Some of the participants are under contract."
+        },
+        {
+            "typology": "altruistic duty",
+            "explanation": "We can assume that some memebers of the public must be there following some kind of altruistic duty."
+        }
+    ],
+    "funding": null,
+    "dissemination": [
+        {
+            "typology": "open",
+            "explanation": "Open to the public, and the video is available on Youtube."
+        }
+    ],
+    "recrutement": [
+        {
+            "typology": "informal",
+            "explanation": "We can assume that the members of the public were recruited informally."
+        },
+        {
+            "typology": "membership",
+            "explanation": "Leaders of the workshop were members of the COESO Project."
+        }
+    ],
+    "devices": [
+        {
+            "typology": "ad hoc assemblage",
+            "explanation": "A part fromt he camera, there aren't any devices to talk about."
+        }
+    ],
+    "organizationOfParticipation": [
+        {
+            "typology": "scheduled meetings",
+            "explanation": "This was a scheduled meeting."
+        }
+    ],
+    "flowOfParticipation": [
+        {
+            "typology": "spontaneous conversation",
+            "explanation": "A public workshop, we can suppose there was spontaneous conversation."
+        },
+        {
+            "typology": "goal oriented conversation",
+            "explanation": "As a workshop, we can also assume there was goal oriented conversation."
+        },
+        {
+            "typology": "asymmetric conversation",
+            "explanation": "The workshop being led by two leaders, we can also assume there was asymmetrical conversation."
+        }
+    ],
+    "rhythmOfParticipation": [
+        {
+            "typology": "planned",
+            "explanation": "This was a planned workshop that occured once."
+        }
+    ],
+    "roleDistribution": [
+        {
+            "typology": "sharing",
+            "explanation": "Roles were actively reconfigured during the workshop."
+        },
+        {
+            "typology": "coaching",
+            "explanation": "Members of the public were coached by the workshop leaders."
+        }
+    ],
+    "conflictProblemSolving": [
+        {
+            "typology": "arrangement",
+            "explanation": "If there were any problems, we can imagine they were resolved by arrangement in an informat way."
+        }
+    ],
+    "networkingMethod": [
+        {
+            "typology": "incrementation",
+            "explanation": "As a public workshop, the network is increasing in size."
+        }
+    ],
+    "networkingQuality": [
+        {
+            "typology": "diversification",
+            "explanation": "As a public workshop, the diversity of the network is increasing."
+        },
+        {
+            "typology": "simplification",
+            "explanation": "As a publci workshop, we can judge the expertese of the workshop as 'simplifying'."
+        }
+    ],
+    "governancePrinciples": [
+        {
+            "typology": "interpersonal",
+            "explanation": "A public workshop led in an interpersonal manner."
+        }
+    ],
+    "idiomManagement": [
+        {
+            "typology": "polysemic tolerance",
+            "explanation": "We can imagine members of the public bringing their own jargon."
+        },
+        {
+            "typology": "jargon translation",
+            "explanation": "We can imagine the experts havign to translate jargon to the public."
+        }
+    ],
+    "knowledgeDiversityProcessing": null,
+    "knowledgeExchangeOrientation": [
+        {
+            "typology": "egalitarian",
+            "explanation": "The goal of the workshop was for knowledge to flow between leaders and members."
+        }
+    ],
+    "managementStyle": [
+        {
+            "typology": "support",
+            "explanation": "We can imagine the workshop leaders supporting the members of the public."
+        },
+        {
+            "typology": "stimulation",
+            "explanation": "We can imagine the workshop leaders stimulating the members of the public."
+        },
+        {
+            "typology": "control",
+            "explanation": "We can also imagine a certain degree of control for the workshop leaders."
+        }
+    ],
+    "divisionOfLabor": [
+        {
+            "typology": "ad hoc distribution",
+            "explanation": "Labor is distriubted in an ad hoc manner to the members of the public."
+        },
+        {
+            "typology": "skill based",
+            "explanation": "Roles are also distributed (notably with the workshop leaders) accoridng to skills."
+        },
+        {
+            "typology": "status based",
+            "explanation": "The leaders are also given a role thanks to their status on the project."
+        }
+    ],
+    "dataArticulationMode": [
+        {
+            "typology": "data lake",
+            "explanation": "The document is openly available."
+        }
+    ],
+    "stakeholderDataScalability": null,
+    "learningProcess": [
+        {
+            "typology": "trial and error",
+            "explanation": "This is an experimental workshop, we can imagine a degree of trial and error in the learnign process."
+        },
+        {
+            "typology": "scientific method",
+            "explanation": "The workshop is also led according to a scientific process."
+        }
+    ],
+    "engagementAssessmentType": [
+        {
+            "typology": "proof of initiative",
+            "explanation": "We can imagine an adaptive typology of assement type."
+        }
+    ],
+    "legalEthicalCompliance": [
+        {
+            "typology": "versatility",
+            "explanation": "A degree of verstility is supposed for a public workshop."
+        },
+        {
+            "typology": "riskTaking",
+            "explanation": "A degree of risk taking is also implied for a public workshop."
+        }
+    ]
+}

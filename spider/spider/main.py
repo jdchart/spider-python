@@ -1,9 +1,28 @@
 from .Web import *
 
-def testMessage():
+def testMessage() -> None:
+    """
+    A test function to check things are working.
+
+    Will print a test string to the console.
+    """
+
     print("\nThe itsy bitsy spider crawled up the water spout...\n")
 
-def createWeb(metadata):
+def createWeb(metadata: dict) -> Web:
+    """Create a new spider web.
+
+    Provide a dict of metadata for creating the web.
+    The web will be saved to disk at the given in the metadata dict.
+
+    Parameters
+    ----------
+    Obligatory metadata field:
+        "path" : Path/on/disk/to/save/web
+    """
+
+
+
     newWeb = Web(**metadata)
     return newWeb
 

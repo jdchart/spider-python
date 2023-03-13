@@ -1,8 +1,3 @@
-'''
-For more info, consult:
-https://www.dublincore.org/specifications/dublin-core/usageguide/elements/
-'''
-
 import datetime
 from .utils import *
 from .Coverage import *
@@ -11,6 +6,49 @@ from .Relation import *
 from .InstructionalMethod import *
 
 class Resource(object):
+    """
+    Represent a Dublin Core ressource.
+
+    Create an object with all of the typical Dublin Core data fields.
+    For more info:
+    https://www.dublincore.org/specifications/dublin-core/usageguide/elements/
+
+    Attributes
+    ----------
+    title : str
+        a string giving the ressource's title.
+    subject : str
+        a string giving the ressource's subject.
+    description : str
+        a string giving the ressource's description.
+    type : str
+        a string giving the ressource's type.
+    source : str
+        a string giving the ressource's source.
+    creator : str
+        a string giving the ressource's creator.
+    publisher : str
+        a string giving the ressource's publisher.
+    contributor : str
+        a string giving the ressource's contributor.
+    rights : str
+        a string giving the ressource's rights.
+    identifier : str
+        a string giving the ressource's identifier.
+    audience : str
+        a string giving the ressource's audience.
+    provenance : str
+        a string giving the ressource's provenance.
+    rightsHolder : str
+        a string giving the ressource's rightsHolder.
+    accrualMethod : str
+        a string giving the ressource's accrualMethod.
+    accrualPeriodicity : str
+        a string giving the ressource's accrualPeriodicity.
+    accrualPolicy : str
+        a string giving the ressource's accrualPolicy.
+    """
+
     def __init__(self, **kwargs):
         self.language = kwargs.get('language', "en")
 

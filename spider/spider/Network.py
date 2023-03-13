@@ -65,7 +65,6 @@ class NetworkGraph():
             path = kwargs.get("path", os.getcwd()),
             writePath = kwargs.get("writePath", os.getcwd())
         )
-        pass
 
     def saveToImage(self, **kwargs):
         if kwargs.get("algo", "spring") == "spring":

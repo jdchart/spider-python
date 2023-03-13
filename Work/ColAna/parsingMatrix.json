@@ -1,0 +1,158 @@
+{
+    "skills" : {
+        "adaptive" : ["experimental"],
+        "plan_oriented" : ["academic-expert"],
+        "institutional" : ["procedural"],
+        "revisable" : []
+    },
+    "culturalDiversity" : {
+        "adaptive" : ["cultural mix"],
+        "plan_oriented" : ["pluricultural"],
+        "institutional" : ["unique"],
+        "revisable" : []
+    },
+    "waysToObtainDataSources" : {
+        "adaptive" : ["snow ball"],
+        "plan_oriented" : ["sampling"],
+        "institutional" : ["captive audience"],
+        "revisable" : []
+    },
+    "compensation" : {
+        "adaptive" : ["incentives"],
+        "plan_oriented" : ["contract"],
+        "institutional" : ["altruistic duty"],
+        "revisable" : []
+    },
+    "funding" : {
+        "adaptive" : ["crowdfunding"],
+        "plan_oriented" : ["mixed"],
+        "institutional" : ["institutional"],
+        "revisable" : []
+    },
+    "dissemination" : {
+        "adaptive" : ["open"],
+        "plan_oriented" : ["divided according to fields"],
+        "institutional" : ["academic oriented"],
+        "revisable" : []
+    },
+    "recrutement" : {
+        "adaptive" : ["informal"],
+        "plan_oriented" : ["call procedure"],
+        "institutional" : ["membership"],
+        "revisable" : []
+    },
+    "devices" : {
+        "adaptive" : ["ad hoc assemblage"],
+        "plan_oriented" : ["scientific and technical"],
+        "institutional" : ["standard compliant"],
+        "revisable" : []
+    },
+    "organizationOfParticipation" : {
+        "adaptive" : ["encounters"],
+        "plan_oriented" : ["scheduled meetings"],
+        "institutional" : ["platforms"],
+        "revisable" : []
+    },
+    "flowOfParticipation" : {
+        "adaptive" : ["spontaneous conversation"],
+        "plan_oriented" : ["goal oriented conversation"],
+        "institutional" : ["asymmetric conversation"],
+        "revisable" : []
+    },
+    "rhythmOfParticipation" : {
+        "adaptive" : ["burst"],
+        "plan_oriented" : ["planned"],
+        "institutional" : ["continuous"],
+        "revisable" : []
+    },
+    "roleDistribution" : {
+        "adaptive" : ["sharing"],
+        "plan_oriented" : ["expert discussion"],
+        "institutional" : ["coaching"],
+        "revisable" : []
+    },
+    "conflictProblemSolving" : {
+        "adaptive" : ["arrangement"],
+        "plan_oriented" : ["negotioation"],
+        "institutional" : ["procedural resolution"],
+        "revisable" : []
+    },
+    "networkingMethod" : {
+        "adaptive" : ["incrementation"],
+        "plan_oriented" : ["ad hoc"],
+        "institutional" : ["already instituted"],
+        "revisable" : []
+    },
+    "networkingQuality" : {
+        "adaptive" : ["diversification"],
+        "plan_oriented" : ["specialization"],
+        "institutional" : ["simplification"],
+        "revisable" : []
+    },
+    "governancePrinciples" : {
+        "adaptive" : ["interpersonal"],
+        "plan_oriented" : ["market industry"],
+        "institutional" : ["buraucracy"],
+        "revisable" : []
+    },
+    "idiomManagement" : {
+        "adaptive" : ["polysemic tolerance"],
+        "plan_oriented" : ["jargon translation"],
+        "institutional" : ["conventional language"],
+        "revisable" : []
+    },
+    "knowledgeDiversityProcessing" : {
+        "adaptive" : ["conceptual creolization"],
+        "plan_oriented" : ["correspondance and translation table"],
+        "institutional" : ["contribution to common knowledge"],
+        "revisable" : []
+    },
+    "knowledgeExchangeOrientation" : {
+        "adaptive" : ["egalitarian"],
+        "plan_oriented" : ["differential"],
+        "institutional" : ["unidirectional"],
+        "revisable" : []
+    },
+    "managementStyle" : {
+        "adaptive" : ["support"],
+        "plan_oriented" : ["stimulation"],
+        "institutional" : ["control"],
+        "revisable" : []
+    },
+    "divisionOfLabor" : {
+        "adaptive" : ["ad hoc distribution"],
+        "plan_oriented" : ["skill based"],
+        "institutional" : ["status based"],
+        "revisable" : []
+    },
+    "dataArticulationMode" : {
+        "adaptive" : ["data lake"],
+        "plan_oriented" : ["data network"],
+        "institutional" : ["data workflow"],
+        "revisable" : []
+    },
+    "stakeholderDataScalability" : {
+        "adaptive" : ["staggering"],
+        "plan_oriented" : ["anticipated"],
+        "institutional" : ["stable"],
+        "revisable" : []
+    },
+    "learningProcess" : {
+        "adaptive" : ["trial and error"],
+        "plan_oriented" : ["scientific method"],
+        "institutional" : ["capitalization"],
+        "revisable" : []
+    },
+    "engagementAssessmentType" : {
+        "adaptive" : ["proof of initiative"],
+        "plan_oriented" : ["proof of work"],
+        "institutional" : ["proof of compliance"],
+        "revisable" : []
+    },
+    "legalEthicalCompliance" : {
+        "adaptive" : ["versatility"],
+        "plan_oriented" : ["riskTaking"],
+        "institutional" : ["certificated"],
+        "revisable" : []
+    }
+}

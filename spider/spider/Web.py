@@ -8,6 +8,8 @@ from .Network import *
 from .utils import *
 from .mediaConvert import *
 from .IIIF import *
+import copy
+import uuid
 
 class Web(SpiderElement):
     def __init__(self, **kwargs):
@@ -55,6 +57,17 @@ class Web(SpiderElement):
 
     def addNode(self, metadata):
         newNode = Node(parentPath = os.path.join(self.path, "web"), **metadata)
+        return newNode
+    
+    def duplicateNode(self, searchTerm, **kwargs):
+        toDuplicate = self.loadNode(searchTerm, **kwargs)
+
+        newNode = copy.deepcopy(toDuplicate)
+        newNode.uuid = str(uuid.uuid4())
+        newNode.path = os.path.join(self.path, "web/nodes/" + newNode.uuid + "/node.json") # TODO This will not work for nested
+
+        newNode.write()
+
         return newNode
 
     def loadNode(self, searchTerm, **kwargs):
