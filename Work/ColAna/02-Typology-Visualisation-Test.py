@@ -2,12 +2,10 @@ from colana import *
 import utils
 import os
 
-documentPaths = [
-    "/Users/jacob/Documents/Git Repos/spider-python/Examples/ColAna/OUTPUT/Desire.json",
-    "/Users/jacob/Documents/Git Repos/spider-python/Examples/ColAna/OUTPUT/Public Workshop.json"
-]
+documentPaths = utils.collectFiles("/Users/jacob/Documents/Git Repos/spider-python/Work/ColAna/OUTPUT/DocData")
 
-parsingMatrixPath = "/Users/jacob/Documents/Git Repos/spider-python/Examples/ColAna/parsingMatrix.json"
+
+parsingMatrixPath = "/Users/jacob/Documents/Git Repos/spider-python/Work/ColAna/parsingMatrix.json"
 
 testProject = Project(parsingMatrixPath)
 
@@ -20,9 +18,4 @@ for doc in testProject.documents:
     
     print("Loss: " + str(getFieldListLoss(fieldList)))
 
-    doc.parseDocument()
-
-    '''
-    for item in fieldList:
-        print("\t" + item["feature"] + ": " + str(item["matrix"]))
-    '''
+    doc.parseDocument(saveFile = os.path.join("/Users/jacob/Documents/Git Repos/spider-python/Work/ColAna/OUTPUT/Images", doc.name + ".png"))

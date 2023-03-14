@@ -1,0 +1,121 @@
+{
+    "name": "Founding texts",
+    "uuid": "f5483356-2464-4e2f-b0fb-98aef784e050",
+    "node_uuid": "4e2460c1-e0b5-46cb-a017-dc242e0e70f5",
+    "skills": [
+        {
+            "typology": "academic-expert",
+            "explanation": ""
+        }
+    ],
+    "culturalDiversity": [
+        {
+            "typology": "cultural mix",
+            "explanation": ""
+        },
+        {
+            "typology": "pluricultural",
+            "explanation": ""
+        }
+    ],
+    "waysToObtainDataSources": null,
+    "compensation": [
+        {
+            "typology": "incentives",
+            "explanation": ""
+        },
+        {
+            "typology": "contract",
+            "explanation": ""
+        }
+    ],
+    "funding": null,
+    "dissemination": [
+        {
+            "typology": "open",
+            "explanation": ""
+        },
+        {
+            "typology": "academic oriented",
+            "explanation": ""
+        }
+    ],
+    "recrutement": null,
+    "devices": [
+        {
+            "typology": "ad hoc assemblage",
+            "explanation": ""
+        }
+    ],
+    "organizationOfParticipation": [
+        {
+            "typology": "encounters",
+            "explanation": ""
+        }
+    ],
+    "flowOfParticipation": [
+        {
+            "typology": "goal oriented conversation",
+            "explanation": ""
+        },
+        {
+            "typology": "asymmetric conversation",
+            "explanation": ""
+        }
+    ],
+    "rhythmOfParticipation": [
+        {
+            "typology": "burst",
+            "explanation": ""
+        },
+        {
+            "typology": "continuous",
+            "explanation": ""
+        }
+    ],
+    "roleDistribution": [
+        {
+            "typology": "expert discussion",
+            "explanation": ""
+        }
+    ],
+    "conflictProblemSolving": null,
+    "networkingMethod": null,
+    "networkingQuality": [
+        {
+            "typology": "specialization",
+            "explanation": ""
+        }
+    ],
+    "governancePrinciples": null,
+    "idiomManagement": null,
+    "knowledgeDiversityProcessing": null,
+    "knowledgeExchangeOrientation": [
+        {
+            "typology": "unidirectional",
+            "explanation": ""
+        }
+    ],
+    "managementStyle": [
+        {
+            "typology": "stimulation",
+            "explanation": ""
+        }
+    ],
+    "divisionOfLabor": null,
+    "dataArticulationMode": [
+        {
+            "typology": "data lake",
+            "explanation": ""
+        }
+    ],
+    "stakeholderDataScalability": null,
+    "learningProcess": null,
+    "engagementAssessmentType": [
+        {
+            "typology": "proof of initiative",
+            "explanation": ""
+        }
+    ],
+    "legalEthicalCompliance": null
+}

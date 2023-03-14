@@ -1,0 +1,166 @@
+{
+    "name": "Laban Notatations",
+    "uuid": "cca7e0a3-2ef1-4c98-a8ed-32043a7067a0",
+    "node_uuid": "f136cb68-c966-42ad-b1b2-26306cc6f12e",
+    "skills": [
+        {
+            "typology": "experimental",
+            "explanation": ""
+        },
+        {
+            "typology": "academic-expert",
+            "explanation": ""
+        },
+        {
+            "typology": "procedural",
+            "explanation": ""
+        }
+    ],
+    "culturalDiversity": [
+        {
+            "typology": "unique",
+            "explanation": ""
+        }
+    ],
+    "waysToObtainDataSources": null,
+    "compensation": [
+        {
+            "typology": "incentives",
+            "explanation": ""
+        },
+        {
+            "typology": "contract",
+            "explanation": ""
+        }
+    ],
+    "funding": [
+        {
+            "typology": "institutional",
+            "explanation": ""
+        }
+    ],
+    "dissemination": [
+        {
+            "typology": "open",
+            "explanation": ""
+        },
+        {
+            "typology": "academic oriented",
+            "explanation": ""
+        }
+    ],
+    "recrutement": [
+        {
+            "typology": "membership",
+            "explanation": ""
+        }
+    ],
+    "devices": [
+        {
+            "typology": "ad hoc assemblage",
+            "explanation": ""
+        },
+        {
+            "typology": "scientific and technical",
+            "explanation": ""
+        }
+    ],
+    "organizationOfParticipation": [
+        {
+            "typology": "scheduled meetings",
+            "explanation": ""
+        }
+    ],
+    "flowOfParticipation": [
+        {
+            "typology": "goal oriented conversation",
+            "explanation": ""
+        },
+        {
+            "typology": "asymmetric conversation",
+            "explanation": ""
+        }
+    ],
+    "rhythmOfParticipation": [
+        {
+            "typology": "planned",
+            "explanation": ""
+        }
+    ],
+    "roleDistribution": [
+        {
+            "typology": "sharing",
+            "explanation": ""
+        },
+        {
+            "typology": "expert discussion",
+            "explanation": ""
+        },
+        {
+            "typology": "coaching",
+            "explanation": ""
+        }
+    ],
+    "conflictProblemSolving": null,
+    "networkingMethod": null,
+    "networkingQuality": [
+        {
+            "typology": "specialization",
+            "explanation": ""
+        }
+    ],
+    "governancePrinciples": null,
+    "idiomManagement": [
+        {
+            "typology": "polysemic tolerance",
+            "explanation": ""
+        },
+        {
+            "typology": "jargon translation",
+            "explanation": ""
+        }
+    ],
+    "knowledgeDiversityProcessing": null,
+    "knowledgeExchangeOrientation": [
+        {
+            "typology": "egalitarian",
+            "explanation": ""
+        },
+        {
+            "typology": "unidirectional",
+            "explanation": ""
+        }
+    ],
+    "managementStyle": [
+        {
+            "typology": "stimulation",
+            "explanation": ""
+        }
+    ],
+    "divisionOfLabor": [
+        {
+            "typology": "skill based",
+            "explanation": ""
+        }
+    ],
+    "dataArticulationMode": [
+        {
+            "typology": "data lake",
+            "explanation": ""
+        }
+    ],
+    "stakeholderDataScalability": null,
+    "learningProcess": [
+        {
+            "typology": "scientific method",
+            "explanation": ""
+        }
+    ],
+    "engagementAssessmentType": [
+        {
+            "typology": "proof of work",
+            "explanation": ""
+        }
+    ],
+    "legalEthicalCompliance": null
+}

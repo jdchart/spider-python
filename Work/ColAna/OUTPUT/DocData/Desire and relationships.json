@@ -1,0 +1,158 @@
+{
+    "name": "Desire and relationships",
+    "uuid": "881fbba7-631d-405d-9f4c-c5d4a97eee64",
+    "node_uuid": "6f0895f4-df56-4010-9183-1341636d5e38",
+    "skills": [
+        {
+            "typology": "experimental",
+            "explanation": ""
+        },
+        {
+            "typology": "academic-expert",
+            "explanation": ""
+        }
+    ],
+    "culturalDiversity": [
+        {
+            "typology": "unique",
+            "explanation": ""
+        }
+    ],
+    "waysToObtainDataSources": null,
+    "compensation": [
+        {
+            "typology": "incentives",
+            "explanation": ""
+        },
+        {
+            "typology": "contract",
+            "explanation": ""
+        }
+    ],
+    "funding": [
+        {
+            "typology": "institutional",
+            "explanation": ""
+        }
+    ],
+    "dissemination": [
+        {
+            "typology": "open",
+            "explanation": ""
+        },
+        {
+            "typology": "academic oriented",
+            "explanation": ""
+        }
+    ],
+    "recrutement": [
+        {
+            "typology": "membership",
+            "explanation": ""
+        }
+    ],
+    "devices": [
+        {
+            "typology": "ad hoc assemblage",
+            "explanation": ""
+        }
+    ],
+    "organizationOfParticipation": [
+        {
+            "typology": "encounters",
+            "explanation": ""
+        }
+    ],
+    "flowOfParticipation": [
+        {
+            "typology": "goal oriented conversation",
+            "explanation": ""
+        },
+        {
+            "typology": "asymmetric conversation",
+            "explanation": ""
+        }
+    ],
+    "rhythmOfParticipation": [
+        {
+            "typology": "burst",
+            "explanation": ""
+        },
+        {
+            "typology": "continuous",
+            "explanation": ""
+        }
+    ],
+    "roleDistribution": [
+        {
+            "typology": "sharing",
+            "explanation": ""
+        },
+        {
+            "typology": "expert discussion",
+            "explanation": ""
+        }
+    ],
+    "conflictProblemSolving": null,
+    "networkingMethod": [
+        {
+            "typology": "incrementation",
+            "explanation": ""
+        }
+    ],
+    "networkingQuality": [
+        {
+            "typology": "specialization",
+            "explanation": ""
+        }
+    ],
+    "governancePrinciples": null,
+    "idiomManagement": null,
+    "knowledgeDiversityProcessing": null,
+    "knowledgeExchangeOrientation": [
+        {
+            "typology": "unidirectional",
+            "explanation": ""
+        }
+    ],
+    "managementStyle": null,
+    "divisionOfLabor": [
+        {
+            "typology": "skill based",
+            "explanation": ""
+        }
+    ],
+    "dataArticulationMode": [
+        {
+            "typology": "data lake",
+            "explanation": ""
+        }
+    ],
+    "stakeholderDataScalability": [
+        {
+            "typology": "staggering",
+            "explanation": ""
+        }
+    ],
+    "learningProcess": [
+        {
+            "typology": "trial and error",
+            "explanation": ""
+        },
+        {
+            "typology": "scientific method",
+            "explanation": ""
+        }
+    ],
+    "engagementAssessmentType": [
+        {
+            "typology": "proof of initiative",
+            "explanation": ""
+        },
+        {
+            "typology": "proof of work",
+            "explanation": ""
+        }
+    ],
+    "legalEthicalCompliance": null
+}

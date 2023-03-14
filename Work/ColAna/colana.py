@@ -45,39 +45,32 @@ class Document:
         for item in readData:
             setattr(self, item, readData[item])
 
-    def parseDocument(self):
-        fieldList = self.parseFields()
-    
+    def parseDocument(self, **kwargs):
+        fieldList = self.parseFields()    
         #print("Loss: " + str(getFieldListLoss(fieldList)))
         
         fullMatrix = getEmptyMatrix(self.parsingMatrix["skills"])
 
-        
         fieldCount = 0
         for item in fieldList:
             if item["matrix"] != None:
                 fieldCount = fieldCount + 1
                 for typo in item["matrix"]:
                     fullMatrix[typo] = fullMatrix[typo] + item["matrix"][typo]
-        
-        #print(fullMatrix)
-        #print(fieldCount)
 
         for item in fullMatrix:
             fullMatrix[item] = fullMatrix[item] / fieldCount
 
-        #print(fullMatrix)
-
         toDraw = []
-        '''
+
         for item in fieldList:
             if item["matrix"] != None:
-                toDraw.append({"matrix" : item["matrix"], "col" : [66, 167, 214]})
-        '''
-        
-        toDraw.append({"matrix" : fullMatrix, "col" : [222, 113, 126]})
+                toDraw.append({"matrix" : item["matrix"], "col" : [66, 167, 214], "drawShape" : False})
 
-        drawCompass(self.name, toDraw)
+        
+        toDraw.append({"matrix" : fullMatrix, "col" : [222, 113, 126], "drawShape" : True})
+
+        drawCompass(self.name, toDraw, kwargs.get("saveFile", os.path.join(os.getcwd(), self.name + '.png')))
 
     def parseFields(self):
         fieldList = []
@@ -135,7 +128,7 @@ def normalizeMatrix(matrix):
         normalized[item] = utils.rescale(matrix[item], minVal, maxVal, 0, 1)
     return normalized
 
-def drawCompass(name, dataList):
+def drawCompass(name, dataList, saveFile):
 
     imageDims = {
         "width" : 1000,
@@ -143,7 +136,8 @@ def drawCompass(name, dataList):
         "padding" : 10
     }
     imageStyle = {
-        "lineWidth" : 4
+        "lineWidth" : 4,
+        "pointSize" : 8
     }
 
     finalImg = Image.new('RGBA',(imageDims["width"], imageDims["height"]), (250,250,250, 0))
@@ -165,33 +159,38 @@ def drawCompass(name, dataList):
         x4 = imageDims["width"] * 0.5
         y4 = imageDims["height"] * 0.5
 
-        draw.polygon(
-            [
-                (
-                    x1,
-                    y1
-                ),
-                (
-                    x2,
-                    y2
-                ),
-                (
-                    x3,
-                    y3
-                ),
-                (
-                    x4,
-                    y4
-                )
-            ],
-            fill = fillCol,
-            outline = lineCol,
-            width = imageStyle["lineWidth"]
+        if item["drawShape"]:
+            draw.polygon(
+                [
+                    (
+                        x1,
+                        y1
+                    ),
+                    (
+                        x2,
+                        y2
+                    ),
+                    (
+                        x3,
+                        y3
+                    ),
+                    (
+                        x4,
+                        y4
+                    )
+                ],
+                fill = fillCol,
+                outline = lineCol,
+                width = imageStyle["lineWidth"]
+            )
+    
+        centroid = utils.getCentroid([[x1, y1], [x2, y2], [x3, y3], [x4, y4]])
+        draw.ellipse(
+            [centroid[0] - (imageStyle["pointSize"]*0.5), centroid[1]- (imageStyle["pointSize"]*0.5), centroid[0] + (imageStyle["pointSize"]*0.5), centroid[1] + (imageStyle["pointSize"]*0.5)],
+            fill = lineCol
         )
 
-        #centroid = getCentroid
-        #https://www.spatialanalysisonline.com/HTML/centroids_and_centers.htm#:~:text=As%20noted%20above%2C%20the%20term,sheet%20of%20steel%20or%20cardboard.
-    
+
     draw.line(
         (
             (imageDims["width"] * 0.5) - (imageStyle["lineWidth"] * 0.5), 
@@ -214,4 +213,4 @@ def drawCompass(name, dataList):
         width = imageStyle["lineWidth"]
     )
 
-    finalImg.save(os.path.join(os.getcwd(), name + '.png'), "PNG")
+    finalImg.save(saveFile, "PNG")

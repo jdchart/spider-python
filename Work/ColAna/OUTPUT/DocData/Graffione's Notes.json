@@ -1,0 +1,125 @@
+{
+    "name": "Graffione's Notes",
+    "uuid": "",
+    "node_uuid": "04cff583-6831-4fe8-8fd8-ce3073aaa4ab",
+    "skills": [
+        {
+            "typology": "experimental",
+            "explanation": ""
+        },
+        {
+            "typology": "academic-expert",
+            "explanation": ""
+        }
+    ],
+    "culturalDiversity": [
+        {
+            "typology": "unique",
+            "explanation": ""
+        }
+    ],
+    "waysToObtainDataSources": null,
+    "compensation": [
+        {
+            "typology": "incentives",
+            "explanation": ""
+        },
+        {
+            "typology": "altruistic duty",
+            "explanation": ""
+        }
+    ],
+    "funding": [
+        {
+            "typology": "institutional",
+            "explanation": ""
+        }
+    ],
+    "dissemination": [
+        {
+            "typology": "open",
+            "explanation": ""
+        },
+        {
+            "typology": "academic oriented",
+            "explanation": ""
+        }
+    ],
+    "recrutement": [
+        {
+            "typology": "membership",
+            "explanation": ""
+        }
+    ],
+    "devices": [
+        {
+            "typology": "ad hoc assemblage",
+            "explanation": ""
+        }
+    ],
+    "organizationOfParticipation": [
+        {
+            "typology": "encounters",
+            "explanation": ""
+        }
+    ],
+    "flowOfParticipation": [
+        {
+            "typology": "spontaneous conversation",
+            "explanation": ""
+        },
+        {
+            "typology": "goal oriented conversation",
+            "explanation": ""
+        },
+        {
+            "typology": "asymmetric conversation",
+            "explanation": ""
+        }
+    ],
+    "rhythmOfParticipation": [
+        {
+            "typology": "burst",
+            "explanation": ""
+        },
+        {
+            "typology": "continuous",
+            "explanation": ""
+        }
+    ],
+    "roleDistribution": null,
+    "conflictProblemSolving": null,
+    "networkingMethod": null,
+    "networkingQuality": null,
+    "governancePrinciples": null,
+    "idiomManagement": null,
+    "knowledgeDiversityProcessing": null,
+    "knowledgeExchangeOrientation": [
+        {
+            "typology": "unidirectional",
+            "explanation": ""
+        }
+    ],
+    "managementStyle": null,
+    "divisionOfLabor": null,
+    "dataArticulationMode": [
+        {
+            "typology": "data lake",
+            "explanation": ""
+        }
+    ],
+    "stakeholderDataScalability": null,
+    "learningProcess": [
+        {
+            "typology": "trial and error",
+            "explanation": ""
+        }
+    ],
+    "engagementAssessmentType": [
+        {
+            "typology": "proof of initiative",
+            "explanation": ""
+        }
+    ],
+    "legalEthicalCompliance": null
+}

@@ -2,11 +2,11 @@ from colana import *
 import utils
 import os
 
-documentName = ""
-nodeUUID = ""
+documentName = "Ferrando's Notes"
+nodeUUID = "154498a1-d16e-4b81-adc3-57b942074cf4"
 
-parsingMatrixPath = "/Users/jacob/Documents/Git Repos/spider-python/Examples/ColAna/parsingMatrix.json"
-featureIndicatorMatrixPath = "/Users/jacob/Documents/Git Repos/spider-python/Examples/ColAna/featureIndicatorMatrix.json"
+parsingMatrixPath = "/Users/jacob/Documents/Git Repos/spider-python/Work/ColAna/parsingMatrix.json"
+featureIndicatorMatrixPath = "/Users/jacob/Documents/Git Repos/spider-python/Work/ColAna/featureIndicatorMatrix.json"
 
 testProject = Project(parsingMatrixPath)
 
@@ -49,4 +49,4 @@ for item in parsingMatrix:
     
     myDoc.write(os.path.join(os.getcwd(), "temp_out.json"))
 
-myDoc.write(os.path.join("/Users/jacob/Documents/Git Repos/spider-python/Examples/ColAna/OUTPUT", documentName + ".json"))
+myDoc.write(os.path.join("/Users/jacob/Documents/Git Repos/spider-python/Work/ColAna/OUTPUT/DocData", documentName + ".json"))

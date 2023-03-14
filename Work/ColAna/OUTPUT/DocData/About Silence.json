@@ -1,0 +1,169 @@
+{
+    "name": "About Silence",
+    "uuid": "46abbe27-7238-4a65-9879-3a3525c14a5c",
+    "node_uuid": "8d87fbad-8db8-4f95-94bf-b516917e8d30",
+    "skills": [
+        {
+            "typology": "experimental",
+            "explanation": ""
+        },
+        {
+            "typology": "academic-expert",
+            "explanation": ""
+        }
+    ],
+    "culturalDiversity": [
+        {
+            "typology": "cultural mix",
+            "explanation": ""
+        },
+        {
+            "typology": "pluricultural",
+            "explanation": ""
+        }
+    ],
+    "waysToObtainDataSources": null,
+    "compensation": [
+        {
+            "typology": "incentives",
+            "explanation": ""
+        },
+        {
+            "typology": "contract",
+            "explanation": ""
+        }
+    ],
+    "funding": [
+        {
+            "typology": "institutional",
+            "explanation": ""
+        }
+    ],
+    "dissemination": [
+        {
+            "typology": "open",
+            "explanation": ""
+        },
+        {
+            "typology": "academic oriented",
+            "explanation": ""
+        }
+    ],
+    "recrutement": [
+        {
+            "typology": "membership",
+            "explanation": ""
+        }
+    ],
+    "devices": null,
+    "organizationOfParticipation": [
+        {
+            "typology": "encounters",
+            "explanation": ""
+        }
+    ],
+    "flowOfParticipation": [
+        {
+            "typology": "goal oriented conversation",
+            "explanation": ""
+        },
+        {
+            "typology": "asymmetric conversation",
+            "explanation": ""
+        }
+    ],
+    "rhythmOfParticipation": [
+        {
+            "typology": "burst",
+            "explanation": ""
+        },
+        {
+            "typology": "planned",
+            "explanation": ""
+        },
+        {
+            "typology": "continuous",
+            "explanation": ""
+        }
+    ],
+    "roleDistribution": [
+        {
+            "typology": "sharing",
+            "explanation": ""
+        },
+        {
+            "typology": "expert discussion",
+            "explanation": ""
+        }
+    ],
+    "conflictProblemSolving": null,
+    "networkingMethod": null,
+    "networkingQuality": null,
+    "governancePrinciples": null,
+    "idiomManagement": [
+        {
+            "typology": "polysemic tolerance",
+            "explanation": ""
+        },
+        {
+            "typology": "jargon translation",
+            "explanation": ""
+        }
+    ],
+    "knowledgeDiversityProcessing": null,
+    "knowledgeExchangeOrientation": [
+        {
+            "typology": "egalitarian",
+            "explanation": ""
+        },
+        {
+            "typology": "unidirectional",
+            "explanation": ""
+        }
+    ],
+    "managementStyle": [
+        {
+            "typology": "stimulation",
+            "explanation": ""
+        }
+    ],
+    "divisionOfLabor": [
+        {
+            "typology": "skill based",
+            "explanation": ""
+        }
+    ],
+    "dataArticulationMode": [
+        {
+            "typology": "data lake",
+            "explanation": ""
+        }
+    ],
+    "stakeholderDataScalability": [
+        {
+            "typology": "stable",
+            "explanation": ""
+        }
+    ],
+    "learningProcess": [
+        {
+            "typology": "trial and error",
+            "explanation": ""
+        },
+        {
+            "typology": "scientific method",
+            "explanation": ""
+        }
+    ],
+    "engagementAssessmentType": [
+        {
+            "typology": "proof of initiative",
+            "explanation": ""
+        },
+        {
+            "typology": "proof of work",
+            "explanation": ""
+        }
+    ],
+    "legalEthicalCompliance": null
+}

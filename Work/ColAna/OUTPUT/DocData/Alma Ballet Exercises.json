@@ -1,0 +1,206 @@
+{
+    "name": "Alma Ballet Exercises",
+    "uuid": "9fe763bc-a114-4fd6-89f6-bb43087d7986",
+    "node_uuid": "c3f92e01-c85a-4487-a40e-6c29f9dc915d",
+    "skills": [
+        {
+            "typology": "experimental",
+            "explanation": "The video features experimental dance exercises."
+        },
+        {
+            "typology": "academic-expert",
+            "explanation": "The workshop was led by an accademic and an expert."
+        }
+    ],
+    "culturalDiversity": [
+        {
+            "typology": "cultural mix",
+            "explanation": "We can expect a cultural mix from a group of students."
+        },
+        {
+            "typology": "pluricultural",
+            "explanation": "We can expect a cultural mix from a group of students."
+        }
+    ],
+    "waysToObtainDataSources": null,
+    "compensation": [
+        {
+            "typology": "incentives",
+            "explanation": "The students are participating for various incentives."
+        },
+        {
+            "typology": "contract",
+            "explanation": "The leaders of the workshop are participating under contract."
+        }
+    ],
+    "funding": [
+        {
+            "typology": "institutional",
+            "explanation": "Funded by the COESO Project."
+        }
+    ],
+    "dissemination": [
+        {
+            "typology": "open",
+            "explanation": "The video is available on Youtube."
+        }
+    ],
+    "recrutement": [
+        {
+            "typology": "informal",
+            "explanation": "We can expect an informal recrutement procedure for the workshop."
+        },
+        {
+            "typology": "membership",
+            "explanation": "Led by members of the COESO Project."
+        }
+    ],
+    "devices": [
+        {
+            "typology": "ad hoc assemblage",
+            "explanation": "Few tools used, dance studio and camera. Pen and paper for Laban notations."
+        }
+    ],
+    "organizationOfParticipation": [
+        {
+            "typology": "scheduled meetings",
+            "explanation": "This was a scheduled meeting."
+        }
+    ],
+    "flowOfParticipation": [
+        {
+            "typology": "spontaneous conversation",
+            "explanation": "We can imagine spontaneous conversation occuring in the workshop."
+        },
+        {
+            "typology": "goal oriented conversation",
+            "explanation": "Led by experts, we can also expect goal oriented conversation."
+        }
+    ],
+    "rhythmOfParticipation": [
+        {
+            "typology": "planned",
+            "explanation": "This was a planned workshop."
+        }
+    ],
+    "roleDistribution": [
+        {
+            "typology": "sharing",
+            "explanation": "The workshop was carried out in a way where the students participated in the research and shared their experiences."
+        },
+        {
+            "typology": "expert discussion",
+            "explanation": "We can also imagine a level of expert discussion."
+        },
+        {
+            "typology": "coaching",
+            "explanation": "We can also imagine a c ertain degree of coaching."
+        }
+    ],
+    "conflictProblemSolving": [
+        {
+            "typology": "arrangement",
+            "explanation": "We can imagine that any problems that arrose were resolved through arrangement."
+        }
+    ],
+    "networkingMethod": [
+        {
+            "typology": "incrementation",
+            "explanation": "The network is growing with student participation."
+        }
+    ],
+    "networkingQuality": [
+        {
+            "typology": "diversification",
+            "explanation": "The network is growing more diverse."
+        }
+    ],
+    "governancePrinciples": null,
+    "idiomManagement": [
+        {
+            "typology": "polysemic tolerance",
+            "explanation": "A workshop with many participants, we can imagine a degree of polysemic tolerance."
+        },
+        {
+            "typology": "jargon translation",
+            "explanation": "We can imagine jargon having to be translated by the experts."
+        },
+        {
+            "typology": "conventional language",
+            "explanation": "Many of the participants are in the world of contemporary dance and so use the same terminologies."
+        }
+    ],
+    "knowledgeDiversityProcessing": null,
+    "knowledgeExchangeOrientation": [
+        {
+            "typology": "egalitarian",
+            "explanation": "The model for the workshops is an egalitarian knowledge exchange."
+        }
+    ],
+    "managementStyle": [
+        {
+            "typology": "support",
+            "explanation": "We can imagine the leaders of the workshop wishing to propose a supporting management style for the workshop."
+        },
+        {
+            "typology": "stimulation",
+            "explanation": "The leaders are alos stimualting the students."
+        },
+        {
+            "typology": "control",
+            "explanation": "The leaders are also in control of proceedings."
+        }
+    ],
+    "divisionOfLabor": [
+        {
+            "typology": "ad hoc distribution",
+            "explanation": "Participants are brought to work on things outside of their skill sets."
+        },
+        {
+            "typology": "status based",
+            "explanation": "The leaders are leading the workshop because of their status on the project."
+        }
+    ],
+    "dataArticulationMode": [
+        {
+            "typology": "data lake",
+            "explanation": ""
+        }
+    ],
+    "stakeholderDataScalability": [
+        {
+            "typology": "staggering",
+            "explanation": "Number of stakeholders is growing."
+        }
+    ],
+    "learningProcess": [
+        {
+            "typology": "trial and error",
+            "explanation": "An experimental workshop, we can imagine a learning process through trial and error."
+        },
+        {
+            "typology": "scientific method",
+            "explanation": "The scientif method is also being deployed."
+        }
+    ],
+    "engagementAssessmentType": [
+        {
+            "typology": "proof of initiative",
+            "explanation": ""
+        },
+        {
+            "typology": "proof of work",
+            "explanation": ""
+        }
+    ],
+    "legalEthicalCompliance": [
+        {
+            "typology": "versatility",
+            "explanation": "We can assume that in this workshop a certain degree of versatility is required in terms of legal and ethical compliance."
+        },
+        {
+            "typology": "riskTaking",
+            "explanation": "With a large numbe rof participants, we can also assume a certain degree of risk taking."
+        }
+    ]
+}

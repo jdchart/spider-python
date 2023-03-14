@@ -1,0 +1,204 @@
+{
+    "name": "Freedom and the Practice of Authenticity in Italian Feminism",
+    "uuid": "703ddd6a-2ca4-47c7-89b2-51c24762a8d3",
+    "node_uuid": "3fbe4a9b-a518-46ae-a944-8830d6febde8",
+    "skills": [
+        {
+            "typology": "experimental",
+            "explanation": ""
+        },
+        {
+            "typology": "academic-expert",
+            "explanation": ""
+        },
+        {
+            "typology": "procedural",
+            "explanation": ""
+        }
+    ],
+    "culturalDiversity": [
+        {
+            "typology": "cultural mix",
+            "explanation": ""
+        },
+        {
+            "typology": "pluricultural",
+            "explanation": ""
+        }
+    ],
+    "waysToObtainDataSources": null,
+    "compensation": [
+        {
+            "typology": "incentives",
+            "explanation": ""
+        },
+        {
+            "typology": "contract",
+            "explanation": ""
+        }
+    ],
+    "funding": [
+        {
+            "typology": "mixed",
+            "explanation": ""
+        }
+    ],
+    "dissemination": [
+        {
+            "typology": "open",
+            "explanation": ""
+        },
+        {
+            "typology": "academic oriented",
+            "explanation": ""
+        }
+    ],
+    "recrutement": [
+        {
+            "typology": "call procedure",
+            "explanation": ""
+        },
+        {
+            "typology": "membership",
+            "explanation": ""
+        }
+    ],
+    "devices": [
+        {
+            "typology": "ad hoc assemblage",
+            "explanation": ""
+        }
+    ],
+    "organizationOfParticipation": [
+        {
+            "typology": "encounters",
+            "explanation": ""
+        }
+    ],
+    "flowOfParticipation": [
+        {
+            "typology": "goal oriented conversation",
+            "explanation": ""
+        },
+        {
+            "typology": "asymmetric conversation",
+            "explanation": ""
+        }
+    ],
+    "rhythmOfParticipation": [
+        {
+            "typology": "burst",
+            "explanation": ""
+        },
+        {
+            "typology": "planned",
+            "explanation": ""
+        },
+        {
+            "typology": "continuous",
+            "explanation": ""
+        }
+    ],
+    "roleDistribution": [
+        {
+            "typology": "sharing",
+            "explanation": ""
+        },
+        {
+            "typology": "expert discussion",
+            "explanation": ""
+        }
+    ],
+    "conflictProblemSolving": null,
+    "networkingMethod": [
+        {
+            "typology": "incrementation",
+            "explanation": ""
+        }
+    ],
+    "networkingQuality": [
+        {
+            "typology": "diversification",
+            "explanation": ""
+        },
+        {
+            "typology": "specialization",
+            "explanation": ""
+        }
+    ],
+    "governancePrinciples": null,
+    "idiomManagement": [
+        {
+            "typology": "polysemic tolerance",
+            "explanation": "y"
+        },
+        {
+            "typology": "conventional language",
+            "explanation": ""
+        }
+    ],
+    "knowledgeDiversityProcessing": null,
+    "knowledgeExchangeOrientation": [
+        {
+            "typology": "egalitarian",
+            "explanation": ""
+        },
+        {
+            "typology": "unidirectional",
+            "explanation": ""
+        }
+    ],
+    "managementStyle": [
+        {
+            "typology": "stimulation",
+            "explanation": ""
+        }
+    ],
+    "divisionOfLabor": [
+        {
+            "typology": "ad hoc distribution",
+            "explanation": ""
+        },
+        {
+            "typology": "skill based",
+            "explanation": ""
+        },
+        {
+            "typology": "status based",
+            "explanation": ""
+        }
+    ],
+    "dataArticulationMode": [
+        {
+            "typology": "data lake",
+            "explanation": ""
+        }
+    ],
+    "stakeholderDataScalability": [
+        {
+            "typology": "staggering",
+            "explanation": ""
+        }
+    ],
+    "learningProcess": [
+        {
+            "typology": "trial and error",
+            "explanation": ""
+        },
+        {
+            "typology": "scientific method",
+            "explanation": ""
+        }
+    ],
+    "engagementAssessmentType": [
+        {
+            "typology": "proof of initiative",
+            "explanation": ""
+        },
+        {
+            "typology": "proof of work",
+            "explanation": ""
+        }
+    ],
+    "legalEthicalCompliance": null
+}
