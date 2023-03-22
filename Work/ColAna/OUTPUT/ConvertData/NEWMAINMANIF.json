@@ -1,0 +1,567 @@
+{
+    "id": "http://localhost:9000/data/COESO-Project-Network/c41b0c91-f735-41fa-83f0-d9f836bb9ca1.json",
+    "type": "Manifest",
+    "@context": "http://iiif.io/api/presentation/3/context.json",
+    "label": {
+        "en": [
+            "Composite collaboration analytics compass"
+        ],
+        "fr": [
+            "Composite collaboration analytics compass"
+        ]
+    },
+    "items": [
+        {
+            "id": "http://localhost:9000/data/COESO-Project-Network/canvas/1",
+            "type": "Canvas",
+            "label": {
+                "en": [
+                    "Composite collaboration analytics compass"
+                ],
+                "fr": [
+                    "Composite collaboration analytics compass"
+                ]
+            },
+            "items": [
+                {
+                    "id": "http://localhost:9000/data/COESO-Project-Network/canvas/1/page/1",
+                    "type": "AnnotationPage",
+                    "items": [
+                        {
+                            "id": "http://localhost:9000/data/COESO-Project-Network/canvas/1/page/1/1",
+                            "type": "Annotation",
+                            "motivation": "painting",
+                            "target": "http://localhost:9000/data/COESO-Project-Network/canvas/1#xywh=0,0,1000,1000",
+                            "body": {
+                                "id": "http://localhost:9000/data/COESO-Project-Network/media/COMPOSITE.png",
+                                "type": "Image",
+                                "format": "image/png",
+                                "width": 1000,
+                                "height": 1000
+                            }
+                        }
+                    ]
+                }
+            ],
+            "annotations": [
+                {
+                    "id": "http://localhost:9000/data/COESO-Project-Network/canvas/1/annotation/1",
+                    "type": "AnnotationPage",
+                    "items": [
+                        {
+                            "id": "http://localhost:9000/data/COESO-Project-Network/canvas/1/annotation/1/1#http://localhost:9000/data/COESO-Project-Network/lower/12d385c4-4ee7-4663-b7ad-15624e79f7c9.json",
+                            "type": "Annotation",
+                            "motivation": "commenting",
+                            "target": "http://localhost:9000/data/COESO-Project-Network/canvas/1#xywh=384.2456140350877,607.7543859649123,8,8",
+                            "body": {
+                                "id": "",
+                                "type": "Document",
+                                "format": "document/pdf",
+                                "width": 841,
+                                "height": 595,
+                                "value": "Laban Notatations ()."
+                            }
+                        },
+                        {
+                            "id": "http://localhost:9000/data/COESO-Project-Network/canvas/1/annotation/1/2#http://localhost:9000/data/COESO-Project-Network/lower/554bc019-d0e2-4ff9-8fbb-692b68c4e6cf.json",
+                            "type": "Annotation",
+                            "motivation": "commenting",
+                            "target": "http://localhost:9000/data/COESO-Project-Network/canvas/1#xywh=325.56521739130443,481.7971014492754,8,8",
+                            "body": {
+                                "id": "",
+                                "type": "Video",
+                                "format": "video/mp4",
+                                "width": 1280,
+                                "height": 720,
+                                "duration": 120.0,
+                                "value": "Burning Heart ()."
+                            }
+                        },
+                        {
+                            "id": "http://localhost:9000/data/COESO-Project-Network/canvas/1/annotation/1/3#http://localhost:9000/data/COESO-Project-Network/lower/300a408f-6fab-499a-9e43-16485692bdd4.json",
+                            "type": "Annotation",
+                            "motivation": "commenting",
+                            "target": "http://localhost:9000/data/COESO-Project-Network/canvas/1#xywh=350.8148148148148,550.4444444444445,8,8",
+                            "body": {
+                                "id": "",
+                                "type": "Document",
+                                "format": "document/pdf",
+                                "width": 841,
+                                "height": 595,
+                                "value": "About Silence ()."
+                            }
+                        },
+                        {
+                            "id": "http://localhost:9000/data/COESO-Project-Network/canvas/1/annotation/1/4#http://localhost:9000/data/COESO-Project-Network/lower/aafb00b3-33d4-46e9-bc5f-5b8d198e288a.json",
+                            "type": "Annotation",
+                            "motivation": "commenting",
+                            "target": "http://localhost:9000/data/COESO-Project-Network/canvas/1#xywh=396.18518518518516,595.8148148148147,8,8",
+                            "body": {
+                                "id": "",
+                                "type": "Document",
+                                "format": "document/pdf",
+                                "width": 841,
+                                "height": 595,
+                                "value": "Graffione's Intentions ()."
+                            }
+                        },
+                        {
+                            "id": "http://localhost:9000/data/COESO-Project-Network/canvas/1/annotation/1/5#http://localhost:9000/data/COESO-Project-Network/lower/3645509d-6d7c-4821-aa70-50bd445737c3.json",
+                            "type": "Annotation",
+                            "motivation": "commenting",
+                            "target": "http://localhost:9000/data/COESO-Project-Network/canvas/1#xywh=317.8181818181818,481.1515151515152,8,8",
+                            "body": {
+                                "id": "",
+                                "type": "Video",
+                                "format": "video/mp4",
+                                "width": 1280,
+                                "height": 720,
+                                "duration": 188.0,
+                                "value": "Public Workshop ()."
+                            }
+                        },
+                        {
+                            "id": "http://localhost:9000/data/COESO-Project-Network/canvas/1/annotation/1/6#http://localhost:9000/data/COESO-Project-Network/lower/85c4128a-9ab7-4429-a082-8b2401b300b1.json",
+                            "type": "Annotation",
+                            "motivation": "commenting",
+                            "target": "http://localhost:9000/data/COESO-Project-Network/canvas/1#xywh=308.1666666666667,504.1666666666667,8,8",
+                            "body": {
+                                "id": "",
+                                "type": "Document",
+                                "format": "document/pdf",
+                                "width": 841,
+                                "height": 595,
+                                "value": "Alma Ballet Laban Notations ()."
+                            }
+                        },
+                        {
+                            "id": "http://localhost:9000/data/COESO-Project-Network/canvas/1/annotation/1/7#http://localhost:9000/data/COESO-Project-Network/lower/0edb9379-024d-497c-88d2-9afcdbb8fffa.json",
+                            "type": "Annotation",
+                            "motivation": "commenting",
+                            "target": "http://localhost:9000/data/COESO-Project-Network/canvas/1#xywh=480.44444444444446,589.3333333333334,8,8",
+                            "body": {
+                                "id": "",
+                                "type": "Video",
+                                "format": "video/mp4",
+                                "width": 1920,
+                                "height": 1080,
+                                "duration": 128.0,
+                                "value": "Centre (Ferrando's Description) ()."
+                            }
+                        },
+                        {
+                            "id": "http://localhost:9000/data/COESO-Project-Network/canvas/1/annotation/1/8#http://localhost:9000/data/COESO-Project-Network/lower/a7d09c8a-6a68-443f-b204-70fdaa8268eb.json",
+                            "type": "Annotation",
+                            "motivation": "commenting",
+                            "target": "http://localhost:9000/data/COESO-Project-Network/canvas/1#xywh=480.44444444444446,589.3333333333334,8,8",
+                            "body": {
+                                "id": "",
+                                "type": "Video",
+                                "format": "video/mp4",
+                                "width": 1920,
+                                "height": 1080,
+                                "duration": 73.0,
+                                "value": "Sober (Ferrando's Description) ()."
+                            }
+                        },
+                        {
+                            "id": "http://localhost:9000/data/COESO-Project-Network/canvas/1/annotation/1/9#http://localhost:9000/data/COESO-Project-Network/lower/58211eb9-686a-4152-b934-b5c2e5a3f15e.json",
+                            "type": "Annotation",
+                            "motivation": "commenting",
+                            "target": "http://localhost:9000/data/COESO-Project-Network/canvas/1#xywh=410.03508771929825,564.7719298245614,8,8",
+                            "body": {
+                                "id": "",
+                                "type": "Video",
+                                "format": "video/mp4",
+                                "width": 1280,
+                                "height": 720,
+                                "duration": 81.0,
+                                "value": "Choreographic Phrase Recording ()."
+                            }
+                        },
+                        {
+                            "id": "http://localhost:9000/data/COESO-Project-Network/canvas/1/annotation/1/10#http://localhost:9000/data/COESO-Project-Network/lower/91254fb8-f8a3-4be6-bc8a-7f8a6a8c1868.json",
+                            "type": "Annotation",
+                            "motivation": "commenting",
+                            "target": "http://localhost:9000/data/COESO-Project-Network/canvas/1#xywh=396.18518518518516,595.8148148148147,8,8",
+                            "body": {
+                                "id": "",
+                                "type": "Document",
+                                "format": "document/pdf",
+                                "width": 841,
+                                "height": 595,
+                                "value": "\"Starting with Words\" Intentions ()."
+                            }
+                        },
+                        {
+                            "id": "http://localhost:9000/data/COESO-Project-Network/canvas/1/annotation/1/11#http://localhost:9000/data/COESO-Project-Network/lower/17d2d198-7bc1-4035-92d5-5e5a84582053.json",
+                            "type": "Annotation",
+                            "motivation": "commenting",
+                            "target": "http://localhost:9000/data/COESO-Project-Network/canvas/1#xywh=449.3333333333333,496.0,8,8",
+                            "body": {
+                                "id": "",
+                                "type": "Document",
+                                "format": "document/pdf",
+                                "width": 841,
+                                "height": 595,
+                                "value": "Ferrando's Notes ()."
+                            }
+                        },
+                        {
+                            "id": "http://localhost:9000/data/COESO-Project-Network/canvas/1/annotation/1/12#http://localhost:9000/data/COESO-Project-Network/lower/91eec5ae-9ede-4c71-a97d-70c3ae117ac3.json",
+                            "type": "Annotation",
+                            "motivation": "commenting",
+                            "target": "http://localhost:9000/data/COESO-Project-Network/canvas/1#xywh=379.33333333333337,566.0,8,8",
+                            "body": {
+                                "id": "",
+                                "type": "Document",
+                                "format": "document/pdf",
+                                "width": 596,
+                                "height": 842,
+                                "value": "Choreographic Score ()."
+                            }
+                        },
+                        {
+                            "id": "http://localhost:9000/data/COESO-Project-Network/canvas/1/annotation/1/13#http://localhost:9000/data/COESO-Project-Network/lower/81eb56e7-c2e4-4241-bd2a-1a6f2ff2aeb3.json",
+                            "type": "Annotation",
+                            "motivation": "commenting",
+                            "target": "http://localhost:9000/data/COESO-Project-Network/canvas/1#xywh=349.0,528.6666666666667,8,8",
+                            "body": {
+                                "id": "",
+                                "type": "Document",
+                                "format": "document/pdf",
+                                "width": 595,
+                                "height": 842,
+                                "value": "La Parola Del Corpo ()."
+                            }
+                        },
+                        {
+                            "id": "http://localhost:9000/data/COESO-Project-Network/canvas/1/annotation/1/14#http://localhost:9000/data/COESO-Project-Network/lower/e3468446-fcaa-4d23-ad4a-85b0f4c4a0dc.json",
+                            "type": "Annotation",
+                            "motivation": "commenting",
+                            "target": "http://localhost:9000/data/COESO-Project-Network/canvas/1#xywh=384.24561403508767,521.7894736842105,8,8",
+                            "body": {
+                                "id": "",
+                                "type": "Document",
+                                "format": "document/pdf",
+                                "width": 595,
+                                "height": 842,
+                                "value": "Desire and Relationships ()."
+                            }
+                        },
+                        {
+                            "id": "http://localhost:9000/data/COESO-Project-Network/canvas/1/annotation/1/15#http://localhost:9000/data/COESO-Project-Network/lower/515595f0-682e-4ad9-b66c-f96b3b3b0588.json",
+                            "type": "Annotation",
+                            "motivation": "commenting",
+                            "target": "http://localhost:9000/data/COESO-Project-Network/canvas/1#xywh=384.2456140350877,607.7543859649123,8,8",
+                            "body": {
+                                "id": "",
+                                "type": "Document",
+                                "format": "document/pdf",
+                                "width": 841,
+                                "height": 595,
+                                "value": "Laban Notation of a Choregraphic Phrase ()."
+                            }
+                        },
+                        {
+                            "id": "http://localhost:9000/data/COESO-Project-Network/canvas/1/annotation/1/16#http://localhost:9000/data/COESO-Project-Network/lower/8d0b0051-d1e9-4fe4-89d9-b101bcb9a0fb.json",
+                            "type": "Annotation",
+                            "motivation": "commenting",
+                            "target": "http://localhost:9000/data/COESO-Project-Network/canvas/1#xywh=378.037037037037,505.0740740740741,8,8",
+                            "body": {
+                                "id": "",
+                                "type": "Video",
+                                "format": "video/mp4",
+                                "width": 1280,
+                                "height": 720,
+                                "duration": 459.0,
+                                "value": "Desire ()."
+                            }
+                        },
+                        {
+                            "id": "http://localhost:9000/data/COESO-Project-Network/canvas/1/annotation/1/17#http://localhost:9000/data/COESO-Project-Network/lower/289d7b63-06d2-405b-917e-7603c43bbd86.json",
+                            "type": "Annotation",
+                            "motivation": "commenting",
+                            "target": "http://localhost:9000/data/COESO-Project-Network/canvas/1#xywh=449.3333333333333,496.0,8,8",
+                            "body": {
+                                "id": "",
+                                "type": "Document",
+                                "format": "document/pdf",
+                                "width": 841,
+                                "height": 595,
+                                "value": "Graffione's Sketches ()."
+                            }
+                        },
+                        {
+                            "id": "http://localhost:9000/data/COESO-Project-Network/canvas/1/annotation/1/18#http://localhost:9000/data/COESO-Project-Network/lower/4f02f94b-745c-4ba2-a44d-c3986b693ba1.json",
+                            "type": "Annotation",
+                            "motivation": "commenting",
+                            "target": "http://localhost:9000/data/COESO-Project-Network/canvas/1#xywh=480.44444444444446,589.3333333333334,8,8",
+                            "body": {
+                                "id": "",
+                                "type": "Video",
+                                "format": "video/mp4",
+                                "width": 1920,
+                                "height": 1080,
+                                "duration": 158.0,
+                                "value": "Truth (Ferrando's Description) ()."
+                            }
+                        },
+                        {
+                            "id": "http://localhost:9000/data/COESO-Project-Network/canvas/1/annotation/1/19#http://localhost:9000/data/COESO-Project-Network/lower/349576f7-4364-421e-90be-4606893903c6.json",
+                            "type": "Annotation",
+                            "motivation": "commenting",
+                            "target": "http://localhost:9000/data/COESO-Project-Network/canvas/1#xywh=396.18518518518516,595.8148148148147,8,8",
+                            "body": {
+                                "id": "",
+                                "type": "Document",
+                                "format": "document/pdf",
+                                "width": 841,
+                                "height": 595,
+                                "value": "Graffione Intentions ()."
+                            }
+                        },
+                        {
+                            "id": "http://localhost:9000/data/COESO-Project-Network/canvas/1/annotation/1/20#http://localhost:9000/data/COESO-Project-Network/lower/33831a87-29dd-40e3-b229-14ce908cc8ca.json",
+                            "type": "Annotation",
+                            "motivation": "commenting",
+                            "target": "http://localhost:9000/data/COESO-Project-Network/canvas/1#xywh=480.44444444444446,589.3333333333334,8,8",
+                            "body": {
+                                "id": "",
+                                "type": "Video",
+                                "format": "video/mp4",
+                                "width": 1920,
+                                "height": 1080,
+                                "duration": 70.0,
+                                "value": "Centre (Graffione's Description) ()."
+                            }
+                        },
+                        {
+                            "id": "http://localhost:9000/data/COESO-Project-Network/canvas/1/annotation/1/21#http://localhost:9000/data/COESO-Project-Network/lower/8f3f0f30-c991-4b50-bec6-60f0e2cf39c7.json",
+                            "type": "Annotation",
+                            "motivation": "commenting",
+                            "target": "http://localhost:9000/data/COESO-Project-Network/canvas/1#xywh=378.037037037037,505.0740740740741,8,8",
+                            "body": {
+                                "id": "",
+                                "type": "Video",
+                                "format": "video/mp4",
+                                "width": 1280,
+                                "height": 720,
+                                "duration": 483.0,
+                                "value": "Public Performance (Wissous, April 2022) ()."
+                            }
+                        },
+                        {
+                            "id": "http://localhost:9000/data/COESO-Project-Network/canvas/1/annotation/1/22#http://localhost:9000/data/COESO-Project-Network/lower/222ae05a-fd56-4501-99a2-41bbe029236e.json",
+                            "type": "Annotation",
+                            "motivation": "commenting",
+                            "target": "http://localhost:9000/data/COESO-Project-Network/canvas/1#xywh=363.77777777777777,519.3333333333333,8,8",
+                            "body": {
+                                "id": "",
+                                "type": "Video",
+                                "format": "video/mp4",
+                                "width": 1280,
+                                "height": 720,
+                                "duration": 462.0,
+                                "value": "Improvised Solos ()."
+                            }
+                        },
+                        {
+                            "id": "http://localhost:9000/data/COESO-Project-Network/canvas/1/annotation/1/23#http://localhost:9000/data/COESO-Project-Network/lower/a3d38a7e-6be7-4753-8d12-1be75201bf1a.json",
+                            "type": "Annotation",
+                            "motivation": "commenting",
+                            "target": "http://localhost:9000/data/COESO-Project-Network/canvas/1#xywh=324.88888888888886,527.1111111111112,8,8",
+                            "body": {
+                                "id": "",
+                                "type": "Document",
+                                "format": "document/pdf",
+                                "width": 595,
+                                "height": 842,
+                                "value": "Freedom and the Practice of Authenticity in Italian Feminism ()."
+                            }
+                        },
+                        {
+                            "id": "http://localhost:9000/data/COESO-Project-Network/canvas/1/annotation/1/24#http://localhost:9000/data/COESO-Project-Network/lower/74dadcb9-5b90-4952-b8d1-0a775a1788aa.json",
+                            "type": "Annotation",
+                            "motivation": "commenting",
+                            "target": "http://localhost:9000/data/COESO-Project-Network/canvas/1#xywh=449.3333333333333,496.0,8,8",
+                            "body": {
+                                "id": "",
+                                "type": "Document",
+                                "format": "document/pdf",
+                                "width": 841,
+                                "height": 595,
+                                "value": "Graffione's Notes ()."
+                            }
+                        },
+                        {
+                            "id": "http://localhost:9000/data/COESO-Project-Network/canvas/1/annotation/1/25#http://localhost:9000/data/COESO-Project-Network/lower/a2010a02-19a5-43f9-8eba-fda46168a9e2.json",
+                            "type": "Annotation",
+                            "motivation": "commenting",
+                            "target": "http://localhost:9000/data/COESO-Project-Network/canvas/1#xywh=480.44444444444446,589.3333333333334,8,8",
+                            "body": {
+                                "id": "",
+                                "type": "Video",
+                                "format": "video/mp4",
+                                "width": 1920,
+                                "height": 1080,
+                                "duration": 37.0,
+                                "value": "Sober (Graffione's Description) ()."
+                            }
+                        },
+                        {
+                            "id": "http://localhost:9000/data/COESO-Project-Network/canvas/1/annotation/1/26#http://localhost:9000/data/COESO-Project-Network/lower/c614f19a-7cb5-4bf2-b64a-43c846075c4c.json",
+                            "type": "Annotation",
+                            "motivation": "commenting",
+                            "target": "http://localhost:9000/data/COESO-Project-Network/canvas/1#xywh=368.96296296296293,550.4444444444445,8,8",
+                            "body": {
+                                "id": "",
+                                "type": "Document",
+                                "format": "document/pdf",
+                                "width": 595,
+                                "height": 841,
+                                "value": "About the Workshops ()."
+                            }
+                        },
+                        {
+                            "id": "http://localhost:9000/data/COESO-Project-Network/canvas/1/annotation/1/27#http://localhost:9000/data/COESO-Project-Network/lower/ccf4b4e7-5d53-4d33-a6ba-e53d7b132dcb.json",
+                            "type": "Annotation",
+                            "motivation": "commenting",
+                            "target": "http://localhost:9000/data/COESO-Project-Network/canvas/1#xywh=311.3623188405797,481.7971014492754,8,8",
+                            "body": {
+                                "id": "",
+                                "type": "Video",
+                                "format": "video/mp4",
+                                "width": 1280,
+                                "height": 720,
+                                "duration": 405.0,
+                                "value": "Alma Ballet Exercises ()."
+                            }
+                        },
+                        {
+                            "id": "http://localhost:9000/data/COESO-Project-Network/canvas/1/annotation/1/28#http://localhost:9000/data/COESO-Project-Network/lower/0a26939e-a93a-4293-9b4a-ca637ad17fff.json",
+                            "type": "Annotation",
+                            "motivation": "commenting",
+                            "target": "http://localhost:9000/data/COESO-Project-Network/canvas/1#xywh=311.3623188405797,481.7971014492754,8,8",
+                            "body": {
+                                "id": "",
+                                "type": "Document",
+                                "format": "document/pdf",
+                                "width": 841,
+                                "height": 595,
+                                "value": "Alma Ballet Workshop Photos ()."
+                            }
+                        },
+                        {
+                            "id": "http://localhost:9000/data/COESO-Project-Network/canvas/1/annotation/1/29#http://localhost:9000/data/COESO-Project-Network/lower/0573ba6f-971c-4938-b438-e9ec9a577aa1.json",
+                            "type": "Annotation",
+                            "motivation": "commenting",
+                            "target": "http://localhost:9000/data/COESO-Project-Network/canvas/1#xywh=375.64912280701753,530.3859649122807,8,8",
+                            "body": {
+                                "id": "",
+                                "type": "Video",
+                                "format": "video/mp4",
+                                "width": 1280,
+                                "height": 720,
+                                "duration": 116.0,
+                                "value": "Graffione's Solo Teaser ()."
+                            }
+                        },
+                        {
+                            "id": "http://localhost:9000/data/COESO-Project-Network/canvas/1/annotation/1/30#http://localhost:9000/data/COESO-Project-Network/lower/02f64e4d-3ffa-4495-af44-a783e38e5bea.json",
+                            "type": "Annotation",
+                            "motivation": "commenting",
+                            "target": "http://localhost:9000/data/COESO-Project-Network/canvas/1#xywh=367.6666666666667,531.0,8,8",
+                            "body": {
+                                "id": "",
+                                "type": "Document",
+                                "format": "document/pdf",
+                                "width": 841,
+                                "height": 595,
+                                "value": "Founding Texts ()."
+                            }
+                        },
+                        {
+                            "id": "http://localhost:9000/data/COESO-Project-Network/canvas/1/annotation/1/31#http://localhost:9000/data/COESO-Project-Network/lower/2a05ae80-b466-4f31-afaa-66c85e7c5f44.json",
+                            "type": "Annotation",
+                            "motivation": "commenting",
+                            "target": "http://localhost:9000/data/COESO-Project-Network/canvas/1#xywh=325.56521739130443,481.7971014492754,8,8",
+                            "body": {
+                                "id": "",
+                                "type": "Video",
+                                "format": "video/mp4",
+                                "width": 1280,
+                                "height": 720,
+                                "duration": 119.0,
+                                "value": "Wandering ()."
+                            }
+                        },
+                        {
+                            "id": "http://localhost:9000/data/COESO-Project-Network/canvas/1/annotation/1/32#http://localhost:9000/data/COESO-Project-Network/lower/39efd4a6-bea5-4d40-9f22-fb609d847074.json",
+                            "type": "Annotation",
+                            "motivation": "commenting",
+                            "target": "http://localhost:9000/data/COESO-Project-Network/canvas/1#xywh=480.44444444444446,589.3333333333334,8,8",
+                            "body": {
+                                "id": "",
+                                "type": "Video",
+                                "format": "video/mp4",
+                                "width": 1920,
+                                "height": 1080,
+                                "duration": 124.0,
+                                "value": "Organic (Ferrando's Description) ()."
+                            }
+                        },
+                        {
+                            "id": "http://localhost:9000/data/COESO-Project-Network/canvas/1/annotation/1/33#http://localhost:9000/data/COESO-Project-Network/lower/fe3225af-edbf-45d9-9c21-692942b16b9a.json",
+                            "type": "Annotation",
+                            "motivation": "commenting",
+                            "target": "http://localhost:9000/data/COESO-Project-Network/canvas/1#xywh=480.44444444444446,589.3333333333334,8,8",
+                            "body": {
+                                "id": "",
+                                "type": "Video",
+                                "format": "video/mp4",
+                                "width": 1920,
+                                "height": 1080,
+                                "duration": 45.0,
+                                "value": "Truth (Graffione's Description) ()."
+                            }
+                        },
+                        {
+                            "id": "http://localhost:9000/data/COESO-Project-Network/canvas/1/annotation/1/34#http://localhost:9000/data/COESO-Project-Network/lower/29666c9b-60cd-4440-b27e-450b8dc0c520.json",
+                            "type": "Annotation",
+                            "motivation": "commenting",
+                            "target": "http://localhost:9000/data/COESO-Project-Network/canvas/1#xywh=375.64912280701753,530.3859649122807,8,8",
+                            "body": {
+                                "id": "",
+                                "type": "Video",
+                                "format": "video/mp4",
+                                "width": 1280,
+                                "height": 720,
+                                "duration": 71.0,
+                                "value": "Teaser of Ferrando's Solo ()."
+                            }
+                        },
+                        {
+                            "id": "http://localhost:9000/data/COESO-Project-Network/canvas/1/annotation/1/35#http://localhost:9000/data/COESO-Project-Network/lower/02afa878-b2f3-4af1-a726-d9eae39fbb0d.json",
+                            "type": "Annotation",
+                            "motivation": "commenting",
+                            "target": "http://localhost:9000/data/COESO-Project-Network/canvas/1#xywh=480.44444444444446,589.3333333333334,8,8",
+                            "body": {
+                                "id": "",
+                                "type": "Video",
+                                "format": "video/mp4",
+                                "width": 1920,
+                                "height": 1080,
+                                "duration": 60.0,
+                                "value": "Organic (Graffione's description) ()."
+                            }
+                        }
+                    ]
+                }
+            ],
+            "thumbnail": [],
+            "width": 1000,
+            "height": 1000
+        }
+    ]
+}

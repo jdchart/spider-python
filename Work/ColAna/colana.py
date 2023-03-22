@@ -1,7 +1,7 @@
 # Collection of elements
 import uuid
 import utils
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
 import os
 
 class Project:
@@ -19,6 +19,19 @@ class Project:
             loadedDocument = Document(self.parsingMatrix, load_path = item)
             self.documents.append(loadedDocument)
 
+    def parseProject(self, **kwargs):
+        fullDocs = {}
+        docList = []
+        for doc in self.documents:
+            docMatrix = doc.parseDocument(
+                draw = kwargs.get("draw", False),
+                saveFile = os.path.join(kwargs.get("outputDir", os.getcwd()), doc.name + ".png")
+            )
+            fullDocs[doc.name] = docMatrix
+            docList.append(docMatrix)
+        utils.writeJson(fullDocs, os.path.join(kwargs.get("outputDir", os.getcwd()), "DATA.json"))
+        drawCompass(docList, os.path.join(kwargs.get("outputDir", os.getcwd()), "COMPOSITE.png"))
+        
 class Document:
     def __init__(self, parsingMatrix, **kwargs):
         self.name = kwargs.get("name", "")
@@ -66,11 +79,13 @@ class Document:
         for item in fieldList:
             if item["matrix"] != None:
                 toDraw.append({"matrix" : item["matrix"], "col" : [66, 167, 214], "drawShape" : False})
-
         
         toDraw.append({"matrix" : fullMatrix, "col" : [222, 113, 126], "drawShape" : True})
 
-        drawCompass(self.name, toDraw, kwargs.get("saveFile", os.path.join(os.getcwd(), self.name + '.png')))
+        if kwargs.get("draw", False):
+            drawCompass(toDraw, kwargs.get("saveFile", os.path.join(os.getcwd(), self.name + '.png')))
+
+        return {"matrix" : fullMatrix, "loss" : getFieldListLoss(fieldList), "col" : [222, 113, 126], "drawShape" : False}
 
     def parseFields(self):
         fieldList = []
@@ -128,7 +143,7 @@ def normalizeMatrix(matrix):
         normalized[item] = utils.rescale(matrix[item], minVal, maxVal, 0, 1)
     return normalized
 
-def drawCompass(name, dataList, saveFile):
+def drawCompass(dataList, saveFile):
 
     imageDims = {
         "width" : 1000,
@@ -213,4 +228,57 @@ def drawCompass(name, dataList, saveFile):
         width = imageStyle["lineWidth"]
     )
 
+    fnt = ImageFont.truetype("Arial", 20)
+
+    #LABELS
+
+    informalSize = get_text_dimensions("Informal", fnt)
+    textX = int((imageDims["width"] * 0.5) - (informalSize[0] * 0.5))
+    textY = imageDims["padding"]
+    draw.text((textX, textY), "Informal", font=fnt, fill=(0, 0, 0, 128))
+
+    formalisationSize = get_text_dimensions("Formalisation", fnt)
+    textX = int((imageDims["width"] * 0.5) - (formalisationSize[0] * 0.5))
+    textY = imageDims["height"] - imageDims["padding"] - formalisationSize[1]
+    draw.text((textX, textY), "Formalisation", font=fnt, fill=(0, 0, 0, 128))
+
+    shortSize = get_text_dimensions("Short duration", fnt)
+    textX = imageDims["padding"]
+    textY = (imageDims["height"] * 0.5) - (shortSize[1] * 0.5)
+    draw.text((textX, textY), "Short duration", font=fnt, fill=(0, 0, 0, 128))
+
+    longSize = get_text_dimensions("Long duration", fnt)
+    textX = imageDims["width"] - imageDims["padding"] - longSize[0]
+    textY = (imageDims["height"] * 0.5) - (longSize[1] * 0.5)
+    draw.text((textX, textY), "Long duration", font=fnt, fill=(0, 0, 0, 128))
+
+    adaptiveSize = get_text_dimensions("Adaptive", fnt)
+    textX = imageDims["width"] * 0.1
+    textY = (imageDims["height"] * 0.1) - (adaptiveSize[1] * 0.5)
+    draw.text((textX, textY), "Adaptive", font=fnt, fill=(0, 0, 0, 128))
+
+    revisableSize = get_text_dimensions("Revisable", fnt)
+    textX = (imageDims["width"] * 0.9) - revisableSize[0]
+    textY = (imageDims["height"] * 0.1) - (revisableSize[1] * 0.5)
+    draw.text((textX, textY), "Revisable", font=fnt, fill=(0, 0, 0, 128))
+
+    planOrientedSize = get_text_dimensions("Plan oriented", fnt)
+    textX = imageDims["width"] * 0.1
+    textY = (imageDims["height"] * 0.9) - (planOrientedSize[1] * 0.5)
+    draw.text((textX, textY), "Plan oriented", font=fnt, fill=(0, 0, 0, 128))
+
+    institutionalSize = get_text_dimensions("Institutional", fnt)
+    textX = (imageDims["width"] * 0.9) - institutionalSize[0]
+    textY = (imageDims["height"] * 0.9) - (institutionalSize[1] * 0.5)
+    draw.text((textX, textY), "Institutional", font=fnt, fill=(0, 0, 0, 128))
+
     finalImg.save(saveFile, "PNG")
+
+def get_text_dimensions(text_string, font):
+    # https://stackoverflow.com/a/46220683/9263761
+    ascent, descent = font.getmetrics()
+
+    text_width = font.getmask(text_string).getbbox()[2]
+    text_height = font.getmask(text_string).getbbox()[3] + descent
+
+    return (text_width, text_height)
