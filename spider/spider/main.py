@@ -1,13 +1,15 @@
 from .Web import *
 
-def testMessage() -> None:
+def testMessage() -> str:
     """
     A test function to check things are working.
 
     Will print a test string to the console.
     """
+    msg = "The itsy bitsy spider crawled up the water spout..."
 
-    print("\nThe itsy bitsy spider crawled up the water spout...\n")
+    print("\n" + msg + "\n")
+    return msg
 
 def createWeb(metadata: dict) -> Web:
     """Create a new spider web.

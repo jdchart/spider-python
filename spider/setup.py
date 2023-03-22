@@ -3,7 +3,7 @@ from setuptools import find_packages
 
 long_description = """
 # spider
-A packege for python.
+A package for python.
 Markdown description
 """
 
