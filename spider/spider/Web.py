@@ -12,11 +12,58 @@ import copy
 import uuid
 
 class Web(SpiderElement):
-    def __init__(self, **kwargs):
+    """
+    The Spider Web class where everything lives.
+
+    This is the main structure of elements. It contains nodes, edges and collections.
+    It is based on the basic SpiderElement class, and therefore shares all of its
+    attributes, as well as the Dublin Core Resources elements.
+
+    On disk, the web takes the form of a folder, containing folders for nodes, edges and
+    collections. This folder structure is created whenever a new web is created (which means)
+    that you must always provide a path on creation.
+
+    Methods
+    ----------
+    write() -> None
+        write the web to disk at it's path as 'metadata.json'.
+
+    read(path: str) -> None
+        read the metadata.json file in Web's path and set data.
+
+    addNode(metadata: dict = {}) -> Node
+        add a new node to the web.
+
+    loadNode(searchTerm: str, **kwargs) -> Node
+        load a node that already exists in the web. Give the optional argument
+        "term" to define how the search for finding the node will be performed 
+        (by default uuid).
+    """
+    def __init__(self, path: str = os.path.join(os.getcwd(), "newWeb"), **kwargs):
+        
+        # Set the kwargs' path value to the given variable.
+        kwargs["path"] = path
+
+        # Init base SpiderElement class:
         super().__init__(**kwargs)
 
-        #self.path = os.getcwd()
-        #setattr(self, "identifier", os.getcwd())
+        # Set path and indentifier attributes to be the same:
+        self._initPathAndIdentifier(**kwargs)
+
+        # When creating a new web, create paths:
+        if kwargs.get('read_from_file', None) == None:
+            self._setPath(self.path)
+        
+        # When loading a web, read from file:
+        if kwargs.get('read_from_file', None) != None:
+            self.read(kwargs.get('read_from_file'))
+
+        # Write to disk
+        self.write()
+
+    def _initPathAndIdentifier(self, **kwargs):
+        """Make the self.path and self.identifier attributes the same"""
+
         # If the path or identifier is given:
         if kwargs.get('path', None) != None or kwargs.get('identifier', None) != None:
             # If the path is given:
@@ -29,28 +76,24 @@ class Web(SpiderElement):
             else:
                 self.path = os.getcwd()
                 setattr(self, "identifier", os.getcwd())
-
-        # When creating a new web:
-        if kwargs.get('read_from_file', None) == None:
-            self.setPath(self.path)
-        
-        # When loading:
-        if kwargs.get('read_from_file', None) != None:
-            self.read(kwargs.get('read_from_file'))
-
-        self.write()
     
     def __str__(self):
         return super().__str__()
 
-    def write(self):
+    def write(self) -> None:
+        """Write the web to disk at it's path as 'metadata.json'"""
+
         writeJson(self.collectData(), os.path.join(self.path, "metadata.json"))
 
-    def read(self, path):
+    def read(self, path: str) -> None:
+        """Read the metadata.json file in Web's path and set data."""
+
         readData = readJson(os.path.join(path, "metadata.json"))
         super().setFromReadData(readData)
 
-    def setPath(self, path):
+    def _setPath(self, path: str):
+        """Create basic folder structure and files."""
+
         makeDirsRecustive([
             path,
             os.path.join(path, "web/nodes"),
@@ -62,9 +105,19 @@ class Web(SpiderElement):
         makeGitignoreFile(os.path.join(path, ".gitignore"), ["media"])
         return path
 
-    def addNode(self, metadata):
+    def addNode(self, metadata: dict = {}) -> Node:
+        """Add a new node to the web."""
+
         newNode = Node(parentPath = os.path.join(self.path, "web"), **parseMetadata(metadata))
         return newNode
+    
+    def loadNode(self, searchTerm: str, **kwargs) -> Node:
+        """Load a node that already exists in the web."""
+
+        searchKey = kwargs.get('term', "uuid")
+        nodePath = findElement(os.path.join(self.path, "web/nodes"), searchTerm, searchKey, "node")
+        loadedNode = Node(read_from_file = nodePath)
+        return loadedNode
     
     def duplicateNode(self, searchTerm, **kwargs):
         toDuplicate = self.loadNode(searchTerm, **kwargs)
@@ -80,11 +133,7 @@ class Web(SpiderElement):
 
         return newNode
 
-    def loadNode(self, searchTerm, **kwargs):
-        searchKey = kwargs.get('term', "uuid")
-        nodePath = findElement(os.path.join(self.path, "web/nodes"), searchTerm, searchKey, "node")
-        loadedNode = Node(read_from_file = nodePath)
-        return loadedNode
+    
 
     def addEdge(self, metadata):
         newEdge = Edge(parentPath = os.path.join(self.path, "web"), **parseMetadata(metadata))
@@ -96,6 +145,10 @@ class Web(SpiderElement):
         loadedEdge = Edge(read_from_file = edgePath)
         return loadedEdge
 
+
+
+
+
     def addCollection(self, collectionType, metadata):
         newCollection = Collection(parentPath = os.path.join(self.path, "web"), collectionType = collectionType, **parseMetadata(metadata))
         return newCollection
@@ -105,6 +158,9 @@ class Web(SpiderElement):
         collectionPath = findElement(os.path.join(self.path, "web"), searchTerm, searchKey, "collection")
         loadedCollection = Collection(read_from_file = collectionPath)
         return loadedCollection
+
+
+
 
     def mediaToNode(self, mediaPath, copyMedia):
         if copyMedia == True:
