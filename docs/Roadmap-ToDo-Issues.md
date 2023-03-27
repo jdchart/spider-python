@@ -21,3 +21,5 @@
 - [ ] remove content when langiuage removed
 - [ ] implement languaged fields for modified dublin core.
 - [ ] Searching probably doesnt work now with language overhaul.
+- [ ] Removing routines
+- [ ] Colleciton creation: add content straignt from creation method

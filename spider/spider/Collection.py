@@ -1,5 +1,6 @@
 import os
 import csv
+import copy
 from .SpiderElement import *
 from .utils import *
 
@@ -8,10 +9,11 @@ class Collection(SpiderElement):
         super().__init__(**kwargs)
 
         self.parentPath = kwargs.get('parentPath', None)
+        self.collectionType = kwargs.get('collectionType', "node")
 
         if kwargs.get('read_from_file', None) == None:
             if self.parentPath != None:
-                self.path = self.setPath(self.parentPath, kwargs.get('collectionType', "node"))
+                self.path = self._setPath(self.parentPath, kwargs.get('collectionType', "node"))
                 setattr(self, "identifier", self.path)
 
         if kwargs.get('read_from_file', None) != None:
@@ -25,11 +27,21 @@ class Collection(SpiderElement):
     def write(self):
         writeJson(self.collectData(), os.path.join(self.path, "collection.json"))
 
+    def collectData(self) -> dict:
+        collectData = super().collectData()
+        collectData["collectionType"] = self.collectionType
+        return collectData
+
     def read(self, path):
         readData = readJson(path)
+        # Note this is jsut so legacy works:
+        if "collectionType" in list(readData.keys()):
+            self.collectionType = readData["collectionType"]
+        else:
+            self.collectionType = "node"
         super().setFromReadData(readData)
 
-    def setPath(self, path, collectiontype):
+    def _setPath(self, path, collectiontype):
         folderName = "node_collections/"
         if collectiontype == "edge":
             folderName = "edge_collections/"
@@ -38,6 +50,51 @@ class Collection(SpiderElement):
         ])
         writeJson({"items" : []}, os.path.join(path, folderName + str(self.uuid), "content.json"))
         return os.path.join(path, folderName + str(self.uuid))
+    
+    def duplicate(self, webPath: str, idChangeMap: dict, updateItems = False, itemChangeMap = {}, newUUIDs = True) -> 'Collection':
+        """
+        Duplicate the collection to a new path.
+        
+        Can optionally supply a itemChangeMap to update elemnts
+        The old ID is a key in the itemChangeMap and the new ID is it's value.
+        """
+
+        # Create a deep copy of this collection and set a new uuid:
+        duplicated = copy.deepcopy(self)
+        if newUUIDs:
+            duplicated.uuid = str(uuid.uuid4())
+        idChangeMap[self.uuid] = duplicated.uuid
+
+        # Set the collection's path, identifier:
+        if self.collectionType == "node":
+            duplicated.path = os.path.join(webPath, "node_collections/" + str(duplicated.uuid))
+            duplicated.identifier = os.path.join(webPath, "node_collections/" + str(duplicated.uuid))
+        elif self.collectionType == "edge":
+            duplicated.path = os.path.join(webPath, "edge_collections/" + str(duplicated.uuid))
+            duplicated.identifier = os.path.join(webPath, "edge_collections/" + str(duplicated.uuid))
+
+        # Create the new folder structure and write edge data to file
+        duplicated._setPath(webPath, self.collectionType)
+        
+        # Update content:
+        oldContent = duplicated.contentToList()
+        newContent = []
+        for item in oldContent:
+            if updateItems:
+                if item in list(itemChangeMap.keys()):
+                    newContent.append(itemChangeMap[item])
+                else:
+                    newContent.append(item)
+            else:
+                newContent.append(item)
+        
+        duplicated.clearContent()
+        duplicated.addContent(newContent)
+        
+        # Write the updated collection:
+        duplicated.write()
+
+        return duplicated
 
     def addContent(self, toAdd):
         contentData = readJson(os.path.join(self.path, "content.json"))
@@ -52,6 +109,9 @@ class Collection(SpiderElement):
 
     def contentToList(self):
         return readJson(os.path.join(self.path, "content.json"))["items"]
+    
+    def clearContent(self):
+        writeJson({"items" : []}, os.path.join(self.path, "content.json"))
 
     def removeContent(self, toRemove):
         contentData = readJson(os.path.join(self.path, "content.json"))["items"]

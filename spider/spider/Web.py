@@ -52,6 +52,30 @@ class Web(SpiderElement):
     duplicateNode(searchTerm: str, idChangeMap: dict = {}, duplicateNested = True, **kwargs) -> Node
         duplicate a node from the web to the web. Can give an idChangMap dict 
         which will get updated to keep track of UUID changes.
+
+    addEdge(metadata: dict) -> Edge:
+        add a new edge to the web.
+
+    loadEdge(searchTerm: str, **kwargs) -> Edge:
+       load an edge that already exists in the web
+
+    duplicateEdge(searchTerm: str, idChangeMap: dict = {}, **kwargs) -> Edge
+        duplicate an edge from the web to the web.
+        kwargs :
+        update_notes : (bool) optionally update the source and target nodes
+        node_id_map : (dict) key = oldNode uuid, value = newNode uuid
+
+    addCollection(collectionType: str, metadata: dict) -> Collection
+        add a new collection to the web.
+        collectionType = "node" or "edge"
+
+    loadCollection(searchTerm: str, **kwargs) -> Collection
+        load a collection that already exists in the web.
+
+    duplicateCollection(searchTerm: str, idChangeMap: dict = {}, **kwargs) -> Collection
+        duplicate a collection from the web to the web.
+        update_items : (bool) optionally update the source and target nodes
+        item_id_map : (dict) key = oldNode uuid, value = newNode uuid
     """
     def __init__(self, path: str = os.path.join(os.getcwd(), "newWeb"), **kwargs):
         
@@ -137,17 +161,30 @@ class Web(SpiderElement):
 
         # Duplicate nodes
         fullNodeList = self.getFullList("nodes", False)
-        idMap = {}
+        nodeIdMap = {}
         for node in fullNodeList:
             loaded = self.loadNode(node)
-            loaded.duplicate(os.path.join(duplicated.path, "web"), idMap, newUUIDs)
-        print(idMap)
-
+            loaded.duplicate(os.path.join(duplicated.path, "web"), nodeIdMap, newUUIDs)
 
         # Duplicate edges
-
+        fullEdgeList = self.getFullList("edges")
+        edgeIdMap = {}
+        for edge in fullEdgeList:
+            loaded = self.loadEdge(edge)
+            loaded.duplicate(os.path.join(duplicated.path, "web"), edgeIdMap, True, nodeIdMap, newUUIDs)
 
         # Duplicate collections
+        fullNodeCollectionList = self.getFullList("node_collections")
+        nodeCollectionIdMap = {}
+        for collection in fullNodeCollectionList:
+            loaded = self.loadCollection(collection)
+            loaded.duplicate(os.path.join(duplicated.path, "web"), nodeCollectionIdMap, True, nodeIdMap, newUUIDs)
+        
+        fullEdgeCollectionList = self.getFullList("edge_collections")
+        edgeCollectionIdMap = {}
+        for collection in fullEdgeCollectionList:
+            loaded = self.loadCollection(collection)
+            loaded.duplicate(os.path.join(duplicated.path, "web"), edgeCollectionIdMap, True, edgeIdMap, newUUIDs)
 
         # Duplicate media
 
@@ -191,17 +228,13 @@ class Web(SpiderElement):
         duplicated = toDuplicate.duplicate(os.path.join(self.path, "web"), idChangeMap, True, duplicateNested)
         return duplicated
 
-    
-
-
-
-    def addEdge(self, metadata):
+    def addEdge(self, metadata: dict) -> Edge:
         """Add a new edge to the web."""
 
         newEdge = Edge(parentPath = os.path.join(self.path, "web"), **parseMetadata(metadata))
         return newEdge
 
-    def loadEdge(self, searchTerm, **kwargs):
+    def loadEdge(self, searchTerm: str, **kwargs) -> Edge:
         """Load an edge that already exists in the web."""
 
         searchKey = kwargs.get('term', "uuid")
@@ -209,21 +242,77 @@ class Web(SpiderElement):
         loadedEdge = Edge(read_from_file = edgePath)
         return loadedEdge
 
+    def duplicateEdge(self, searchTerm: str, idChangeMap: dict = {}, **kwargs) -> Edge:
+        """
+        Duplicate an edge from the web to the web.
+        
+        Make a copy of an edge that exists in the web and add it to the edges folder.
 
+        Can give an idChangeMap object which will be updated to keep track of 
+        UUID changes.
 
+        searchTerm : node UUID
+        kwargs 
+        ----------
+        update_nodes : (bool) optionally update the source and target nodes
+        node_id_map : (dict) key = oldNode uuid, value = newNode uuid
+        """
+        
+        # Load the node to duplicate:
+        toDuplicate = self.loadEdge(searchTerm, **kwargs)
 
+        # Duplicate the node and return:
+        duplicated = toDuplicate.duplicate(os.path.join(self.path, "web"), idChangeMap, kwargs.get("update_nodes", False), kwargs.get("node_id_map", {}), True)
 
+        return duplicated
 
+    def addCollection(self, collectionType: str, metadata: dict) -> Collection:
+        """
+        Add a new collection to the web.
+        
+        collectionType = "node" or "edge"
+        """
 
-    def addCollection(self, collectionType, metadata):
         newCollection = Collection(parentPath = os.path.join(self.path, "web"), collectionType = collectionType, **parseMetadata(metadata))
         return newCollection
 
-    def loadCollection(self, searchTerm, **kwargs):
+    def loadCollection(self, searchTerm: str, **kwargs) -> Collection:
+        """Load a collection that already exists in the web."""
+
         searchKey = kwargs.get('term', "uuid")
         collectionPath = findElement(os.path.join(self.path, "web"), searchTerm, searchKey, "collection")
         loadedCollection = Collection(read_from_file = collectionPath)
         return loadedCollection
+    
+    def duplicateCollection(self, searchTerm: str, idChangeMap: dict = {}, **kwargs) -> Collection:
+        """
+        Duplicate a collection from the web to the web.
+        
+        Make a copy of an collection that exists in the web and add it to the collections folder.
+
+        Can give an idChangeMap object which will be updated to keep track of 
+        UUID changes.
+
+        searchTerm : node UUID
+        kwargs 
+        ----------
+        update_items : (bool) optionally update the source and target nodes
+        item_id_map : (dict) key = oldNode uuid, value = newNode uuid
+        """
+        
+        # Load the node to duplicate:
+        toDuplicate = self.loadCollection(searchTerm, **kwargs)
+
+        # Duplicate the node and return:
+        duplicated = toDuplicate.duplicate(os.path.join(self.path, "web"), idChangeMap, kwargs.get("update_items", False), kwargs.get("item_id_map", {}), True)
+
+        return duplicated
+
+
+
+
+
+
 
 
 
@@ -255,7 +344,7 @@ class Web(SpiderElement):
         Return a list of content uuid's according to type.
         
         type = "nodes", "edges", "node_collections" or "edge_collections"
-        Will also reutrn nested content.
+        Will also return nested content.
         """
         
         fullList = []
