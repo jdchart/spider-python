@@ -24,7 +24,7 @@ for i in range(10):
 edgeList = []
 for i in range(9):
     edgeList.append(
-        web.addEdge({"relation" : {"source" : str(nodeList[i].uuid), "target" : str(nodeList[i + 1].uuid)}})
+        web.addEdge({"relation" : {"source" : nodeList[i].uuid, "target" : nodeList[i + 1].uuid}})
     )
 
 # Collections:

@@ -19,7 +19,6 @@ There are a few [Other Fields](#other-fields) that have been added for internal 
     - [Publisher](#publisher)
     - [Contributor](#contributor)
     - [Rights](#rights)
-    - [Language](#language)
     - [Audience](#audience)
     - [Provenance](#provenance)
     - [Rights Holder](#rights-holder)
@@ -32,6 +31,7 @@ There are a few [Other Fields](#other-fields) that have been added for internal 
     - [Format](#format)
     - [Identifier](#identifier)
     - [Instructional Method](#instructional-method)
+    - [Language](#language)
 3. [Other Fields](#other-fields)
     - [Tags](#tags)
     - [UUID](#uuid)
@@ -88,12 +88,6 @@ There are a few [Other Fields](#other-fields) that have been added for internal 
 - attribute: `rights`
 - [Dublin Core](https://www.dublincore.org/specifications/dublin-core/usageguide/elements/#rights) description: Information about rights held in and over the resource. Typically a Rights element will contain a rights management statement for the resource, or reference a service providing such information. Rights information often encompasses Intellectual Property Rights (IPR), Copyright, and various Property Rights. If the rights element is absent, no assumptions can be made about the status of these and other rights with respect to the resource.
 - Default: `""`
-
-### Language
-- attribute: `language`
-- [Dublin Core](https://www.dublincore.org/specifications/dublin-core/usageguide/elements/#language) description: A language of the intellectual content of the resource. Recommended best practice for the values of the Language element is defined by RFC 3066 [RFC 3066, [http://www.ietf.org/rfc/rfc3066.txt](https://www.ietf.org/rfc/rfc3066.txt) which, in conjunction with ISO 639 [ISO 639, [http://www.oasis-open.org/cover/iso639a.html](http://xml.coverpages.org/iso639a.html)), defines two- and three-letter primary language tags with optional subtags. Examples include "en" or "eng" for English, "akk" for Akkadian, and "en-GB" for English used in the United Kingdom.
-- Recommended to use the format "en", "fr" etc. for Mirador parsing.
-- Default: `"en"`
 
 ### Audience
 - attribute: `audience`
@@ -193,6 +187,12 @@ There are a few [Other Fields](#other-fields) that have been added for internal 
 - `annotationOverlay` : a boolean. For MemoRekall parsing, indicate if the annotation is painted ontop of the main ressource or underneath.
 - `annotationDisplayPos` : an array of 2 coordinate values in px. For MemoRekall parsing, where to paint the ressourse on the canvas. (starting from top left if overlayed, starting from bottom of main ressource if not overlayed).
 - `annotationDisplayScale` : a float. For MemoRekall parsing, the scale of the ressource (1 = full size).
+
+### Language
+- attribute: `language`
+- [Dublin Core](https://www.dublincore.org/specifications/dublin-core/usageguide/elements/#language) description: A language of the intellectual content of the resource. Recommended best practice for the values of the Language element is defined by RFC 3066 [RFC 3066, [http://www.ietf.org/rfc/rfc3066.txt](https://www.ietf.org/rfc/rfc3066.txt) which, in conjunction with ISO 639 [ISO 639, [http://www.oasis-open.org/cover/iso639a.html](http://xml.coverpages.org/iso639a.html)), defines two- and three-letter primary language tags with optional subtags. Examples include "en" or "eng" for English, "akk" for Akkadian, and "en-GB" for English used in the United Kingdom.
+- Recommended to use the format "en", "fr" etc. for Mirador parsing.
+- Default: `"en"`
 
 ## Other Fields
 

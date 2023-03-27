@@ -1,0 +1,23 @@
+## Raodmap, To-Do list and Issues:
+
+- [ ] General refactor
+- [ ] Validaiton methodS....
+- [ ] When cretaing network - make edges between nesteds
+- [ ] getThisLevel function
+- [ ] add checking if none (espicially for finding elements)
+- [ ] Solution for artists "while they work"
+- [ ] Mis match between given collection and default being a list !
+- [ ] Note that at the moment we only take the first source/target region for reedges in MR ocnvert
+- [ ] Copy media for nested nodes
+- [ ] unhard code overlaying
+- [ ] Tags
+- [ ] Langaugages and translations.
+- [ ] duplicate web (using collections)
+- [ ] # TODO : a collection should have its web itself
+- [ ] Web duplication (with changing of paths)
+- [ ] # TODO This will not work for nested
+- [ ] duplication
+- [ ] update tags on language change
+- [ ] remove content when langiuage removed
+- [ ] implement languaged fields for modified dublin core.
+- [ ] Searching probably doesnt work now with language overhaul.
