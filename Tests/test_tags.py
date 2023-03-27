@@ -65,16 +65,12 @@ class TestWeb(unittest.TestCase):
         self.check_attribute(myWeb.language, list, ["en", "fr", "sp"])
         self.remove_web("temp")
 
+        # TODO: Add unittesting for language removal here...
         myWeb = sp.createWeb({
             "path" : os.path.join(os.getcwd(), "temp"),
             "title" : "temp"
         })
-
-        myWeb.language = ["fr", "sp"]
-        print("LANGUAGE")
-        print(myWeb.language)
-        print(myWeb.tags)
-        print(myWeb.title)
+        self.remove_web("temp")
 
     def check_attribute(self, attr, attributeType, attributeValue):
         self.assertIsInstance(attr, attributeType)
