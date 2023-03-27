@@ -5,7 +5,5 @@ notes.md
 venv
 spider/spider.egg-info
 Examples/__pycache__
-Work/LegacyConvert/__pycache__
-Work/COESO-Semantic-Analysis/__pycache__
-Work/ColAna/__pycache__
+Work
 Tests/__pycache__
