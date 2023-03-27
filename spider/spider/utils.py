@@ -69,3 +69,35 @@ def htmlLinkWrap(link, message):
 
 def rescale(val, oldMin, oldMax, a, b):
     return a + (((val - oldMin) * (b - a)) / (oldMax - oldMin))
+
+def parseStrListToList(originalList: list, toParse: str | list, default = "en") -> list:
+        """Allow a str or list to be given, return as list."""
+
+        toReturn = originalList
+        if type(toParse) == str:
+            if toParse == "":
+                toParse = default
+            toReturn = [toParse]
+        else:
+            toReturn = toParse
+
+        return toReturn
+
+def parseMetadata(metadataIn):
+    """Check to see if language is given in metadata, if not, see if it can be derrived:"""
+    originalData = metadataIn
+    languagedFields = [
+        "title", "subject", "description", "date", "type", "source", "creator",
+        "publisher", "contributor", "rights", "audience", "provenance", "rightsHiolder",
+        "accuralMethod", "accuralPeriodicity", "accuralPolicy"
+    ]
+    toAdd = None
+    if "language" not in list(originalData.keys()):
+        for item in originalData:
+            if item in languagedFields:
+                if type(originalData[item]) == dict:
+                    toAdd = [list(originalData[item].keys())[0]]
+    if toAdd != None:
+        originalData["language"] = toAdd
+
+    return originalData

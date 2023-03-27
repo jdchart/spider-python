@@ -36,7 +36,7 @@ class Node(SpiderElement):
         return os.path.join(path, "nodes/" + str(self.uuid))
     
     def addNode(self, metadata):
-        newNode = Node(parentPath = self.path, **metadata)
+        newNode = Node(parentPath = self.path, **parseMetadata(metadata))
         return newNode
 
     def loadNode(self, searchTerm, **kwargs):

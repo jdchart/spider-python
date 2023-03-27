@@ -1,4 +1,5 @@
 from .Web import *
+from .utils import *
 
 def testMessage() -> str:
     """
@@ -18,7 +19,7 @@ def createWeb(metadata: dict) -> Web:
     The web will be saved to disk at the given in the metadata dict.
     """
 
-    newWeb = Web(**metadata)
+    newWeb = Web(**parseMetadata(metadata))
     return newWeb
 
 def loadWeb(path):

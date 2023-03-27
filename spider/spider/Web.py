@@ -15,22 +15,29 @@ class Web(SpiderElement):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
+        #self.path = os.getcwd()
+        #setattr(self, "identifier", os.getcwd())
+        # If the path or identifier is given:
         if kwargs.get('path', None) != None or kwargs.get('identifier', None) != None:
+            # If the path is given:
             if kwargs.get('path', None) != None:
                 setattr(self, "identifier", kwargs.get('path'))
                 self.path = kwargs.get('path')
+            # If identifier is given:
             elif kwargs.get('identifier', None) != None:
                 self.path = kwargs.get('identifier')
             else:
                 self.path = os.getcwd()
                 setattr(self, "identifier", os.getcwd())
 
+        # When creating a new web:
         if kwargs.get('read_from_file', None) == None:
             self.setPath(self.path)
         
+        # When loading:
         if kwargs.get('read_from_file', None) != None:
             self.read(kwargs.get('read_from_file'))
-        
+
         self.write()
     
     def __str__(self):
@@ -56,7 +63,7 @@ class Web(SpiderElement):
         return path
 
     def addNode(self, metadata):
-        newNode = Node(parentPath = os.path.join(self.path, "web"), **metadata)
+        newNode = Node(parentPath = os.path.join(self.path, "web"), **parseMetadata(metadata))
         return newNode
     
     def duplicateNode(self, searchTerm, **kwargs):
@@ -80,7 +87,7 @@ class Web(SpiderElement):
         return loadedNode
 
     def addEdge(self, metadata):
-        newEdge = Edge(parentPath = os.path.join(self.path, "web"), **metadata)
+        newEdge = Edge(parentPath = os.path.join(self.path, "web"), **parseMetadata(metadata))
         return newEdge
 
     def loadEdge(self, searchTerm, **kwargs):
@@ -90,7 +97,7 @@ class Web(SpiderElement):
         return loadedEdge
 
     def addCollection(self, collectionType, metadata):
-        newCollection = Collection(parentPath = os.path.join(self.path, "web"), collectionType = collectionType, **metadata)
+        newCollection = Collection(parentPath = os.path.join(self.path, "web"), collectionType = collectionType, **parseMetadata(metadata))
         return newCollection
 
     def loadCollection(self, searchTerm, **kwargs):
