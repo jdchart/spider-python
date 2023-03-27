@@ -77,7 +77,7 @@ class Collection(SpiderElement):
         duplicated._setPath(webPath, self.collectionType)
         
         # Update content:
-        oldContent = duplicated.contentToList()
+        oldContent = self.contentToList()
         newContent = []
         for item in oldContent:
             if updateItems:

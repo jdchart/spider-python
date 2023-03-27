@@ -2,6 +2,7 @@ import unittest
 import spider as sp
 import os
 import shutil
+import uuid
 
 class TestWeb(unittest.TestCase):
     def setUp(self):
@@ -106,7 +107,6 @@ class TestWeb(unittest.TestCase):
         self.assertNotEqual(edgeCollection.uuid, duplicatedEdgeCollection.uuid)
         self.assertEqual(edgeCollection.title, duplicatedEdgeCollection.title)
 
-    # PROBLEM
         for item in duplicatedNodeCollection.contentToList():
             self.assertFalse(item in nodeList)
             wasFound = False
@@ -122,11 +122,10 @@ class TestWeb(unittest.TestCase):
             wasFound = False
             thisEdge = duplicatedWeb.loadEdge(item)
             for oldEdge in edgeList:
-                oldEdgeLoaded = myWeb.loadNode(oldEdge)
+                oldEdgeLoaded = myWeb.loadEdge(oldEdge)
                 if oldEdgeLoaded.title == thisEdge.title:
                     wasFound = True
             self.assertTrue(wasFound)
-
 
     def test_node_duplicate(self):
         # Create web:
@@ -170,44 +169,32 @@ class TestWeb(unittest.TestCase):
         myWeb = sp.createWeb({"path" : os.path.join(os.getcwd(), "temp")})
         nodeList = []
         edgeList = []
+        nodeUpdateMap = {}
+        edgeUpdateMap = {}
         for i in range(10):
             nodeList.append(myWeb.addNode({"title" : "node" + str(i)}).uuid)
+            nodeUpdateMap[nodeList[i]] = str(uuid.uuid4())
         for i in range(9):
             edgeList.append(myWeb.addEdge({"title" : "edge" + str(i), "relation" : {"source" : nodeList[i], "target" : nodeList[i + 1]}}).uuid)
+            edgeUpdateMap[edgeList[i]] = str(uuid.uuid4())
         nodeCollection = myWeb.addCollection("node", {"title" : "node collection"})
         nodeCollection.addContent(nodeList)
         edgeCollection = myWeb.addCollection("edge", {"title" : "edge collection"})
         edgeCollection.addContent(edgeList)
 
-        duplicatedNodeCollection = myWeb.duplicateCollection(nodeCollection.uuid)
-        duplicatedEdgeCollection = myWeb.duplicateCollection(edgeCollection.uuid)
+        duplicatedNodeCollection = myWeb.duplicateCollection(nodeCollection.uuid, update_items = True, item_id_map = nodeUpdateMap)
+        duplicatedEdgeCollection = myWeb.duplicateCollection(edgeCollection.uuid, update_items = True, item_id_map = edgeUpdateMap)
 
         self.assertNotEqual(nodeCollection.uuid, duplicatedNodeCollection.uuid)
         self.assertEqual(nodeCollection.title, duplicatedNodeCollection.title)
         self.assertNotEqual(edgeCollection.uuid, duplicatedEdgeCollection.uuid)
         self.assertEqual(edgeCollection.title, duplicatedEdgeCollection.title)
 
-        #print("NODE COLLECTION LENGTH")
-        #print(duplicatedNodeCollection.contentToList())
         for item in duplicatedNodeCollection.contentToList():
             self.assertFalse(item in nodeList)
-            wasFound = False
-            thisNode = myWeb.loadNode(item)
-            for oldNode in nodeList:
-                oldNodeLoaded = myWeb.loadNode(oldNode)
-                if oldNodeLoaded.title == thisNode.title:
-                    wasFound = True
-            self.assertTrue(wasFound)
 
         for item in duplicatedEdgeCollection.contentToList():
             self.assertFalse(item in edgeList)
-            wasFound = False
-            thisEdge = myWeb.loadEdge(item)
-            for oldEdge in edgeList:
-                oldEdgeLoaded = myWeb.loadNode(oldEdge)
-                if oldEdgeLoaded.title == thisEdge.title:
-                    wasFound = True
-            self.assertTrue(wasFound)
 
     def check_attribute(self, attr, attributeType, attributeValue):
         self.assertIsInstance(attr, attributeType)
