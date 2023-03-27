@@ -307,6 +307,27 @@ class Web(SpiderElement):
         duplicated = toDuplicate.duplicate(os.path.join(self.path, "web"), idChangeMap, kwargs.get("update_items", False), kwargs.get("item_id_map", {}), True)
 
         return duplicated
+    
+    def getFullList(self, type: str, returnNested = True) -> list:
+        """
+        Return a list of content uuid's according to type.
+        
+        type = "nodes", "edges", "node_collections" or "edge_collections"
+        Will also return nested content.
+        """
+        
+        fullList = []
+        if returnNested:
+            for root, dirs, files in os.walk(os.path.join(self.path, "web/" + type)):
+                for dir in dirs:
+                    if dir != type:
+                        fullList.append(dir)
+        elif returnNested == False:
+            for dir in os.listdir(os.path.join(self.path, "web/" + type)):
+                if dir != type:
+                    if os.path.isdir(os.path.join(self.path, "web/" + type + "/" + dir)):
+                        fullList.append(dir)
+        return fullList
 
 
 
@@ -329,36 +350,6 @@ class Web(SpiderElement):
                 **mediaData
             )
             return mediaNode
-
-    def printContent(self, type, printKey):
-        for root, dirs, files in os.walk(os.path.join(self.path, "web/" + type)):
-            for dir in dirs:
-                if dir != type:
-                    node = self.loadNode(dir)
-                    print()
-                    for key in printKey:
-                        print(key + ": " + str(getattr(node, key)))
-
-    def getFullList(self, type: str, returnNested = True) -> list:
-        """
-        Return a list of content uuid's according to type.
-        
-        type = "nodes", "edges", "node_collections" or "edge_collections"
-        Will also return nested content.
-        """
-        
-        fullList = []
-        if returnNested:
-            for root, dirs, files in os.walk(os.path.join(self.path, "web/" + type)):
-                for dir in dirs:
-                    if dir != type:
-                        fullList.append(dir)
-        elif returnNested == False:
-            for dir in os.listdir(os.path.join(self.path, "web/" + type)):
-                if dir != type:
-                    if os.path.isdir(os.path.join(self.path, "web/" + type + "/" + dir)):
-                        fullList.append(dir)
-        return fullList
 
     def convertToMemoRekall(self, **kwargs):
         webToManifestNetwork(
