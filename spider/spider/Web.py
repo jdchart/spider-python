@@ -26,7 +26,7 @@ class Web(SpiderElement):
     Methods
     ----------
     write() -> None
-        write the web to disk at it's path as 'metadata.json'.
+        write the web to disk at it's path as metadata.json.
 
     read(path: str) -> None
         read the metadata.json file in Web's path and set data.
