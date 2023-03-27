@@ -5,3 +5,4 @@ Things I used to make this:
 - [Dublin Core](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/)
 - [Dublin Core Elements](https://www.dublincore.org/specifications/dublin-core/usageguide/elements/)
 - [Documenting python code](https://realpython.com/documenting-python-code/)
+- [Python unittests](https://docs.python.org/3/library/unittest.html#unittest.TestCase.debug)

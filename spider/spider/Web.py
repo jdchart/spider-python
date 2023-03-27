@@ -23,6 +23,10 @@ class Web(SpiderElement):
     collections. This folder structure is created whenever a new web is created (which means)
     that you must always provide a path on creation.
 
+    Because of this, it's also advised to used the built in duplication methods for
+    copying anything (be it a web of an element in the web) as paths will need to be 
+    changed programatically.
+
     Methods
     ----------
     write() -> None
@@ -31,6 +35,12 @@ class Web(SpiderElement):
     read(path: str) -> None
         read the metadata.json file in Web's path and set data.
 
+    duplicate(path: str, newUUIDs = True) -> Web
+        duplicate the current web to a new path (also duplicates all of the content)
+    
+    getFullList(type: str, returnNested = True) -> list:
+        return a list of content uuid's according to type.
+
     addNode(metadata: dict = {}) -> Node
         add a new node to the web.
 
@@ -38,6 +48,10 @@ class Web(SpiderElement):
         load a node that already exists in the web. Give the optional argument
         "term" to define how the search for finding the node will be performed 
         (by default uuid).
+
+    duplicateNode(searchTerm: str, idChangeMap: dict = {}, duplicateNested = True, **kwargs) -> Node
+        duplicate a node from the web to the web. Can give an idChangMap dict 
+        which will get updated to keep track of UUID changes.
     """
     def __init__(self, path: str = os.path.join(os.getcwd(), "newWeb"), **kwargs):
         
@@ -104,6 +118,41 @@ class Web(SpiderElement):
         ])
         makeGitignoreFile(os.path.join(path, ".gitignore"), ["media"])
         return path
+    
+    def duplicate(self, path: str, newUUIDs = True) -> 'Web':
+        """Duplicate the current web to a new path."""
+        
+        # Create a deep copy of this web
+        duplicated = copy.deepcopy(self)
+
+        # Set the web's path, identifier and give a new uuid:
+        duplicated.path = path
+        duplicated.identifier = path
+        if newUUIDs:
+            duplicated.uuid = str(uuid.uuid4())
+
+        # Create the new folder structure and write web data to file
+        duplicated._setPath(duplicated.path)
+        duplicated.write()
+
+        # Duplicate nodes
+        fullNodeList = self.getFullList("nodes", False)
+        idMap = {}
+        for node in fullNodeList:
+            loaded = self.loadNode(node)
+            loaded.duplicate(os.path.join(duplicated.path, "web"), idMap, newUUIDs)
+        print(idMap)
+
+
+        # Duplicate edges
+
+
+        # Duplicate collections
+
+        # Duplicate media
+
+        # Return the duplicated web
+        return duplicated
 
     def addNode(self, metadata: dict = {}) -> Node:
         """Add a new node to the web."""
@@ -119,31 +168,47 @@ class Web(SpiderElement):
         loadedNode = Node(read_from_file = nodePath)
         return loadedNode
     
-    def duplicateNode(self, searchTerm, **kwargs):
+    def duplicateNode(self, searchTerm: str, idChangeMap: dict = {},  duplicateNested = True, **kwargs) -> Node:
+        """
+        Duplicate a node from the web to the web.
+        
+        Make a copy of a node that exists in the web and add it at the top level
+        of the node folder.
+
+        To duplicate nodes as a nested node to another node, use the duplicateNode
+        on a Node class object.
+
+        Can give an idChangeMap object which will be updated to keep track of 
+        UUID changes.
+
+        searchTerm : node UUID
+        """
+        
+        # Load the node to duplicate:
         toDuplicate = self.loadNode(searchTerm, **kwargs)
 
-        newNode = copy.deepcopy(toDuplicate)
-        newNode.uuid = str(uuid.uuid4())
-
-        makeDirsRecustive([os.path.join(self.path, "web/nodes/" + newNode.uuid)])
-        newNode.path = os.path.join(self.path, "web/nodes/" + newNode.uuid) # TODO This will not work for nested
-        print(newNode.path)
-
-        newNode.write()
-
-        return newNode
+        # Duplicate the node and return:
+        duplicated = toDuplicate.duplicate(os.path.join(self.path, "web"), idChangeMap, True, duplicateNested)
+        return duplicated
 
     
 
+
+    
     def addEdge(self, metadata):
+        """Add a new edge to the web."""
+
         newEdge = Edge(parentPath = os.path.join(self.path, "web"), **parseMetadata(metadata))
         return newEdge
 
     def loadEdge(self, searchTerm, **kwargs):
+        """Load an edge that already exists in the web."""
+
         searchKey = kwargs.get('term', "uuid")
         edgePath = findElement(os.path.join(self.path, "web/edges"), searchTerm, searchKey, "edge")
         loadedEdge = Edge(read_from_file = edgePath)
         return loadedEdge
+
 
 
 
@@ -184,12 +249,25 @@ class Web(SpiderElement):
                     for key in printKey:
                         print(key + ": " + str(getattr(node, key)))
 
-    def getFullList(self, type):
+    def getFullList(self, type: str, returnNested = True) -> list:
+        """
+        Return a list of content uuid's according to type.
+        
+        type = "nodes", "edges", "node_collections" or "edge_collections"
+        Will also reutrn nested content.
+        """
+        
         fullList = []
-        for root, dirs, files in os.walk(os.path.join(self.path, "web/" + type)):
-            for dir in dirs:
+        if returnNested:
+            for root, dirs, files in os.walk(os.path.join(self.path, "web/" + type)):
+                for dir in dirs:
+                    if dir != type:
+                        fullList.append(dir)
+        elif returnNested == False:
+            for dir in os.listdir(os.path.join(self.path, "web/" + type)):
                 if dir != type:
-                    fullList.append(dir)
+                    if os.path.isdir(os.path.join(self.path, "web/" + type + "/" + dir)):
+                        fullList.append(dir)
         return fullList
 
     def convertToMemoRekall(self, **kwargs):
