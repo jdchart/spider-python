@@ -194,7 +194,7 @@ class Web(SpiderElement):
     
 
 
-    
+
     def addEdge(self, metadata):
         """Add a new edge to the web."""
 
@@ -208,6 +208,7 @@ class Web(SpiderElement):
         edgePath = findElement(os.path.join(self.path, "web/edges"), searchTerm, searchKey, "edge")
         loadedEdge = Edge(read_from_file = edgePath)
         return loadedEdge
+
 
 
 
