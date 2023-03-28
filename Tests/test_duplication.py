@@ -1,19 +1,19 @@
 import unittest
 import spider as sp
 import os
-import shutil
+import utils
 import uuid
 
 class TestWeb(unittest.TestCase):
     def setUp(self):
         # Delete if already exists:
-        self.remove_web("temp")
-        self.remove_web("temp2")
+        utils.remove_web("temp")
+        utils.remove_web("temp2")
 
     def tearDown(self):
         # Delete if exists:
-        self.remove_web("temp")
-        self.remove_web("temp2")
+        utils.remove_web("temp")
+        utils.remove_web("temp2")
 
     def test_web_duplicate(self):
         # Test web:
@@ -33,7 +33,7 @@ class TestWeb(unittest.TestCase):
         duplicated = myWeb.duplicate(os.path.join(os.getcwd(), "temp2"))
         self.assertIsNotNone(duplicated)
         self.assertNotEqual(myWeb.uuid, duplicated.uuid)
-        self.check_direc_file_lists(
+        utils.check_direc_file_lists(self, 
             os.getcwd(),
             ["temp2", "temp2/media", "temp2/web", "temp2/web/nodes", "temp2/web/edges", 
                 "temp2/web/node_collections", "temp2/web/edge_collections"],
@@ -55,8 +55,8 @@ class TestWeb(unittest.TestCase):
                     if loadedNested.title == {'en': 'nested nested top'}:
                         nestedNestedList = loadedNested.getFullList(False)
                         self.assertEqual(duplicated.loadNode(nestedNestedList[0]).title, {'en': 'nested nested bottom'})
-        self.remove_web("temp")
-        self.remove_web("temp2")
+        utils.remove_web("temp")
+        utils.remove_web("temp2")
 
         # Test edges
         metadata = {"path" : os.path.join(os.getcwd(), "temp")}
@@ -82,8 +82,8 @@ class TestWeb(unittest.TestCase):
         self.assertEqual(myWeb.loadNode(testEdge.relation.source).title, duplicated.loadNode(duplicatedEdge.relation.source).title)
         self.assertEqual(myWeb.loadNode(testEdge.relation.target).title, duplicated.loadNode(duplicatedEdge.relation.target).title)
 
-        self.remove_web("temp")
-        self.remove_web("temp2")
+        utils.remove_web("temp")
+        utils.remove_web("temp2")
 
         # Test collections:
         myWeb = sp.createWeb({"path" : os.path.join(os.getcwd(), "temp")})
@@ -129,7 +129,7 @@ class TestWeb(unittest.TestCase):
 
         # Test media
         myWeb = sp.createWeb({"path" : os.path.join(os.getcwd(), "temp")})
-        self.makeTestFile(os.path.join(os.getcwd(), "temp/media/test.txt"))
+        utils.makeTestFile(os.path.join(os.getcwd(), "temp/media/test.txt"))
         duplicatedWeb = myWeb.duplicate(os.path.join(os.getcwd(), "temp2"))
 
         self.assertTrue(os.path.isfile(os.path.join(os.getcwd(), "temp2/media/test.txt")))
@@ -202,24 +202,6 @@ class TestWeb(unittest.TestCase):
 
         for item in duplicatedEdgeCollection.contentToList():
             self.assertFalse(item in edgeList)
-
-    def check_attribute(self, attr, attributeType, attributeValue):
-        self.assertIsInstance(attr, attributeType)
-        self.assertEqual(attr, attributeValue)
-
-    def remove_web(self, webFolder):
-        if os.path.isdir(os.path.join(os.getcwd(), webFolder)):
-            shutil.rmtree(os.path.join(os.getcwd(), webFolder))
-
-    def check_direc_file_lists(self, prefix, direcList, fileList):
-        for item in direcList:
-            self.assertTrue(os.path.isdir(os.path.join(prefix, item)))
-        for item in fileList:
-            self.assertTrue(os.path.isfile(os.path.join(prefix, item)))  
-
-    def makeTestFile(self, path):
-        f = open(path, "w")
-        f.close()  
 
 # Run
 if __name__ == "__main__":
