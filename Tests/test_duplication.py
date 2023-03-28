@@ -127,6 +127,13 @@ class TestWeb(unittest.TestCase):
                     wasFound = True
             self.assertTrue(wasFound)
 
+        # Test media
+        myWeb = sp.createWeb({"path" : os.path.join(os.getcwd(), "temp")})
+        self.makeTestFile(os.path.join(os.getcwd(), "temp/media/test.txt"))
+        duplicatedWeb = myWeb.duplicate(os.path.join(os.getcwd(), "temp2"))
+
+        self.assertTrue(os.path.isfile(os.path.join(os.getcwd(), "temp2/media/test.txt")))
+
     def test_node_duplicate(self):
         # Create web:
         myWeb = sp.createWeb({"path" : os.path.join(os.getcwd(), "temp")})
@@ -208,7 +215,11 @@ class TestWeb(unittest.TestCase):
         for item in direcList:
             self.assertTrue(os.path.isdir(os.path.join(prefix, item)))
         for item in fileList:
-            self.assertTrue(os.path.isfile(os.path.join(prefix, item)))
+            self.assertTrue(os.path.isfile(os.path.join(prefix, item)))  
+
+    def makeTestFile(self, path):
+        f = open(path, "w")
+        f.close()  
 
 # Run
 if __name__ == "__main__":

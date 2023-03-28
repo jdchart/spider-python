@@ -187,6 +187,8 @@ class Web(SpiderElement):
             loaded.duplicate(os.path.join(duplicated.path, "web"), edgeCollectionIdMap, True, edgeIdMap, newUUIDs)
 
         # Duplicate media
+        for file in os.listdir(os.path.join(self.path, "media")):
+            shutil.copyfile(os.path.join(self.path, "media/" + file), os.path.join(duplicated.path, "media/" + file))
 
         # Return the duplicated web
         return duplicated
