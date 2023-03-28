@@ -1,6 +1,11 @@
 # spider-python
 Spider is primarily used to make network structures of elements that have temporal dimensions.
 
+1. [Examples](/Examples/)
+2. [Running](/docs/Running.md)
+3. [Metadata Fields](/docs/Metatdata-Fields.md)
+4. [Roadmap and To-Do](/docs/Roadmap-ToDo-Issues.md)
+
 ## Usage
 
 A brief introduction on how to use `spider`. For more detailed examples, see the [Examples](/Examples/) folder.
