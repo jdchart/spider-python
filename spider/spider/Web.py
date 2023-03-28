@@ -4,10 +4,8 @@ from .SpiderElement import *
 from .Node import *
 from .Edge import *
 from .Collection import *
-from .Network import *
 from .utils import *
 from .mediaConvert import *
-from .IIIF import *
 import copy
 import uuid
 
@@ -355,13 +353,3 @@ class Web(SpiderElement):
                 **mediaData
             )
             return mediaNode
-
-    def convertToMemoRekall(self, **kwargs):
-        webToManifestNetwork(
-            self,
-            **kwargs
-        )
-
-    def convertToNetwork(self, **kwargs):
-        newNetwork = NetworkGraph(self, **kwargs)
-        return newNetwork

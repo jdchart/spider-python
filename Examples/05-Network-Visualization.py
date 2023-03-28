@@ -24,7 +24,7 @@ web.addEdge({"title" : "Edge", "relation" : {"source" : nodeList[3], "target" : 
 
 
 # 2. Convert to a networkx network:
-network = web.convertToNetwork()
+network = sp.webToNetworkx(web)
 
 # 3. Draw the network:
 network.display()

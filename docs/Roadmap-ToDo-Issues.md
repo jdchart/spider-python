@@ -19,8 +19,9 @@
 - [ ] Create a new web from collections.
 - [ ] Network creation:
     - Make edges between nested nodes.
-    - Mis-match between giving a collection and the defaults being lists !
+    - Mis-match between giving a collection and the defaults being lists?
 - [ ] MR Conversion:
     - At the moment we only take the first source/target region for edges.
     - Copy media for nested nodes.
     - Need to unhard code overlaying.
+- [ ] Modularize modified Dublin Core string parsing.
