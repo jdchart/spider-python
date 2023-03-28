@@ -1,5 +1,5 @@
 # spider-python
-Python version of spider.
+Spider is primarily used to make network structures of elements that have temporal dimensions.
 
 ## Usage
 

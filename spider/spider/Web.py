@@ -340,6 +340,9 @@ class Web(SpiderElement):
 
 
 
+
+
+
     def mediaToNode(self, mediaPath, copyMedia):
         if copyMedia == True:
             shutil.copyfile(mediaPath, os.path.join(self.path, "media/" + os.path.basename(mediaPath)))
