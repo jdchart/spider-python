@@ -1,5 +1,13 @@
 import os
 
+def parseToLabel(spiderInput):
+    """Take the output of a MultiLangAttribute and parse it to IIIF label format."""
+    
+    labelData = {}
+    for item in spiderInput:
+        labelData[item] = [spiderInput[item]]
+    return labelData
+
 def parseImageDataToMediaInfo(imageData: dict) -> dict:
     """Take image info and parse it to a mediaInfo dict for making a MediaItem."""
 

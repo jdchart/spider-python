@@ -14,8 +14,7 @@ class TestWeb(unittest.TestCase):
 
     def test_network(self):
         # Create web:
-        metadata = {"path" : os.path.join(os.getcwd(), "temp")}
-        myWeb = sp.createWeb(metadata)
+        myWeb = utils.create_basic_web("temp", "test network", 10)
 
         net = sp.webToNetworkx(myWeb)
         self.assertIsNotNone(net)

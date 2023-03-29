@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 from PIL import Image, ImageDraw
 from .utils import *
 import os
-from .IIIF import *
 import math
 
 class NetworkGraph():
@@ -191,7 +190,7 @@ class NetworkGraph():
         self._parseMinMaxAndNeighbors(gCopy, pos, minMaxX, minMaxY, minMaxSize, nodeInfo)
 
         # Rescale data and prepare return dict.
-        outData = {"meta" : {"width" : imgWidth, "height" : imgHeight}}    
+        outData = {"meta" : {"width" : imgWidth, "height" : imgHeight, "fileformat" : "png"}}    
         self._rescaleData(pos, minMaxX, minMaxY, minMaxSize, nodeInfo, sizeMinMax, imgWidth, imgHeight, outData)
 
         # Draw edges:
@@ -220,6 +219,9 @@ class NetworkGraph():
             )
         
         # Save the final image:
+        if os.path.isdir(os.path.dirname(savePath)) == False:
+            # Make the directory if it doesn't exist:
+            makeDirsRecustive([os.path.dirname(savePath)])
         finalImg.save(savePath,"PNG")
 
         return outData
@@ -286,19 +288,3 @@ class NetworkGraph():
                 "size" : nodeSize
             }
             outDataDict[item] = outDataEntry
-    
-    def saveToManifest(self, web, **kwargs):
-        imagePath = os.path.join(kwargs.get("path", os.getcwd()), "media/" + kwargs.get("networkName", "Untitled_network").replace(" ", "_") + ".png")
-        imageWritePath = os.path.join(kwargs.get("writePath", os.getcwd()), "media/" + kwargs.get("networkName", "Untitled_network").replace(" ", "_") + ".png")
-        
-        imgData = self.saveToImage(
-            savePath = imageWritePath,
-            algo = kwargs.get("algo", "spring")
-        )
-        
-        networkxToManifest(web, imgData,
-            imagePath = imagePath,
-            networkName = kwargs.get("networkName", "Untitled_network"),
-            path = kwargs.get("path", os.getcwd()),
-            writePath = kwargs.get("writePath", os.getcwd())
-        )

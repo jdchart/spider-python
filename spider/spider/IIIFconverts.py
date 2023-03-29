@@ -3,46 +3,64 @@ import shutil
 from .utils import *
 from .IIIFManifest import *
 
-def networkxToManifest(web, imageData, **kwargs):
-    imagePath = kwargs.get("imagePath")
+def networkxToIIIFManifest(web, imageData, **kwargs):
+    """Convert a web and networkx imageData to a IIIF manifest."""
 
-    labelObject = {}
-    labelObject["en"] = [kwargs.get("networkName", os.getcwd())]
-
+    # Create the manifest:
     newManifest = Manifest(
         writepath = kwargs.get("writePath", os.getcwd()),
         filename = kwargs.get("networkName", os.getcwd()).replace(" ", "_") + '.json',
         path = kwargs.get("path", os.getcwd()),
-        label = labelObject
+        label = {"en" : [kwargs.get("networkName", os.getcwd())]}
     )
 
-    pageCanvas = newManifest.addCanvas(1)
+    # Create the main canvas:
+    pageCanvas = newManifest.addCanvas()
 
-    mainLayer = pageCanvas.addAnnotationPage("page", 1)
-    annotationLayer = pageCanvas.addAnnotationPage("annotation", 1)
+    # Create the main and annotation annotationPage layers:
+    mainLayer = pageCanvas.addAnnotationPage()
+    annotationLayer = pageCanvas.addAnnotationPage(type = "annotation")
 
     # Add main media item:
-    mainMediaItem = mainLayer.addMediaItemFromImageData(1, {
-        "uri" : imagePath,
+    mainMediaItem = mainLayer.addMediaItem(mediaInfo = parseImageDataToMediaInfo({
+        "uri" : kwargs.get("imagePath"),
         "width" : imageData["meta"]["width"],
-        "height" : imageData["meta"]["height"]
-    })
+        "height" : imageData["meta"]["height"],
+        "fileformat" : imageData["meta"]["fileformat"]
+    }))
+
     # Resize canvas:
     pageCanvas.width = mainMediaItem.body.width
     pageCanvas.height = mainMediaItem.body.height
     if mainMediaItem.body.duration != None:
         pageCanvas.duration = mainMediaItem.body.duration
 
-    count = 0
+    # Add nodes as annotations:
     for item in imageData:
         if item != "meta":
+            # Retrieve target node and it's dimensions:
             targetNode = web.loadNode(item)
             annotationDims = [imageData[item]["x"], imageData[item]["y"], imageData[item]["size"]]
 
-            annotationMediaItem = annotationLayer.addNodeAnnotation(count + 1, targetNode, annotationDims, kwargs.get('path', os.getcwd()), lang = kwargs.get("lang", None))
-            count = count + 1
+            # Add the media item:
+            annotationLayer.addMediaItem(bespokeItem = {
+                "type" : "networkxNode",
+                "data" : {
+                    "node" : targetNode,
+                    "path" : kwargs.get('path', os.getcwd()),
+                    "annotationDims" : annotationDims
+                }
+            })
 
+    # Write the manifest to disk
     newManifest.write()
+
+    return newManifest
+
+
+
+
+
 
 def webToManifestNetwork(web, **kwargs):
     # Making folders to save the manifest files:
@@ -115,7 +133,7 @@ def nodeToManifest(web, node, **kwargs):
     nestedNodes = node.getFullList()
 
     # Main title object
-    labelObject = parseToLabel(node.getFromLang("title", "full"))
+    labelObject = parseToLabel(node.title)
 
     # Create the manifest
     newManifest = Manifest(
@@ -189,11 +207,7 @@ def nodeToManifest(web, node, **kwargs):
 
     return newManifest
 
-def parseToLabel(spiderInput):
-    labelData = {}
-    for item in spiderInput:
-        labelData[item] = [spiderInput[item]]
-    return labelData
+
 
 def getInterDocs(web, node, edgeList):
     # Return a list of edges in which the node is present as a source or a target:

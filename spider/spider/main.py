@@ -1,7 +1,6 @@
 from .Web import *
 from .utils import *
-from .IIIF import *
-from .Network import *
+from .convertions import *
 
 def createWeb(metadata: dict) -> Web:
     """
@@ -23,27 +22,3 @@ def loadWeb(path: str) -> Web:
 
     loadedWeb = Web(read_from_file = path)
     return loadedWeb
-
-def webToMemoRekall(web, **kwargs):
-    webToManifestNetwork(
-        web,
-        **kwargs
-    )
-
-def webToNetworkx(web: Web, **kwargs):
-    """Convert a web to a Network object which is around networkx's Graph class."""
-    
-    newNetwork = NetworkGraph(web, **kwargs)
-    return newNetwork
-
-def checkCollectionSanity(web, nodes, edges):
-    toReturn = True
-    nodeList = nodes.contentToList()
-    edgeList = edges.contentToList()
-
-    for item in edgeList:
-        loadedEdge = web.loadEdge(item)
-        if loadedEdge.relation.source not in nodeList or loadedEdge.relation.target not in nodeList:
-            toReturn = False
-
-    return toReturn
