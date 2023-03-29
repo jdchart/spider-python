@@ -75,6 +75,6 @@ class Manifest(IIIFItem):
         Optionally provide an index (default: len(self.items)).
         """
 
-        newCanvas = Canvas(id = os.path.join(self.path, "canvas/" + str(kwargs.get("index", len(self.items + 1)))), label = self.label)
+        newCanvas = Canvas(id = os.path.join(self.path, "canvas/" + str(kwargs.get("index", len(self.items) + 1))), label = self.label, **kwargs)
         self.items.append(newCanvas)
         return newCanvas

@@ -23,5 +23,6 @@
 - [ ] MR Conversion:
     - At the moment we only take the first source/target region for edges.
     - Copy media for nested nodes.
-    - Need to unhard code overlaying.
+    - Need to unhard code overlaying. (see parseNestedNodeRegions in IIIFutils).
+    - Implement using node.start, node.end and node.region to select PARTS of the media to be used in IIIFutils parseNodeToIIIFMediaItem.
 - [ ] Modularize modified Dublin Core string parsing.

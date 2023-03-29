@@ -14,7 +14,7 @@ class Canvas(IIIFItem):
         the IIIF canvas's label.
         example: {"en" : ["title in english"], "fr" : ["titre en francais"]}
     
-    item : list
+    items : list
         a list that will be populated with the canvas's items.
 
     annotation : list
@@ -91,9 +91,9 @@ class Canvas(IIIFItem):
         index = 0
         if "index" not in kwargs:
             if kwargs.get("type", "page") == "page":
-                index = len(self.items)
+                index = len(self.items) + 1
             elif kwargs.get("type", "page") == "annotation":
-                index = len(self.annotations)
+                index = len(self.annotations) + 1
         else:
             index = kwargs.get("index")
 

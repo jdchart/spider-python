@@ -7,6 +7,7 @@ def getMediaData(path):
         {"extension" : "mp4", "type" : "video"},
         {"extension" : "png", "type" : "image"},
         {"extension" : "jpg", "type" : "image"},
+        {"extension" : "jpeg", "type" : "image"},
         {"extension" : "pdf", "type" : "document"}
     ]
 
