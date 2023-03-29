@@ -6,3 +6,5 @@ spider/spider.egg-info
 Examples/__pycache__
 Work
 Tests/__pycache__
+Examples/IIIF/__pycache__
+Examples/Example-Media
