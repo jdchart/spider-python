@@ -1,0 +1,52 @@
+{
+    "id": "http://localhost:9000/data/Image_Manifest.json",
+    "type": "Manifest",
+    "@context": "http://iiif.io/api/presentation/3/context.json",
+    "label": {
+        "en": [
+            "An Image"
+        ],
+        "fr": [
+            "Une Image"
+        ]
+    },
+    "items": [
+        {
+            "id": "http://localhost:9000/data/canvas/1",
+            "type": "Canvas",
+            "label": {
+                "en": [
+                    "An Image"
+                ],
+                "fr": [
+                    "Une Image"
+                ]
+            },
+            "items": [
+                {
+                    "id": "http://localhost:9000/data/canvas/1/page/1",
+                    "type": "AnnotationPage",
+                    "items": [
+                        {
+                            "id": "http://localhost:9000/data/canvas/1/page/1/1",
+                            "type": "Annotation",
+                            "motivation": "painting",
+                            "target": "http://localhost:9000/data/canvas/1#xywh=0,0,275,183",
+                            "body": {
+                                "id": "http://localhost:9000/data/exampleImage.jpeg",
+                                "type": "Image",
+                                "format": "image/jpeg",
+                                "width": 275,
+                                "height": 183
+                            }
+                        }
+                    ]
+                }
+            ],
+            "annotations": [],
+            "thumbnail": [],
+            "width": 275,
+            "height": 183
+        }
+    ]
+}
