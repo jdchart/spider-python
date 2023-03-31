@@ -1,4 +1,127 @@
 import os
+import shutil
+from .utils import *
+
+def initializeFolders(destDir, removePrevious):
+    """Given parameters, remove old files and create folders"""
+
+    # If set to remove manifest files:
+    if removePrevious[0] == True:
+        # Remove the "lower" folder:
+        if os.path.isdir(os.path.join(destDir, "lower")) == True:
+            shutil.rmtree(os.path.join(destDir, "lower"))
+        # Remove all files from the destination directory
+        if os.path.isdir(destDir) == True:
+            for filename in os.listdir(destDir):
+                if os.path.isfile(filename):
+                    os.remove(filename)
+    # If set to remove "media" files:
+    if removePrevious[1] == True:
+        # Remove the media folder:
+        if os.path.isdir(os.path.join(destDir, "media")) == True:
+            shutil.rmtree(os.path.join(destDir, "media"))
+    
+    # Create the new folders:
+    makeDirsRecustive([
+        os.path.join(destDir, "lower"),
+        os.path.join(destDir, "media")
+    ])
+
+def getNodeToIIIFManifestPaths(node, path: str, destDir: str) -> dict:
+    """Parse the various paths required for node to manifest creation"""
+
+    # Get the node's paths
+    realPath = path
+    thisDestDir = destDir
+
+    # Add "lower" to the path if node is not important:
+    if node.instructionalMethod.important == False:
+        thisDestDir = os.path.join(thisDestDir, "lower")
+        realPath = os.path.join(realPath, "lower")
+
+    # Set full media paths from node's associated media:
+    realMediaPath = os.path.join(path, "media/" + os.path.basename(node.format.uri))
+    writeMediaPath = os.path.join(destDir, "media/" + os.path.basename(node.format.uri))
+
+    return{
+        "realPath" : realPath,
+        "thisDestDir" : thisDestDir,
+        "realMediaPath" : realMediaPath,
+        "writeMediaPath" : writeMediaPath,
+        "destDir" : destDir
+    }
+
+def getNodeToIIIFMediaConvert(node, paths: dict, copyMedia: bool) -> dict:
+    """Perform media copying and convertion for node to manifest and return data."""
+    
+    # Copy the node
+    originalNode = node
+
+    # Copy media if set to copy
+    if copyMedia == True:
+        shutil.copyfile(node.format.uri, paths["writeMediaPath"])
+    
+    # If the node's associated media is a PDF:
+    convertedFiles = []
+    if node.format.fileFormat == "pdf":
+        # Convert PDF the image and populate convertedFiles list
+        # (will populate list if copyMedia is True or False
+        # this allows for paged media to work even if the convertion
+        # didn't take place.)
+        convertedFiles = convertPDF(
+            node.format.uri, 
+            os.path.join(paths["destDir"], "media"), 
+            node.format.pages, 
+            copyMedia
+        )
+    # Get the number of pages
+    numPages = 1
+    if originalNode.format.pages != None:
+        numPages = originalNode.format.pages
+    # See if file convertion happened
+    fileConverted = False
+    if originalNode.format.type == "document":
+        fileConverted = True
+
+    # Set the node's media uri as the realMediaPath for parsing later on:
+    node.format.uri = paths["realMediaPath"]
+
+    return {
+        "numPages" : numPages,
+        "fileConverted" : fileConverted,
+        "convertedFiles" : convertedFiles,
+        "originalNode" : originalNode
+    }
+
+def getNodeToIIIFManifestAnnotations(node, web, edges) -> dict:
+    """Get the lists of inter and intra documentary annnotations for node to manifest convert."""
+
+    # Get the edges to parse:
+    edgeList = edges
+    # If the type of the given edge list is not a list, treat it as a collection:
+    if type(edgeList) != list:
+        edgeList = edgeList.contentToList()
+
+    # List of inter-documenatry annotations:
+    interDocAnnotations = getInterDocs(web, node, edgeList)
+
+    # Get the nested nodes as intra-documentary annotations:
+    nestedNodes = node.getFullList(False)
+
+    return {
+        "inter" : interDocAnnotations,
+        "intra" : nestedNodes
+    }
+
+def getInterDocs(web, node, edgeList):
+    """Return a list of edges in which the node is present as a source or a target."""
+
+    interList = []
+    for item in edgeList:
+        thisEdge = web.loadEdge(item)
+        if str(node.uuid) == thisEdge.relation.source or str(node.uuid) == thisEdge.relation.target:
+            interList.append(item)
+    return interList
 
 def parseToLabel(spiderInput):
     """Take the output of a MultiLangAttribute and parse it to IIIF label format."""
@@ -43,12 +166,23 @@ def parseNodeToIIIFMediaItem(node, type: str) -> dict:
     """
 
     returnData = {
-        "id" : node.format.uri,
-        "type" : node.format.type.capitalize(),
-        "format" : node.format.type + "/" + node.format.fileFormat,
-        "width" : node.format.fullDimensions[0],
-        "height" : node.format.fullDimensions[1]
+        "id" : "",
+        "type" : "",
+        "format" : "",
+        "width" : 0,
+        "height" : 0
     }
+
+    if node.format.uri != None:
+        returnData["id"] = node.format.uri
+    if node.format.type != None:
+        returnData["type"] = node.format.type.capitalize()
+    if node.format.fileFormat != None and node.format.type != None:
+        returnData["format"] = node.format.type + "/" + node.format.fileFormat
+    
+    if node.format.fullDimensions != None:
+        returnData["width"] = node.format.fullDimensions[0]
+        returnData["height"] = node.format.fullDimensions[1]
 
     if node.format.fullDuration != None:
         returnData["duration"] = node.format.fullDuration / 1000.0
@@ -120,15 +254,16 @@ def parseNestedNodeRegions(node, originalTarget: str) -> str:
     # Get the path of the original target
     returnString = originalTarget.split("#")[0]
 
-    # Get the drawing dimensions as strings:
-    nodeX = str(node.instructionalMethod.annotationDisplayPos[0])
-    nodeY = str(node.instructionalMethod.annotationDisplayPos[1] + 720)
-    nodeW = str(node.format.fullDimensions[0])
-    nodeH = str(node.format.fullDimensions[1])
+    if node.instructionalMethod.annotationPaint == True:
+        # Get the drawing dimensions as strings:
+        nodeX = str(node.instructionalMethod.annotationDisplayPos[0])
+        nodeY = str(node.instructionalMethod.annotationDisplayPos[1] + 720)
+        nodeW = str(node.format.fullDimensions[0])
+        nodeH = str(node.format.fullDimensions[1])
 
-    # Update the target:
-    returnString = returnString + "#xywh=" + nodeX + "," + nodeY + "," + nodeW + "," + nodeH
-    returnString = returnString + "&t=" + str(node.relation.sourceRegions[0]["start"] / 1000) + "," + str(node.relation.sourceRegions[0]["end"] / 1000)
+        # Update the target:
+        returnString = returnString + "#xywh=" + nodeX + "," + nodeY + "," + nodeW + "," + nodeH
+        returnString = returnString + "&t=" + str(node.relation.sourceRegions[0]["start"] / 1000) + "," + str(node.relation.sourceRegions[0]["end"] / 1000)
 
     return returnString
 

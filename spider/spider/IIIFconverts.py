@@ -1,9 +1,9 @@
 import os
-import shutil
 from .utils import *
 from .IIIFManifest import *
+from .IIIFutils import *
 
-def networkxToIIIFManifest(web, imageData, **kwargs):
+def networkxToIIIFManifest(web, imageData, **kwargs) -> Manifest:
     """Convert a web and networkx imageData to a IIIF manifest."""
 
     # Create the manifest:
@@ -57,144 +57,145 @@ def networkxToIIIFManifest(web, imageData, **kwargs):
 
     return newManifest
 
-
-
-
-
-
-def webToManifestNetwork(web, **kwargs):
-    # Making folders to save the manifest files:
-    destDir = os.path.join(web.path, "mirador")
-    if kwargs.get('writePath', None) != None:
-        destDir = kwargs.get('writePath')
+def webToIIIFManifestNetwork(web, **kwargs):
+    """
+    Convert a web to a network of IIIF manifests.
     
-    if kwargs.get("removePrevious", [True, True])[0] == True:
-        if os.path.isdir(os.path.join(destDir, "lower")) == True:
-            shutil.rmtree(os.path.join(destDir, "lower"))
-        if os.path.isdir(destDir) == True:
-            for filename in os.listdir(destDir):
-                if os.path.isfile(filename):
-                    os.remove(filename)
-    if kwargs.get("removePrevious", [True, True])[1] == True:
-        if os.path.isdir(os.path.join(destDir, "media")) == True:
-            shutil.rmtree(os.path.join(destDir, "media"))
-    
-    makeDirsRecustive([
-        os.path.join(destDir, "lower"),
-        os.path.join(destDir, "media")
-    ])
+    Convert a web (possibility to set collections of nodes and edges) to a
+    network of IIIF manifests to be navigated in Mirador.
 
-    nodeColl = kwargs.get("nodeList", web.getFullList("nodes"))
-    nodeList = nodeColl.contentToList() # Mis match between given collection and default being a list !
+    kwargs:
+    writePath : str
+        the folder in which to write the manifest files (default: web.path/mirador)
+    
+    removePrevious : list
+        delete previous content in the given writePath (default: [True, True])
+        [removeManifestFiles, removeMediaFiles] 
+    
+    nodeList : list | Collection
+        list of collection of nodes to parse (defualt: web.getFullList("nodes"))
+    """
+
+    # Create folders to write manifest files:
+    initializeFolders(
+        kwargs.get('writePath', os.path.join(web.path, "mirador")), 
+        kwargs.get("removePrevious", [True, True])
+    )
+
+    # Get the list of nodes to parse:
+    nodeList = kwargs.get("nodeList", web.getFullList("nodes", False))
+    # If the type of the given node list is not a list, treat it as a collection:
+    if type(nodeList) != list:
+        nodeList = nodeList.contentToList()
 
     for i in range(len(nodeList)):
         # Load the node
         node = web.loadNode(nodeList[i])
 
         # Create the manifest
-        print("Converting node " + str(i + 1) + "/" + str(len(nodeList)) + " \"" + node.title + "\"\n(" + str(node.uuid) + ")\n")
-        thisManifest = nodeToManifest(web, node, destDir = destDir, **kwargs)
+        #print("Converting node " + str(i + 1) + "/" + str(len(nodeList)) + " \"" + node.title + "\"\n(" + str(node.uuid) + ")\n")
+        thisManifest = nodeToIIIFManifest(
+            web, 
+            node, 
+            destDir = kwargs.get('writePath', os.path.join(web.path, "mirador")), 
+            **kwargs
+        )
         
         # Save the manifest
         thisManifest.write()
 
-def nodeToManifest(web, node, **kwargs):
-    # Get the node's paths
-    realPath = kwargs.get('path', os.getcwd())
-    thisDestDir = kwargs.get('destDir', os.getcwd())
-    if node.instructionalMethod.important == False:
-        thisDestDir = os.path.join(thisDestDir, "lower")
-        realPath = os.path.join(realPath, "lower")
-
-    # Media paths and copy:
-    realMediaPath = os.path.join(kwargs.get('path', os.getcwd()), "media/" + os.path.basename(node.format.uri))
-    writeMediaPath = os.path.join(kwargs.get('destDir', os.getcwd()), "media/" + os.path.basename(node.format.uri))
-    if kwargs.get("copyMedia", True) == True:
-        shutil.copyfile(node.format.uri, writeMediaPath)
+def nodeToIIIFManifest(web, node, **kwargs):
+    """
+    Convert a spider Node to a IIIF Manifest.
     
-    # If PDF, convert to image:
-    convertedFiles = []
-    if node.format.fileFormat == "pdf":
-        convertedFiles = convertPDF(
-            node.format.uri, 
-            os.path.join(kwargs.get('destDir', os.getcwd()), "media"), 
-            node.format.pages, 
-            kwargs.get("copyMedia", True)
-        )
+    kwargs:
+    destDir : str
+        the folder in which to write the manifest files (default: web.path/mirador)
+    
+    path : str
+        the path on the server for the manifest.
 
-    node.format.uri = realMediaPath
+    copyMedia : bool
+        corpy the node's media to the out media folder (default: True)
+    
+    edgeList : list | Collection
+        list of collection of edges to parse (defualt: web.getFullList("edges"))
+    """
 
-    # Get the node's adges:
-    edgeColl = kwargs.get("edgeList", web.getFullList("edges")) # Mis match between given collection and default being a list !
-    edgeList = edgeColl.contentToList()
-    interDocAnnotations = getInterDocs(web, node, edgeList)
+    # Parse the various paths required for node to manifest creation:
+    paths = getNodeToIIIFManifestPaths(node, kwargs.get('path', os.getcwd()), kwargs.get('destDir', os.getcwd()))
 
-    # Get the NESTED NODES:
-    nestedNodes = node.getFullList()
+    # Perform media copying and convertion for node to manifest and return data:
+    mediaConvert = getNodeToIIIFMediaConvert(node, paths, kwargs.get("copyMedia", True))
 
-    # Main title object
-    labelObject = parseToLabel(node.title)
+    # Get lists of annotations inter and intra annotations:
+    annotationLists = getNodeToIIIFManifestAnnotations(node, web, kwargs.get("edgeList", web.getFullList("edges")))
 
     # Create the manifest
     newManifest = Manifest(
-        writepath = thisDestDir,
+        writepath = paths["thisDestDir"],
         filename = str(node.uuid) + ".json",
-        path = realPath,
-        label = labelObject
+        path = paths["realPath"],
+        label = parseToLabel(node.title)
     )
 
-    originalNode = node
-    numPages = 1
+    # Perform operations for each page of the associated media:
+    for i in range(mediaConvert["numPages"]):
+        # Create the canvas and page and annotation annotationPages:
+        pageCanvas = newManifest.addCanvas()
+        mainLayer = pageCanvas.addAnnotationPage()
+        annotationLayer = pageCanvas.addAnnotationPage(type = "annotation")
 
-    if originalNode.format.pages != None:
-        numPages = originalNode.format.pages
-
-    fileConverted = False
-    if originalNode.format.type == "document":
-        fileConverted = True
-    for i in range(numPages):
-        pageCanvas = newManifest.addCanvas(i + 1)
-            
-        # Create layers
-        mainLayer = pageCanvas.addAnnotationPage("page", 1)
-        annotationLayer = pageCanvas.addAnnotationPage("annotation", 1)
-
-        # Create a new node for this page if paged document:
-        pageNode = originalNode
-        if fileConverted:
+        # Get a copy of the original node, update the associated media's format data if it was converted:
+        pageNode = mediaConvert["originalNode"]
+        if mediaConvert["fileConverted"]:
             pageNode.format.type = "image"
             pageNode.format.fileFormat = "jpg"
-            pageNode.format.uri = os.path.join(kwargs.get('path', os.getcwd()), "media/" + convertedFiles[i])
+            pageNode.format.uri = os.path.join(kwargs.get('path', os.getcwd()), "media/" + mediaConvert["convertedFiles"][i])
 
-        # Add main media item:
-        mainMediaItem = mainLayer.addMediaItem(1, pageNode)
-        # Resize canvas:
+        # Add main media item and resize canvas accordingly:
+        mainMediaItem = mainLayer.addMediaItem(mediaInfo = parseNodeToIIIFMediaItem(pageNode, "page"))
         pageCanvas.width = mainMediaItem.body.width
         pageCanvas.height = mainMediaItem.body.height
         if mainMediaItem.body.duration != None:
             pageCanvas.duration = mainMediaItem.body.duration
 
-        # Add infra-documentary annotations:
-        if len(nestedNodes) > 0:
-            print("Found nested nodes for " + node.title + ":")
-            print(nestedNodes)
-
+        # Add intra-documentary annotations:
+        if len(annotationLists["intra"]) > 0:
+            # Colllecting the tallest node:
             maxNodeHeight = 0
-            # COPY MEDIA IF NEEDED
-            for j in range(len(nestedNodes)):
-                loadedNestedNode = web.loadNode(nestedNodes[j])
+            
+            # COPY MEDIA IF NEEDED SOMEWHERE HERE
 
-                loadedNestedNode.format.uri = os.path.join(kwargs.get('path', os.getcwd()), "media/" + loadedNestedNode.format.uri)
+            for j in range(len(annotationLists["intra"])):
+                # Load the nested node and update it's adresse:
+                loadedNestedNode = web.loadNode(annotationLists["intra"][j])
                 
-                annotationMediaItem = annotationLayer.addIntraDocItem(j + 1, loadedNestedNode, lang = kwargs.get("lang", None))
-                if loadedNestedNode.format.fullDimensions[1] > maxNodeHeight:
-                    maxNodeHeight = loadedNestedNode.format.fullDimensions[1]
+                if loadedNestedNode.format.uri != None:
+                    loadedNestedNode.format.uri = os.path.join(kwargs.get('path', os.getcwd()), "media/" + loadedNestedNode.format.uri)
+                else:
+                    loadedNestedNode.format.uri = ""
+                
+                # Create the annotation:
+                annotationLayer.addMediaItem(
+                    mediaInfo = parseNodeToIIIFMediaItem(loadedNestedNode, "annotation"),
+                    bespokeItem = {"type" : "intra", "data" : {"node" : loadedNestedNode}}
+                )
+                
+                # Collecting the tallest node:
+                if loadedNestedNode.instructionalMethod.annotationPaint == True:
+                    if loadedNestedNode.format.fullDimensions[1] > maxNodeHeight:
+                        maxNodeHeight = loadedNestedNode.format.fullDimensions[1]
 
+            # Update the height of the main canvas according to the tallest node:
             pageCanvas.height = pageCanvas.height + maxNodeHeight
 
         # Add inter-documentary annotations:
-        for j in range(len(interDocAnnotations)):
-            thisEdge = web.loadEdge(interDocAnnotations[j])
+        for j in range(len(annotationLists["inter"])):
+            # Load the edge:
+            thisEdge = web.loadEdge(annotationLists["inter"][j])
+            
+            # Get the target node and regions for the annotation:
             theOtherNode = None
             regions = None
             if str(node.uuid) == thisEdge.relation.source:
@@ -203,17 +204,19 @@ def nodeToManifest(web, node, **kwargs):
             else:
                 theOtherNode = web.loadNode(thisEdge.relation.source)
                 regions = thisEdge.relation.targetRegions
-            annotationMediaItem = annotationLayer.addInterDocItem(j + 1 + len(nestedNodes), theOtherNode, thisEdge, regions, kwargs.get('path', os.getcwd()), lang = kwargs.get("lang", None))
+            
+            # Create the annotation:
+            annotationLayer.addMediaItem(
+                mediaInfo = parseNodeToIIIFMediaItem(theOtherNode, "annotation"),
+                bespokeItem = {
+                "type" : "inter", 
+                "data" : {
+                    "node" : theOtherNode, 
+                    "edge" : thisEdge, 
+                    "path" : kwargs.get('path', os.getcwd()),
+                    "regions" : regions
+                    }
+                }
+            )
 
     return newManifest
-
-
-
-def getInterDocs(web, node, edgeList):
-    # Return a list of edges in which the node is present as a source or a target:
-    interList = []
-    for item in edgeList:
-        thisEdge = web.loadEdge(item)
-        if str(node.uuid) == thisEdge.relation.source or str(node.uuid) == thisEdge.relation.target:
-            interList.append(item)
-    return interList

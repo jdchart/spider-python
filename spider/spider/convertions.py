@@ -1,3 +1,5 @@
+# TODO Make all of this a class.
+
 from .IIIFconverts import *
 from .Network import *
 
@@ -42,24 +44,43 @@ def networkxToManifest(networkx, web, **kwargs):
 
     return manifest
 
-        
-
-
-
-
-
-
-
-
-
 def webToMemoRekall(web, **kwargs):
-    """Convert a web to a network of IIIF manifests."""
+    """
+    Convert a web to a network of IIIF manifests.
     
-    webToManifestNetwork(
+    kwargs:
+    writePath : str
+        the folder in which to write the manifest files (default: web.path/mirador)
+
+    path : str
+        the path on the server for the manifest.
+    
+    removePrevious : list
+        delete previous content in the given writePath (default: [True, True])
+        [removeManifestFiles, removeMediaFiles] 
+    
+    copyMedia : bool
+        corpy the node's media to the out media folder (default: True)
+
+    nodeList : list | Collection
+        list of collection of nodes to parse (defualt: web.getFullList("nodes"))
+    
+    edgeList : list | Collection
+        list of collection of edges to parse (defualt: web.getFullList("edges"))
+    """
+    
+    webToIIIFManifestNetwork(
         web,
         **kwargs
     )
 
+def nodeToManifest(node):
+    """
+    Convert a node to a network of IIIF manifests.
+    
+    
+    """
+    pass
 
 
 def checkCollectionSanity(web, nodes, edges):

@@ -43,3 +43,41 @@ def create_basic_web(folderName, title, numNodes):
     web.addEdge({"title" : "Edge", "relation" : {"source" : nodeList[3], "target" : nodeList[5]}})
 
     return web
+
+def create_web_from_media(folderOfMediaFiles, webFolderName):
+    mediaFiles = collectFiles(folderOfMediaFiles)
+    metadata = {"path" : os.path.join(os.getcwd(), webFolderName)}
+    web = sp.createWeb(metadata)
+    
+    nodeList = []
+    for item in mediaFiles:
+        nodeList.append(web.mediaToNode(item, True).uuid)
+
+    for node in nodeList:
+        for target in nodeList:
+            if node != target:
+                web.addEdge({
+                    "title" : "test edge",
+                    "relation" : {
+                        "source" : node,
+                        "target" : target
+                    }
+                })
+
+        loaded = web.loadNode(node)
+        loaded.addNode({
+            "title" : "Nested test"
+        })
+    
+    return web
+
+def collectFiles(path):
+    acceptedFormats = ["mp4", "png", "jpg", "jpeg", "pdf"]
+
+    finalList = []
+    for root, dirs, files in os.walk(path):
+        for file in files:
+            extension = os.path.splitext(file)[1][1:]
+            if extension in acceptedFormats:
+                finalList.append(os.path.join(root, file))
+    return finalList

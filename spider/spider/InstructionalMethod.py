@@ -4,7 +4,7 @@ class InstructionalMethod:
     def __init__(self, **kwargs):
         self.color = kwargs.get('color', None)
         self.important = kwargs.get('important', None)
-        self.annotationPaint = kwargs.get('annotationPaint', None)
+        self.annotationPaint = kwargs.get('annotationPaint', False)
         self.annotationOverlay = kwargs.get('annotationOverlay', None)
         self.annotationDisplayPos = kwargs.get('annotationDisplayPos', None)
         self.annotationDisplayScale = kwargs.get('annotationDisplayScale', None)

@@ -8,11 +8,15 @@ class TestWeb(unittest.TestCase):
         # Delete if already exists:
         utils.remove_file(os.path.join(os.getcwd(), "Test-Manifest.json"))
         utils.remove_web("tempNetCon")
+        utils.remove_web("tempFromMedia")
+        utils.remove_dir(os.path.join(os.getcwd(), "testManifestNetwork"))
 
     def tearDown(self):
         # Delete if exists:
         utils.remove_file(os.path.join(os.getcwd(), "Test-Manifest.json"))
         utils.remove_web("tempNetCon")
+        utils.remove_web("tempFromMedia")
+        utils.remove_dir(os.path.join(os.getcwd(), "testManifestNetwork")) 
 
     def test_iiif(self):
         manifest = sp.Manifest(
@@ -64,6 +68,20 @@ class TestWeb(unittest.TestCase):
         # Clean up
         utils.remove_file(os.path.join(os.getcwd(), "test_network.json"))
         utils.remove_dir(os.path.join(os.getcwd(), "media"))
+
+    def test_web_to_iiif(self):
+        web = utils.create_web_from_media(
+            "/Users/jacob/Documents/Git Repos/spider-python/Examples/Example-Media",
+            "tempFromMedia"
+        )
+
+        sp.webToMemoRekall(
+            web,
+            writePath = os.path.join(os.getcwd(), "testManifestNetwork"),
+            path = "http://localhost:9000/data/",
+            removePrevious = [True, True],
+            copyMedia = True
+        )
 
 # Run
 if __name__ == "__main__":

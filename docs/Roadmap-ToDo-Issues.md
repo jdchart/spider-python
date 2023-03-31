@@ -25,4 +25,5 @@
     - Copy media for nested nodes.
     - Need to unhard code overlaying. (see parseNestedNodeRegions in IIIFutils).
     - Implement using node.start, node.end and node.region to select PARTS of the media to be used in IIIFutils parseNodeToIIIFMediaItem.
+    - Note that it only makes manifests from top level nodes... This is perhaps something to change ?
 - [ ] Modularize modified Dublin Core string parsing.
