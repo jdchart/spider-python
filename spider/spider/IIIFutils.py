@@ -48,6 +48,8 @@ def getNodeToIIIFManifestPaths(node, path: str, destDir: str) -> dict:
         "thisDestDir" : thisDestDir,
         "realMediaPath" : realMediaPath,
         "writeMediaPath" : writeMediaPath,
+        "realMediaFolder" : os.path.join(path, "media"),
+        "writeMediaFolder" : os.path.join(destDir, "media"),
         "destDir" : destDir
     }
 
@@ -92,6 +94,17 @@ def getNodeToIIIFMediaConvert(node, paths: dict, copyMedia: bool) -> dict:
         "convertedFiles" : convertedFiles,
         "originalNode" : originalNode
     }
+
+def nestedNodeToIIIFManifestMediaConvert(node, paths: dict, copyMedia: bool):
+    """Perform media copying and convertion for nested node to manifest."""
+
+    if node.format.uri != None:
+        # Copy media if set to copy
+        if copyMedia == True:
+            shutil.copyfile(node.format.uri, os.path.join(paths["writeMediaFolder"], os.path.basename(node.format.uri)))
+        node.format.uri = os.path.basename(node.format.uri)
+
+        # TODO Processing video and documents (get only thumbnail)
 
 def getNodeToIIIFManifestAnnotations(node, web, edges) -> dict:
     """Get the lists of inter and intra documentary annnotations for node to manifest convert."""
@@ -257,13 +270,14 @@ def parseNestedNodeRegions(node, originalTarget: str) -> str:
     if node.instructionalMethod.annotationPaint == True:
         # Get the drawing dimensions as strings:
         nodeX = str(node.instructionalMethod.annotationDisplayPos[0])
-        nodeY = str(node.instructionalMethod.annotationDisplayPos[1] + 720)
+        nodeY = str(node.instructionalMethod.annotationDisplayPos[1])
         nodeW = str(node.format.fullDimensions[0])
         nodeH = str(node.format.fullDimensions[1])
 
         # Update the target:
         returnString = returnString + "#xywh=" + nodeX + "," + nodeY + "," + nodeW + "," + nodeH
-        returnString = returnString + "&t=" + str(node.relation.sourceRegions[0]["start"] / 1000) + "," + str(node.relation.sourceRegions[0]["end"] / 1000)
+        if len(node.relation.sourceRegions) > 0:
+            returnString = returnString + "&t=" + str(node.relation.sourceRegions[0]["start"] / 1000) + "," + str(node.relation.sourceRegions[0]["end"] / 1000)
 
     return returnString
 

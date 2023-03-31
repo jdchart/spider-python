@@ -2,6 +2,7 @@ import json
 import os
 import shutil
 import spider as sp
+import random
 
 def readJson(path):
     with open(path, 'r') as f:
@@ -49,10 +50,16 @@ def create_web_from_media(folderOfMediaFiles, webFolderName):
     metadata = {"path" : os.path.join(os.getcwd(), webFolderName)}
     web = sp.createWeb(metadata)
     
+    # Create nodes
     nodeList = []
+    imgNodes = []
     for item in mediaFiles:
-        nodeList.append(web.mediaToNode(item, True).uuid)
+        thisNode = web.mediaToNode(item, True)
+        nodeList.append(thisNode.uuid)
+        if thisNode.format.type == "image":
+            imgNodes.append(thisNode.uuid)
 
+    # Create inters
     for node in nodeList:
         for target in nodeList:
             if node != target:
@@ -64,10 +71,52 @@ def create_web_from_media(folderOfMediaFiles, webFolderName):
                     }
                 })
 
+        # Create non-media nested:
         loaded = web.loadNode(node)
         loaded.addNode({
             "title" : "Nested test"
         })
+
+        # Create non-media nested with dimensions:
+        loaded.addNode({
+            "title" : "Nested test with dimensions",
+            "instructionalMethod" : {
+                "annotationPaint" : True,
+                "annotationOverlay" : True,
+                "annotationDisplayPos" : [10, 10]
+            },
+            "format" : {
+                "fullDimensions" : [50, 50]
+            }
+        })
+
+        if loaded.format.type == "video":
+            # Create non-media nested with dimensions and time:
+            loaded.addNode({
+                "title" : "Nested test with dimensions and time",
+                "instructionalMethod" : {
+                    "annotationPaint" : True,
+                    "annotationOverlay" : True,
+                    "annotationDisplayPos" : [60, 60]
+                },
+                "format" : {
+                    "fullDimensions" : [50, 50]
+                },
+                "relation" : {
+                    "sourceRegions" : [{
+                        "start" : 1000,
+                        "end" : 5000
+                    }]
+                }
+            })
+        
+        # Create image nested node 
+        if len(imgNodes) > 0:
+            loadedRandomImg = web.loadNode(random.choice(imgNodes))
+            newNestedImgNode = loaded.duplicateNode(loadedRandomImg, duplicateNested = False)
+            newNestedImgNode.title = "Image nested annotation"
+            newNestedImgNode.write()
+
     
     return web
 

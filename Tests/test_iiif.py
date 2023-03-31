@@ -13,10 +13,12 @@ class TestWeb(unittest.TestCase):
 
     def tearDown(self):
         # Delete if exists:
-        utils.remove_file(os.path.join(os.getcwd(), "Test-Manifest.json"))
         utils.remove_web("tempNetCon")
         utils.remove_web("tempFromMedia")
-        utils.remove_dir(os.path.join(os.getcwd(), "testManifestNetwork")) 
+
+        # Comment these out if you wish to keep the manifest output:
+        utils.remove_file(os.path.join(os.getcwd(), "Test-Manifest.json"))
+        #utils.remove_dir(os.path.join(os.getcwd(), "testManifestNetwork")) 
 
     def test_iiif(self):
         manifest = sp.Manifest(

@@ -26,4 +26,6 @@
     - Need to unhard code overlaying. (see parseNestedNodeRegions in IIIFutils).
     - Implement using node.start, node.end and node.region to select PARTS of the media to be used in IIIFutils parseNodeToIIIFMediaItem.
     - Note that it only makes manifests from top level nodes... This is perhaps something to change ?
+    - Note also that nested nodes should be given a relation, with the source considered to be the parent node.
+    - When processing nested node's media: process video and documents (get only thumbnail)
 - [ ] Modularize modified Dublin Core string parsing.

@@ -164,13 +164,14 @@ def nodeToIIIFManifest(web, node, **kwargs):
         if len(annotationLists["intra"]) > 0:
             # Colllecting the tallest node:
             maxNodeHeight = 0
-            
-            # COPY MEDIA IF NEEDED SOMEWHERE HERE
 
             for j in range(len(annotationLists["intra"])):
                 # Load the nested node and update it's adresse:
                 loadedNestedNode = web.loadNode(annotationLists["intra"][j])
                 
+                # Convert it's media
+                nestedNodeToIIIFManifestMediaConvert(loadedNestedNode, paths, kwargs.get("copyMedia", True))
+
                 if loadedNestedNode.format.uri != None:
                     loadedNestedNode.format.uri = os.path.join(kwargs.get('path', os.getcwd()), "media/" + loadedNestedNode.format.uri)
                 else:
