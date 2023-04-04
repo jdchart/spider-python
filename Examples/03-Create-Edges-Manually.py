@@ -28,8 +28,8 @@ targetNode = testWeb.loadNode("Node 2", term = "title")
 edgeData = {
     "title" : "My first edge",
     "relation" : {
-        "source" : str(sourceNode.uuid),
-        "target" : str(targetNode.uuid)
+        "source" : sourceNode.uuid,
+        "target" : targetNode.uuid
     }
 }
 
@@ -40,8 +40,7 @@ print(myEdge)
 print()
 
 # 3. Load esges in the same way as nodes using a search key (by default the uuid (recommened))
-# Note, the search term must be a string (we need to convert the uuid to a string)
-loadedEdge = testWeb.loadEdge(str(myEdge.uuid))
+loadedEdge = testWeb.loadEdge(myEdge.uuid)
 print("The loaded edge:")
 print(loadedEdge)
 print()

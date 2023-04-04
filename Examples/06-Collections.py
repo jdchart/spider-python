@@ -30,7 +30,7 @@ print(myNodeCollection)
 print()
 
 # (You can load collections in the same way as nodes and edges):
-loadedCollection = web.loadCollection(str(myNodeCollection.uuid))
+loadedCollection = web.loadCollection(myNodeCollection.uuid)
 print("Loaded collection:")
 print(loadedCollection)
 print()

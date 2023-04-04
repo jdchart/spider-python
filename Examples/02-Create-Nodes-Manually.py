@@ -28,8 +28,7 @@ print(myNode)
 print()
 
 # 4. Load a node using a search key (by default the uuid (recommened))
-# Note, the search term must be a string (we need to convert the uuid to a string)
-loadedNode = testWeb.loadNode(str(myNode.uuid))
+loadedNode = testWeb.loadNode(myNode.uuid)
 print("The loaded node:")
 print(loadedNode)
 print()
@@ -45,7 +44,7 @@ print(nestedNode)
 print()
 
 # You can use the same search function on a node's nested nodes:
-loadedNestedNode = loadedNode.loadNode(str(nestedNode.uuid))
+loadedNestedNode = loadedNode.loadNode(nestedNode.uuid)
 print("The nested node loaded:")
 print(loadedNestedNode)
 print()
