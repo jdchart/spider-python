@@ -1,6 +1,8 @@
 # spider-python
 Spider is primarily used to make network structures of elements that have temporal dimensions.
 
+_Note that this is still actively in development, give me a minuite :)_
+
 1. [Examples](/Examples/)
 2. [Running](/docs/Running.md)
 3. [Metadata Fields](/docs/Metatdata-Fields.md)
