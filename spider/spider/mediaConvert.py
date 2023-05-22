@@ -23,7 +23,11 @@ class MediaFile:
             {"extension" : "png", "type" : "image"},
             {"extension" : "jpg", "type" : "image"},
             {"extension" : "jpeg", "type" : "image"},
-            {"extension" : "pdf", "type" : "document"}
+            {"extension" : "pdf", "type" : "document"},
+            {"extension" : "xml", "type" : "document"},
+            {"extension" : "mxl", "type" : "document"},
+            {"extension" : "mscx", "type" : "document"},
+            {"extension" : "mscz", "type" : "document"}
         ]
 
         ext = os.path.splitext(self.path)[1][1:]
@@ -41,7 +45,7 @@ class MediaFile:
             retData = self.parseVideo()
         if self.type[1] == "image":
             retData = self.parseImage()
-        if self.type[1] == "document":
+        if self.type[1] == "document" and self.type[0] == "pdf":
             retData = self.parseDocument()
 
         return retData
