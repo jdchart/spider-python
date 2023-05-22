@@ -2,23 +2,59 @@ import os
 import cv2
 from PyPDF2 import PdfReader
 
-def getMediaData(path):
-    accepted = [
-        {"extension" : "mp4", "type" : "video"},
-        {"extension" : "png", "type" : "image"},
-        {"extension" : "jpg", "type" : "image"},
-        {"extension" : "jpeg", "type" : "image"},
-        {"extension" : "pdf", "type" : "document"}
-    ]
+class MediaFile:
+    def __init__(self, path) -> None:
+        """
+        Represent a media file.
+        
+        Gather data about a media file and perform convertions.
+        """
 
-    typeParse = getMediaType(path, accepted)
-    if typeParse != None:
-        returnData = {
-            "title" : os.path.splitext(os.path.basename(path))[0],
+        self.path = path
+        self.type = self.getType()
+        self.data = self.getData()
+        
+    def getType(self):
+        """Determine the media file's type."""
+
+        accepted = [
+            {"extension" : "mp4", "type" : "video"},
+            {"extension" : "mpg", "type" : "video"},
+            {"extension" : "png", "type" : "image"},
+            {"extension" : "jpg", "type" : "image"},
+            {"extension" : "jpeg", "type" : "image"},
+            {"extension" : "pdf", "type" : "document"}
+        ]
+
+        ext = os.path.splitext(self.path)[1][1:]
+        for item in accepted:
+            if ext == item["extension"]:
+                return [ext, item["type"]]
+        return None
+    
+    def getData(self):
+        """Parse metadata about the media file."""
+
+        retData = {}
+
+        if self.type[1] == "video":
+            retData = self.parseVideo()
+        if self.type[1] == "image":
+            retData = self.parseImage()
+        if self.type[1] == "document":
+            retData = self.parseDocument()
+
+        return retData
+    
+    def parseToSpiderNode(self):
+        """Return a dict that can be used to create a spider node."""
+
+        nodeData = {
+            "title" : os.path.splitext(os.path.basename(self.path))[0],
             "format" : {
-                "type" : typeParse[1],
-                "fileFormat" : typeParse[0],
-                "uri" : path
+                "type" : self.type[1],
+                "fileFormat" : self.type[0],
+                "uri" : self.path
             },
             "instructionalMethod" : {
                 "annotationDisplayScale" : 1,
@@ -29,62 +65,62 @@ def getMediaData(path):
             }
         }
 
-        if(returnData["format"]["type"] == "video"):
-            returnData = parseVideo(returnData)
-        elif(returnData["format"]["type"] == "image"):
-            returnData = parseImage(returnData)
-        elif(returnData["format"]["type"] == "document"):
-            returnData = parseDocument(returnData)
+        if "dimensions" in list(self.data.keys()):
+            nodeData["format"]["fullDimensions"] = self.data["dimensions"]
+            nodeData["format"]["region"] = [-1]
 
-        return returnData
-    else:
-        return None
+        if "duration" in list(self.data.keys()):
+            nodeData["format"]["fullDuration"] = self.data["duration"]
+            nodeData["format"]["start"] = -1
+            nodeData["format"]["end"] = -1
 
-def getMediaType(path, accpetedFormats):
-    ext = os.path.splitext(path)[1][1:]
-    for item in accpetedFormats:
-        if ext == item["extension"]:
-            return [ext, item["type"]]
-    return None
+        if "pages" in list(self.data.keys()):
+            nodeData["format"]["pages"] = self.data["pages"]
 
-def parseVideo(retData):
-    openCVvideo = cv2.VideoCapture(retData["format"]["uri"])
-    
-    frames = openCVvideo.get(cv2.CAP_PROP_FRAME_COUNT)
-    fps = openCVvideo.get(cv2.CAP_PROP_FPS)
-    duration = int(round(frames / fps) * 1000)
-    width = int(openCVvideo.get(cv2.CAP_PROP_FRAME_WIDTH))
-    height = int(openCVvideo.get(cv2.CAP_PROP_FRAME_HEIGHT))
+        return nodeData
 
-    retData["format"]["fullDuration"] = duration
-    retData["format"]["start"] = -1
-    retData["format"]["end"] = -1
-    retData["format"]["fullDimensions"] = [width, height]
-    retData["format"]["region"] = [-1]
+    def parseVideo(self):
+        """Derrive information from a video file."""
 
-    return retData
+        openCVvideo = cv2.VideoCapture(self.path)
+        
+        frames = openCVvideo.get(cv2.CAP_PROP_FRAME_COUNT)
+        fps = openCVvideo.get(cv2.CAP_PROP_FPS)
+        duration = int(round(frames / fps) * 1000)
+        width = int(openCVvideo.get(cv2.CAP_PROP_FRAME_WIDTH))
+        height = int(openCVvideo.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
-def parseImage(retData):
-    openCVimg = cv2.imread(retData["format"]["uri"], cv2.IMREAD_UNCHANGED)
+        return {
+            "frames" : int(frames),
+            "fps" : int(fps),
+            "duration" : duration,
+            "dimensions" : [width, height]
+        }
 
-    retData["format"]["fullDimensions"] = [int(openCVimg.shape[1]), int(openCVimg.shape[0])]
-    retData["format"]["region"] = [-1]
+    def parseImage(self):
+        """Derrive information from an image file."""
+        
+        openCVimg = cv2.imread(self.path, cv2.IMREAD_UNCHANGED)
 
-    return retData
+        return {
+            "dimensions" : [int(openCVimg.shape[1]), int(openCVimg.shape[0])]
+        }
 
-def parseDocument(retData):
-    pdfFile = PdfReader(retData["format"]["uri"])
-    maxWid = pdfFile.pages[0].mediabox.width
-    maxHeight = pdfFile.pages[0].mediabox.height
+    def parseDocument(self):
+        """Derrive information from a pdf file."""
 
-    for page in pdfFile.pages:
-        if page.mediabox.width > maxWid:
-            maxWid = page.mediabox.width
-        if page.mediabox.height > maxHeight:
-            maxHeight = page.mediabox.height
+        pdfFile = PdfReader(self.path)
 
-    retData["format"]["fullDimensions"] = [int(maxWid), int(maxHeight)]
-    retData["format"]["region"] = [-1]
-    retData["format"]["pages"] = len(pdfFile.pages)
+        maxWid = pdfFile.pages[0].mediabox.width
+        maxHeight = pdfFile.pages[0].mediabox.height
 
-    return retData
+        for page in pdfFile.pages:
+            if page.mediabox.width > maxWid:
+                maxWid = page.mediabox.width
+            if page.mediabox.height > maxHeight:
+                maxHeight = page.mediabox.height
+
+        return {
+            "dimensions" : [int(maxWid), int(maxHeight)],
+            "pages" : len(pdfFile.pages)
+        }

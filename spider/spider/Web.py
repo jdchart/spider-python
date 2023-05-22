@@ -346,7 +346,7 @@ class Web(SpiderElement):
             shutil.copyfile(mediaPath, os.path.join(self.path, "media/" + os.path.basename(mediaPath)))
             mediaPath = os.path.join(self.path, "media/" + os.path.basename(mediaPath))
 
-        mediaData = getMediaData(mediaPath)
+        mediaData = MediaFile(mediaPath).parseToSpiderNode()
         if mediaData != None:
             mediaNode = Node(
                 parentPath = os.path.join(self.path, "web"),

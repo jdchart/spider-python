@@ -13,7 +13,10 @@ prefix = "http://localhost:9000/data/"
 # 2: Set the source image and collect data:
 imageFile = "/Users/jacob/Documents/Git Repos/spider-python/Examples/Example-Media/exampleImage.jpeg"
 
-rawImageData = sp.getMediaData(imageFile)
+mediaFileObject = sp.MediaFile(imageFile)
+rawImageData = mediaFileObject.parseToSpiderNode()
+
+
 parsedImageData = {
     "uri" : os.path.join(prefix, os.path.basename(imageFile)),
     "fileformat" : rawImageData["format"]["fileFormat"],
