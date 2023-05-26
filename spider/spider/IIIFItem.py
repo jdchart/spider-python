@@ -38,5 +38,8 @@ class IIIFItem:
 
         returnList = []
         for item in getattr(self, listKey):
-            returnList.append(item.collectData())
+            if isinstance(item, dict):
+                returnList.append(item)
+            else:
+                returnList.append(item.collectData())
         return returnList
