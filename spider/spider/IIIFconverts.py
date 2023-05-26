@@ -1,6 +1,7 @@
 import os
 from .utils import *
 from .IIIFManifest import *
+from .IIIFCollection import *
 from .IIIFutils import *
 
 def networkxToIIIFManifest(web, imageData, **kwargs) -> Manifest:
