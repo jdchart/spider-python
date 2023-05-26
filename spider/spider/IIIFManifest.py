@@ -47,6 +47,7 @@ class Manifest(IIIFItem):
         self.filename = kwargs.get("filename", "untitled_manifest.json")
         self.label = kwargs.get("label", {})
         self.items = kwargs.get("items", [])
+        self.metadata = kwargs.get("metadata", [])
 
         # Set the manifest's id and type:
         super().__init__(id = os.path.join(self.path, self.filename), type = "Manifest")
@@ -61,6 +62,7 @@ class Manifest(IIIFItem):
         collectedSuper["@context"] = "http://iiif.io/api/presentation/3/context.json"
         collectedSuper["label"] = self.label
         collectedSuper["items"] = self.parseToList("items")
+        collectedSuper["metadata"] = self.metadata
         return collectedSuper
 
     def write(self) -> None:
