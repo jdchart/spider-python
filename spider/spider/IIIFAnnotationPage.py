@@ -91,26 +91,28 @@ class AnnotationPage(IIIFItem):
         newMediaItem = MediaItem(
             id = os.path.join(self.id, str(kwargs.get("index", len(self.items) + 1))),
             targetID = self.canvasID,
-            mediaInfo = kwargs.get("mediaInfo", {}),
-            **kwargs
+            mediaInfo = kwargs.get("mediaInfo", {})
         )
 
-        # Update the media item's motivation according to page type:
-        if self.pageType == "page":
-            newMediaItem.motivation = "painting"
-        elif self.pageType == "annotation":
-            newMediaItem.motivation = "commenting"
+        if "read_data" in kwargs:
+            newMediaItem.read(read_data = kwargs.get("read_data"))
+        else:
+            # Update the media item's motivation according to page type:
+            if self.pageType == "page":
+                newMediaItem.motivation = "painting"
+            elif self.pageType == "annotation":
+                newMediaItem.motivation = "commenting"
 
-        # Add the media item to items:    
-        self.items.append(newMediaItem)
+            # Add the media item to items:    
+            self.items.append(newMediaItem)
 
-        # Update the media item according to bespoke criteria:
-        if kwargs.get("bespokeItem", None) != None:
-            if kwargs.get("bespokeItem")["type"] == "intra":
-                updateMediaItemToIntra(newMediaItem, kwargs.get("bespokeItem")["data"])
-            if kwargs.get("bespokeItem")["type"] == "inter":
-                updateMediaItemToInter(newMediaItem, kwargs.get("bespokeItem")["data"])
-            if kwargs.get("bespokeItem")["type"] == "networkxNode":
-                updateMediaItemToNetworkxNode(newMediaItem, kwargs.get("bespokeItem")["data"])
+            # Update the media item according to bespoke criteria:
+            if kwargs.get("bespokeItem", None) != None:
+                if kwargs.get("bespokeItem")["type"] == "intra":
+                    updateMediaItemToIntra(newMediaItem, kwargs.get("bespokeItem")["data"])
+                if kwargs.get("bespokeItem")["type"] == "inter":
+                    updateMediaItemToInter(newMediaItem, kwargs.get("bespokeItem")["data"])
+                if kwargs.get("bespokeItem")["type"] == "networkxNode":
+                    updateMediaItemToNetworkxNode(newMediaItem, kwargs.get("bespokeItem")["data"])
 
         return newMediaItem
