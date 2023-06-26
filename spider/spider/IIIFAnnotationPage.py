@@ -91,7 +91,8 @@ class AnnotationPage(IIIFItem):
         newMediaItem = MediaItem(
             id = os.path.join(self.id, str(kwargs.get("index", len(self.items) + 1))),
             targetID = self.canvasID,
-            mediaInfo = kwargs.get("mediaInfo", {})
+            mediaInfo = kwargs.get("mediaInfo", {}),
+            **kwargs
         )
 
         # Update the media item's motivation according to page type:
