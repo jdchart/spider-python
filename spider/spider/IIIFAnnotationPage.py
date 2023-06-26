@@ -65,6 +65,9 @@ class AnnotationPage(IIIFItem):
         self.id = read_data["id"]
         self.type = read_data["type"]
 
+        print("READING ANNOTAITON PAGE")
+        print(read_data)
+
         for item in read_data["items"]:
             self.addMediaItem(read_data = item)
 
