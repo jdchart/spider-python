@@ -129,4 +129,8 @@ class Canvas(IIIFItem):
             self.items.append(newAnnotationPage)
         elif kwargs.get("type", "page") == "annotation":
             self.annotations.append(newAnnotationPage)
+
+        if "read_data" in kwargs:
+            newAnnotationPage.read(kwargs.get("read_data"))
+            
         return newAnnotationPage
