@@ -65,8 +65,6 @@ class AnnotationPage(IIIFItem):
         self.id = read_data["id"]
         self.type = read_data["type"]
 
-        print("READING ANNOTAITON PAGE")
-        print(read_data)
 
         for item in read_data["items"]:
             self.addMediaItem(read_data = item)
@@ -117,10 +115,8 @@ class AnnotationPage(IIIFItem):
             if kwargs.get("bespokeItem")["type"] == "networkxNode":
                 updateMediaItemToNetworkxNode(newMediaItem, kwargs.get("bespokeItem")["data"])
 
-        print("ADDED MEDIA ITEM")
         print(str(self.items))
         if "read_data" in kwargs:
-            print("READING...")
             newMediaItem.read(read_data = kwargs.get("read_data"))
 
         return newMediaItem
