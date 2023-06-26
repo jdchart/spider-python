@@ -115,7 +115,6 @@ class AnnotationPage(IIIFItem):
             if kwargs.get("bespokeItem")["type"] == "networkxNode":
                 updateMediaItemToNetworkxNode(newMediaItem, kwargs.get("bespokeItem")["data"])
 
-        print(str(self.items))
         if "read_data" in kwargs:
             newMediaItem.read(read_data = kwargs.get("read_data"))
 
