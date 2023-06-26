@@ -42,6 +42,9 @@ class MediaItem(IIIFItem):
         # Parse media info to body and get final target
         self._parseMediaInfo(kwargs.get("mediaInfo", {}))
 
+        if "read_data" in kwargs:
+            self.read(kwargs.get("read_data"))
+
     def collectData(self) -> dict:
         """Collect the item's data into a dict."""
 
@@ -54,6 +57,16 @@ class MediaItem(IIIFItem):
         collectedSuper["body"] = self.body.collectData()
 
         return collectedSuper
+    
+    def read(self, read_data):
+        self.id = read_data["id"]
+        self.type = read_data["type"]
+        self.motivation = read_data["motivation"]
+        self.target = read_data["target"]
+
+        if "body" in read_data:
+            self.body = MediaItemBody(read_data = read_data["body"])
+
 
     def _parseMediaInfo(self, info: dict) -> None:
         """Set the final target from media data and update the body."""

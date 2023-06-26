@@ -48,6 +48,9 @@ class AnnotationPage(IIIFItem):
         self.pageType = kwargs.get("pageType", "page")
         self.items = kwargs.get("items", [])
 
+        if "read_data" in kwargs:
+            self.read(kwargs.get("read_data"))
+
     def collectData(self):
         """Collect the item's data into a dict."""
 
@@ -57,6 +60,14 @@ class AnnotationPage(IIIFItem):
         # Collect local level attributes:
         collectedSuper["items"] = self.parseToList("items")
         return collectedSuper
+    
+    def read(self, read_data):
+        self.id = read_data["id"]
+        self.type = read_data["type"]
+
+        for item in read_data["items"]:
+            self.addMediaItem(read_data = item)
+
 
     def addMediaItem(self, **kwargs) -> MediaItem:
         """

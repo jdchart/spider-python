@@ -61,6 +61,9 @@ class Canvas(IIIFItem):
         self.height = kwargs.get("height", 0)
         self.duration = kwargs.get("duration", None)
 
+        if "read_data" in kwargs:
+            self.read(kwargs.get("read_data"))
+
     def collectData(self) -> dict:
         """Return the canvas's data as a dict."""
         
@@ -77,6 +80,23 @@ class Canvas(IIIFItem):
         if self.duration != None:
             collectedSuper["duration"] = self.duration
         return collectedSuper
+    
+    def read(self, read_data):
+        self.id = read_data["id"]
+        self.label = read_data["label"]
+        self.type = read_data["type"]
+        if "thumbnail" in read_data:
+            self.thumbnail = read_data["thumbnail"]
+        if "width" in read_data:
+            self.width = read_data["width"]
+        if "height" in read_data:
+            self.height = read_data["height"]
+        if "duration" in read_data:
+            self.duration = read_data["duration"]
+        for item in read_data["items"]:
+            self.addAnnotationPage(read_data = item, canvasID = self.id, pageType = "page")
+        for item in read_data["annotations"]:
+            self.addAnnotationPage(read_data = item, canvasID = self.id, pageType = "annotation")
 
     def addAnnotationPage(self, **kwargs) -> AnnotationPage:
         """

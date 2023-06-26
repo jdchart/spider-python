@@ -39,6 +39,9 @@ class MediaItemBody(IIIFItem):
         self.format = kwargs.get("format", None)
         self.value = kwargs.get("value", None)
 
+        if "read_data" in kwargs:
+            self.read(kwargs.get("read_data"))
+
     def collectData(self) -> dict:
         """Collect the item's data into a dict"""
 
@@ -55,3 +58,18 @@ class MediaItemBody(IIIFItem):
             collectedSuper["value"] = self.value
 
         return collectedSuper
+    
+    def read(self, read_data):
+        self.id = read_data["id"]
+        self.format = read_data["format"]
+        self.type = read_data["type"]
+
+        if "width" in read_data:
+            self.width = read_data["width"]
+        if "height" in read_data:
+            self.height = read_data["height"]
+        if "duration" in read_data:
+            self.duration = read_data["duration"]
+        if "value" in read_data:
+            self.value = read_data["value"]
+        

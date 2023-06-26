@@ -49,8 +49,11 @@ class Manifest(IIIFItem):
         self.items = kwargs.get("items", [])
         self.metadata = kwargs.get("metadata", [])
 
-        # Set the manifest's id and type:
-        super().__init__(id = os.path.join(self.path, self.filename), type = "Manifest")
+        if "read_path" in kwargs:
+            self.read(kwargs.get("read_path"))
+        else:
+            # Set the manifest's id and type:
+            super().__init__(id = os.path.join(self.path, self.filename), type = "Manifest")
 
     def collectData(self) -> dict:
         """Return the manifest's data as a dict."""
@@ -69,6 +72,17 @@ class Manifest(IIIFItem):
         """Write the manifest to it's writepath."""
 
         writeJson(self.collectData(), os.path.join(self.writepath, self.filename))
+
+    def read(self, path):
+        readData = readJson(path)
+        self.id = readData["id"]
+        self.type = readData["type"]
+        self.label = readData["label"]
+        if "metadata" in readData:
+            self.metadata = readData["metadata"]
+        if "items" in readData:
+            for canv in readData["items"]:
+                self.addCanvas(read_data = canv)
 
     def addCanvas(self, **kwargs) -> Canvas:
         """
