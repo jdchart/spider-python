@@ -1,13 +1,13 @@
 {
-    "id": "http://localhost:9000/data/Video_Manifest.json",
+    "id": "http://localhost:9000/data/art-zoyd-test.json",
     "type": "Manifest",
     "@context": "http://iiif.io/api/presentation/3/context.json",
     "label": {
         "en": [
-            "A Video"
+            "Art Zoyd Image"
         ],
         "fr": [
-            "Une Vidéo"
+            "Image Art Zoyd"
         ]
     },
     "items": [
@@ -16,10 +16,10 @@
             "type": "Canvas",
             "label": {
                 "en": [
-                    "A Video"
+                    "Art Zoyd Image"
                 ],
                 "fr": [
-                    "Une Vidéo"
+                    "Image Art Zoyd"
                 ]
             },
             "items": [
@@ -31,14 +31,13 @@
                             "id": "http://localhost:9000/data/canvas/1/page/1/1",
                             "type": "Annotation",
                             "motivation": "painting",
-                            "target": "http://localhost:9000/data/canvas/1#xywh=0,0,1920,1080&t=0,15.0",
+                            "target": "http://localhost:9000/data/canvas/1#xywh=0,0,960,700",
                             "body": {
-                                "id": "http://localhost:9000/data/exampleVideo.mp4",
-                                "type": "Video",
-                                "format": "video/mp4",
-                                "width": 1920,
-                                "height": 1080,
-                                "duration": 15.0
+                                "id": "http://localhost:9000/data/319822_3324445103512_1039908984_33117308_450106712_n.jpg",
+                                "type": "Image",
+                                "format": "image/jpg",
+                                "width": 960,
+                                "height": 700
                             }
                         }
                     ]
@@ -46,9 +45,8 @@
             ],
             "annotations": [],
             "thumbnail": [],
-            "width": 1920,
-            "height": 1080,
-            "duration": 15.0
+            "width": 960,
+            "height": 700
         }
     ]
 }
